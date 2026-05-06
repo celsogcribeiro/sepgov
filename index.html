@@ -260,10 +260,12 @@ function applyF(){
 
 function doSort(arr){
   return [...arr].sort((a,b)=>{
-    let av=a[sKey],bv=b[sKey];
-    if(av===null||av===undefined)av=sDir===1?Infinity:-Infinity;
-    if(bv===null||bv===undefined)bv=sDir===1?Infinity:-Infinity;
-    if(typeof av==='string')return sDir*av.localeCompare(bv,'pt-BR');
+    // Para fim_vigencia, ordenar pelo campo 'fim' (YYYY-MM-DD) e não pelo texto formatado
+    const ka = sKey==='fim_vigencia' ? 'fim' : sKey;
+    let av=a[ka], bv=b[ka];
+    if(av===null||av===undefined||av==='')av=sDir===1?'9999-99-99':''  ;
+    if(bv===null||bv===undefined||bv==='')bv=sDir===1?'9999-99-99':'';
+    if(typeof av==='string'&&typeof bv==='string')return sDir*av.localeCompare(bv);
     return sDir*(av-bv);
   });
 }
