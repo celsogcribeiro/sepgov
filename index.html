@@ -19,15 +19,17 @@ header{background:var(--ac);color:#fff;padding:0 2rem;display:flex;align-items:c
 .hd{font-family:var(--mo);font-size:12px;color:rgba(255,255,255,.45)}
 .main{max-width:1300px;margin:0 auto;padding:1.5rem 2rem 3rem}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
-.sc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);padding:1rem 1.25rem;position:relative;overflow:hidden;cursor:pointer;transition:box-shadow .15s}
-.sc:hover{box-shadow:0 0 0 2px var(--ac)}
-.sc.active-filter{box-shadow:0 0 0 2px var(--ac);background:var(--acl)}
-.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ca,var(--bd));border-radius:var(--rl) var(--rl) 0 0}
-.sc.tot{--ca:#94a3b8}.sc.vig{--ca:#22c55e}.sc.enc{--ca:#94a3b8}.sc.alt{--ca:#f59e0b}
-.sl{font-size:11px;font-weight:500;color:var(--fa);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;font-family:var(--mo)}
-.sv{font-size:28px;font-weight:300;letter-spacing:-.02em;font-family:var(--mo)}
-.sc.alt .sv{color:var(--al)}.sc.vig .sv{color:var(--vg)}
-.sc-hint{font-size:10px;color:var(--fa);font-family:var(--mo);margin-top:2px}
+.sc{border-radius:var(--rl);padding:1.1rem 1.4rem;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.sc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.sc.active-filter{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.2),0 0 0 3px rgba(255,255,255,.45)}
+.sc.tot{background:linear-gradient(135deg,#1a3a5c 0%,#2a5298 100%)}
+.sc.vig{background:linear-gradient(135deg,#14532d 0%,#16a34a 100%)}
+.sc.enc{background:linear-gradient(135deg,#374151 0%,#6b7280 100%)}
+.sc.alt{background:linear-gradient(135deg,#92400e 0%,#d97706 100%)}
+.sl{font-size:11px;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-family:var(--mo)}
+.sv{font-size:40px;font-weight:600;letter-spacing:-.03em;font-family:var(--mo);color:#fff;line-height:1}
+.sc-hint{font-size:10px;color:rgba(255,255,255,.5);font-family:var(--mo);margin-top:6px}
+.sc::after{content:'';position:absolute;right:-14px;bottom:-14px;width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.07)}
 .toolbar{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);padding:.875rem 1.25rem;margin-bottom:1rem;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
 .field{display:flex;flex-direction:column;gap:4px}
 .field label{font-size:11px;font-weight:500;color:var(--fa);text-transform:uppercase;letter-spacing:.06em;font-family:var(--mo)}
@@ -228,14 +230,7 @@ const today=calcToday();
 document.getElementById('hdate').textContent=fmtD(today);
 document.getElementById('udate').textContent='Gerado em 05/05/2026 — vigências recalculadas a cada abertura';
 
-// Stats sempre sobre conjunto completo
-function updateStats(){
-  document.getElementById('st-tot').textContent=C.length;
-  document.getElementById('st-vig').textContent=C.filter(c=>c.status==='vigente').length;
-  document.getElementById('st-enc').textContent=C.filter(c=>c.status==='encerrado').length;
-  document.getElementById('st-alt').textContent=C.filter(c=>c.alert).length;
-}
-updateStats();
+// Stats são atualizadas em render() com base no conjunto filtrado
 
 function setFilter(f){
   currentFilter=f;
@@ -300,6 +295,12 @@ function clearF(){
 function render(){
   const filtered=doSort(applyF());
   const tot=filtered.length;
+
+  // Contadores refletem sempre o conjunto visível (após todos os filtros)
+  document.getElementById('st-tot').textContent=tot;
+  document.getElementById('st-vig').textContent=filtered.filter(c=>c.status==='vigente').length;
+  document.getElementById('st-enc').textContent=filtered.filter(c=>c.status==='encerrado').length;
+  document.getElementById('st-alt').textContent=filtered.filter(c=>c.alert).length;
   document.getElementById('rinfo').textContent=
     tot===C.length?`Exibindo todos os ${tot} contratos`:`${tot} contrato${tot!==1?'s':''} encontrado${tot!==1?'s':''}`;
 
