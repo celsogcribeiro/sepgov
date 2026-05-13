@@ -185,271 +185,207 @@ td.wrap{white-space:normal;line-height:1.3}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-// Nome do arquivo xlsx que deve estar na mesma pasta do index.html no servidor
-const XLSX_FILE = 'Monitoramento_de_Contratos_STI_-_Contratos__EPACs_e_Gestores.xlsx';
-
-// Converte número serial do Excel para string YYYY-MM-DD
-function excelDateToISO(serial) {
-  if (!serial || isNaN(serial)) return null;
-  // Excel conta desde 1900-01-00, com bug do ano bissexto de 1900
-  const date = new Date(Math.round((serial - 25569) * 86400 * 1000));
-  const y = date.getUTCFullYear();
-  const m = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const d = String(date.getUTCDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
-}
-
-// Lê a aba "Consolidado - CTRs" e monta o array RAW
-function parseXlsx(workbook) {
-  const sheet = workbook.Sheets['Consolidado - CTRs'];
-  if (!sheet) {
-    showError('Aba "Consolidado - CTRs" não encontrada na planilha.');
-    return [];
-  }
-  const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
-
-  // Encontra a linha de cabeçalho (contém "Ano" na primeira coluna)
-  let headerIdx = -1;
-  for (let i = 0; i < rows.length; i++) {
-    if (String(rows[i][0]).trim() === 'Ano') { headerIdx = i; break; }
-  }
-  if (headerIdx === -1) {
-    showError('Cabeçalho da planilha não encontrado.');
-    return [];
-  }
-
-  const dataRows = rows.slice(headerIdx + 1);
-  const raw = [];
-  for (const r of dataRows) {
-    const ano = String(r[0] || '').trim();
-    if (!ano || isNaN(Number(ano))) continue; // pula linhas sem ano válido
-    const numero    = String(r[1] || '').trim();
-    const contratada = String(r[2] || '').trim();
-    const objeto    = String(r[3] || '').trim();
-    const unidade   = String(r[4] || '').trim() || '-';
-    const fimRaw    = r[6]; // coluna "Final da Vigência"
-    let fim = null;
-    if (fimRaw) {
-      if (typeof fimRaw === 'number') fim = excelDateToISO(fimRaw);
-      else if (typeof fimRaw === 'string' && fimRaw.match(/^\d{4}-\d{2}-\d{2}$/)) fim = fimRaw;
-      else if (typeof fimRaw === 'string' && fimRaw.includes('/')) {
-        // dd/mm/aaaa
-        const parts = fimRaw.split('/');
-        if (parts.length === 3) fim = `${parts[2]}-${parts[1]}-${parts[0]}`;
-      }
-    }
-    raw.push({ ano, numero, contratada, objeto, unidade, fim });
-  }
-  return raw;
-}
-
 function showError(msg) {
   document.getElementById('rinfo').textContent = '⚠ ' + msg;
   document.getElementById('rinfo').style.color = 'var(--al)';
 }
 
-// Inicialização: busca o xlsx do servidor e processa
 async function init() {
-  document.getElementById('rinfo').textContent = 'Carregando planilha…';
+  document.getElementById('rinfo').textContent = 'Carregando dados…';
   try {
-    const resp = await fetch(XLSX_FILE + '?v=' + Date.now()); // cache-bust
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const arrayBuffer = await resp.arrayBuffer();
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-    const raw = parseXlsx(workbook);
-    if (!raw.length) return;
-    window._RAW = raw;
+    const resp = await fetch('contratos.json?v=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const raw = await resp.json();
+    if (!raw.length) { showError('Nenhum contrato encontrado.'); return; }
     setupApp(raw);
   } catch (e) {
-    showError('Não foi possível carregar a planilha. Verifique se o arquivo está na mesma pasta do index.html. (' + e.message + ')');
+    showError('Não foi possível carregar contratos.json. (' + e.message + ')');
     console.error(e);
   }
 }
 
-// Todo o restante do app — recebe o array RAW como parâmetro
-function setupApp(RAW) {{"ano":"2020","numero":"008/2020 (id. 0721793)","contratada":"ISH TECNOLOGIA S.A","objeto":"Prestação de Serviços Gerenciados de Segurança da Informação para o Conselho de Justiça Federal – CJF","unidade":"NUJUFE","fim":"2026-06-24"},{"ano":"2021","numero":"021/2021 (id. 0238065)","contratada":"AR RP CERTIFICAÇÃO DIGITAL EIRELI","objeto":"Prestação do serviço de emissão de certificados digitais, do tipo A3, padrão Cert-JUS, com visitas técnicas.","unidade":"-","fim":"2026-07-20"},{"ano":"2021","numero":"022/2021 (id. 0242876)","contratada":"CERTISIGN CERTIFICADORA DIGITAL S.A.","objeto":"Prestação do serviço de emissão de certificados digitais, do tipo A1, padrão Internacional.","unidade":"-","fim":"2026-07-18"},{"ano":"2021","numero":"025/2021 (id. 0263353)","contratada":"ORION TELECOMUNICAÇÕES, ENGENHARIA S/A","objeto":"Prestação dos serviços de assistência técnica para equipamentos pertencentes à solução do ambiente físico seguro e seus subsistemas, do tipo Sala-Cofre Modular, do Conselho da Justiça Federal, abrangendo manutenção preventiva programada, corretiva e evolutiva de software, monitoramento e suporte técnico, com substituição de peças, componentes e equipamentos, bem como a manutenção das certificações ABNT NBR 15247 e NBR 60529 com o grau de proteção IP6","unidade":"NUJUFE","fim":"2026-09-22"},{"ano":"2021","numero":"026/2021 (id. 0249998)","contratada":"SELBETTI GESTÃO DE DOCUMENTOS S.A,","objeto":"Prestação de serviços de impressão distribuída (outsourcing de impressão)","unidade":"-","fim":"2026-11-05"},{"ano":"2022","numero":"003/2022 (id. 0323247)","contratada":"UNIVERSO DA SEGURANÇA COMÉRCIO E\nSERVIÇOS EIRELI","objeto":"Prestação de serviço de manutenção preventiva e corretiva dos relógios biométricos Henry Primme SF Ponto Bio.","unidade":"-","fim":"2024-10-27"},{"ano":"2022","numero":"004/2022 (id. 0328619)","contratada":"TECNETWORKING SERVIÇOS E SOLUÇÕES EM TECNOLOGIA DA INFORMAÇÃO LTDA","objeto":"Subscrição de Ferramenta de Gerenciamento de Ciclo de Vida de Software GitLab versão Ultimate.","unidade":"-","fim":"2023-05-15"},{"ano":"2022","numero":"012/2022 (id. 0340282)","contratada":"LINK DATA INFORMÁTICA E SERVIÇOS S/A","objeto":"Suporte técnico, ajustes, atualização, apoio à migração, capacitação, evolução e manutenção do Software de Gestão Automation System of Inventory - ASIWEB, composto pelos sistemas de Almoxarifado e Patrimônio.","unidade":"-","fim":"2025-05-25"},{"ano":"2022","numero":"017/2022 (id. 0360580)","contratada":"XP ON CONSULTORIA LTDA","objeto":"Plataforma Zoom Meetings e Plataforma Zoom Events.","unidade":"-","fim":"2025-07-25"},{"ano":"2022","numero":"019/2022 (id. 0370794)","contratada":"RD TELECOM LTDA","objeto":"Serviços de comunicação de dados para conexão da rede do CJF à Internet com saída pelo STJ.","unidade":"NUJUFE","fim":"2027-08-14"},{"ano":"2022","numero":"021/2022 (id. 0390861)","contratada":"SUPORTE INFORMÁTICA SOLUÇÕES LTDA","objeto":"Empresa especializada para o fornecimento de subscrições de software corporativo de código aberto do tipo plataforma de contêineres, sistemas operacionais e servidores de aplicação da RedHat.","unidade":"-","fim":"2023-10-19"},{"ano":"2022","numero":"022/2022 (id. 0386582)","contratada":"O3S CONSULTORIA E TECNOLOGIA DA INFORMACAO LTDA","objeto":"Subscrição de serviço de suporte prioritário do sistema operacional SUSE Linux e da ferramenta de gerenciamento centralizado SUSE Manager.","unidade":"-","fim":"2025-12-27"},{"ano":"2022","numero":"028/2022 (id. 0401674)","contratada":"ASSOCIAÇÃO PARANAENSE DE CULTURA PONTÍFICA UNIVERSIDADE CATÓLICA DO PARANÁ (APC)","objeto":"Suporte técnico mensal, com atualização e manutenção preventiva, corretiva, evolutiva e adaptativa, de migração e integração e de treinamento para o software Pergamum.","unidade":"-","fim":"2025-11-29"},{"ano":"2022","numero":"029/2022 (id. 0404725)","contratada":"INSTITUTO ANTÔNIO HOUAISS DE LEXICOGRAFIA E BANCO DE DADOS DA LÍNGUA\nPORTUGUESA S/C LTDA","objeto":"Contratação de software como serviços da licença Dicionário Houaiss Corporativo.","unidade":"-","fim":"2025-11-24"},{"ano":"2022","numero":"030/2022 (id. 0405074)","contratada":"CONNECTCOM TELEINFORMÁTICA COMÉRCIO E SERVIÇOS LTDA","objeto":"Contratação de empresa especializada para a prestação do serviço técnico de sustentação do ambiente de infraestrutura de TI.","unidade":"NUJUFE","fim":"2028-01-23"},{"ano":"2023","numero":"009/2023 (id. 0422496)","contratada":"DELL COMPUTADORES DO BRASIL LTDA.","objeto":"Contratação de empresa especializada em extensão de garantia do fabricante, serviços de atualização e suporte técnico do equipamento appliance Dell DD6800 e seus componentes.","unidade":"-","fim":"2026-03-23"},{"ano":"2023","numero":"010/2023 (id. 0421267)","contratada":"NCT INFORMÁTICA LTDA","objeto":"Contratação de extensão de garantia, serviços de atualização e suporte técnico, manutenção corretiva e preventiva das soluções de segurança de perímetro (equipamentos Fortinet - FortiWeb e FortiGate).","unidade":"-","fim":"2026-03-05"},{"ano":"2023","numero":"019/2023 (id. 0465117)","contratada":"BRASOFTWARE INFORMATICA LTDA","objeto":"Contratação de subscrições da Microsoft.","unidade":"CJF","fim":"2026-05-25"},{"ano":"2023","numero":"020/2023 (id. 0472099)","contratada":"O3S CONSULTORIA E TECNOLOGIA DA INFORMACAO LTDA","objeto":"Contratação de subscrição de ferramenta de gerenciamento de ciclo de vida de software GitLab Ultimate.","unidade":"NUJUFE","fim":"2026-06-13"},{"ano":"2023","numero":"021/2023 (id. 0472859)","contratada":"SUPORTE INFORMÁTICA SOLUÇÕES LTDA","objeto":"Contratação de empresa especializada para o fornecimento de subscrições de software corporativo de código aberto do tipo plataforma de contêineres, sistemas operacionais e servidores de aplicação da RedHat.","unidade":"CJF","fim":"2026-07-09"},{"ano":"2023","numero":"022/2023 (id. 0498012)","contratada":"HEWLETT-PACKARD BRASIL LTDA","objeto":"Prestação do serviço de suporte técnico dos servidores de rede em lâmina (tipo blade).","unidade":"-","fim":"2025-08-30"},{"ano":"2023","numero":"029/2023 (id. 0506149)","contratada":"MCR SISTEMAS E CONSULTORIA LTDA","objeto":"Contratação de licenças de softwares de Design Gráfico - Adobe Creative Cloud.","unidade":"CJF","fim":"2026-09-28"},{"ano":"2023","numero":"031/2023 (id. 0522104)","contratada":"MCR SISTEMAS E CONSULTORIA LTDA","objeto":"Contratação de licenças de softwares de Design Gráfico - AutoDesk AEC.","unidade":"CJF","fim":"2026-11-08"},{"ano":"2023","numero":"032/2023 (id. 0533201)","contratada":"DNA TECNOLOGIA LTDA","objeto":"Desenvolvimento do novo Portal CJF.","unidade":"-","fim":"2024-12-28"},{"ano":"2023","numero":"033/2023 (id. 0537214)","contratada":"TORINO INFORMÁTICA LTDA","objeto":"Aquisição de computadores do tipo Workstation.","unidade":"CJF","fim":"2029-04-07"},{"ano":"2024","numero":"006/2024 (id. 0558348)","contratada":"SERVIX INFORMÁTICA LTDA","objeto":"Ampliação da solução de armazenamento principal NETAPP FAS9000 do CJF.","unidade":"CJF","fim":"2029-05-10"},{"ano":"2024","numero":"007/2024 (id. 0559726)","contratada":"ARVVO TECNOLOGIA, CONSULTORIA E SERVICOS LTDA","objeto":"Aquisição de solução de backup de dados contemplando a subscrição de licenciamento de software e o fornecimento de equipamento(s), serviços de instalação e configuração, transferência de conhecimento, suporte técnico e garantia.","unidade":"CJF","fim":"2029-06-05"},{"ano":"2024","numero":"014/2024 (id. 0565666)","contratada":"BLUE EYE SOLUÇÕES EM TECNOLOGIA LTDA","objeto":"Solução de segurança para proteção de estações de trabalho, Data Center, e-mail corporativo e aplicativos Microsoft 365 - Endpoint.","unidade":"CJF","fim":"2027-03-25"},{"ano":"2024","numero":"025/2024 (id. 0604841)","contratada":"AMM TECNOLOGIA E SERVIÇOS DE INFORMATICA S/A","objeto":"Subscrições de suporte e garantia para solução de virtualizaçãoVmWare","unidade":"NUJUFE","fim":"2027-08-14"},{"ano":"2024","numero":"026/2024 (id. 0612432)","contratada":"CYBER WAN TECNOLOGIA LTDA","objeto":"Subscrição e na renovação da subscrição de licenças do software PHPStorm.","unidade":"NUJUFE","fim":"2026-06-28"},{"ano":"2024","numero":"027/2024 (id. 0612433)","contratada":"CYBER WAN TECNOLOGIA LTDA","objeto":"Subscrição do pacote de aplicativos Jetbrains - All Products Pack.","unidade":"NUJUFE","fim":"2026-08-29"},{"ano":"2024","numero":"031/2024 (id. 0642388)","contratada":"DATAPREV","objeto":"b-CPF","unidade":"NUJUFE","fim":"2029-10-21"},{"ano":"2024","numero":"033/2024 (id. 0648538)","contratada":"SERPRO","objeto":"Infovia Brasília","unidade":"CJF","fim":"2027-04-30"},{"ano":"2024","numero":"034/2024 (id. 0650968)","contratada":"SERPRO","objeto":"Certificados digitais (e-CPF) tipo A3 em nuvem","unidade":"CJF","fim":"2026-11-07"},{"ano":"2024","numero":"036/2024 (id. 0649890)","contratada":"TOTALCAD COMÉRCIO E SERVIÇOS TECNOLÓGICOS LTDA","objeto":"Software Enscape","unidade":"CJF","fim":"2025-11-12"},{"ano":"2024","numero":"037/2024 (id. 0652214)","contratada":"BB TECNOLOGIA E SERVIÇOS S/A","objeto":"Licenças de software mysql enterprise edition","unidade":"CJF","fim":"2025-11-25"},{"ano":"2024","numero":"038/2024 (id. 0654742)","contratada":"AMM TECNOLOGIA E SERVIÇOS DE INFORMÁTICA S.A.","objeto":"Subscrição dos softwares de virtualização de servidores, redes e de armazenamento do fabricante VMWARE.","unidade":"NUJUFE","fim":"2029-12-03"},{"ano":"2024","numero":"039/2024 (id. 0658637)","contratada":"TORINO INFORMÁTICA","objeto":"Monitores e assistência técnica","unidade":"CJF","fim":"2029-12-10"},{"ano":"2024","numero":"043/2024 (id. 0668118)","contratada":"LINK DATA INFORMÁTICA E SERVIÇOS S/A","objeto":"Gestão Material e Patrimonial do Conselho da CJF","unidade":"CJF","fim":"2024-12-29"},{"ano":"2025","numero":"001/2025 (id. 0682958)","contratada":"3L LTDA","objeto":"Licenças do software Orçafascio","unidade":"CJF","fim":"2027-02-19"},{"ano":"2025","numero":"015/2025 (id. 0717646)","contratada":"WYNTECH SERVICOS EM TECNOLOGIA DA INFORMACAO LTDA","objeto":"Prestação do serviço técnico de operação de central de atendimento a usuários (Service Desk) no ambiente de TI do CJF","unidade":"NUJUFE","fim":"2030-06-08"},{"ano":"2025","numero":"018/2025 (id. 0726000)","contratada":"ZOOMTECH LTDA","objeto":"Servidores de rede","unidade":"CJF","fim":"2030-06-03"},{"ano":"2025","numero":"023/2025 (id. 0743255)","contratada":"SERPRO","objeto":"Prestador de Serviços de Suporte – PSS, para a Autoridade Certificadora da Justiça – AC-JUS","unidade":"CJF","fim":"2030-07-17"},{"ano":"2025","numero":"026/2025  (id. 0749251)","contratada":"XP ON CONSULTORIA LTDA","objeto":"Fornecimento de subscrições ZOOM","unidade":"CJF","fim":"2028-08-07"},{"ano":"2025","numero":"032/2025 (id. 0755079)","contratada":"ASSOCIAÇÃO PARANAENSE DE CULTURA – APC","objeto":"Suporte Técnico Software Pergamum","unidade":"CJF","fim":"2026-09-04"},{"ano":"2025","numero":"033/2025  (id. 0758033)","contratada":"DECISION SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO LTDA","objeto":"Aquisição de licenças de subscrição dos softwares de virtualização de servidores, redes e de armazenamento do fabricante VMWARE","unidade":"NUJUFE","fim":"2030-09-08"},{"ano":"2025","numero":"034/2025  (id. 0758500)","contratada":"JAMC CONSULTORIA E REPRESENTACAO DE SOFTWARE LTDA","objeto":"Solução em modelo SaaS (Software como Serviço) para auditoria, monitoramento, proteção de dados, detecção e resposta a ameaças a metadados e dados não estruturados, além de análise de dados em repositórios corporativos internos (on-premises) ou em ambiente cloud (nuvem) em plataformas de colaboração. - VARONIS","unidade":"CJF","fim":"2027-09-08"},{"ano":"2025","numero":"035/2025 (id. 0757502)","contratada":"AMM TECNOLOGIA E SERVIÇOS DE INFORMATICA S/A","objeto":"Subscrições de suporte e garantia para solução de virtualizaçãoVmWare","unidade":"NUJUFE","fim":"2030-09-14"},{"ano":"2025","numero":"038/2025 (id. 0779918)","contratada":"FAGUNDEZ DISTRIBUIÇÃO LTDA","objeto":"Monitor tipo IV","unidade":"CJF","fim":"2031-05-04"},{"ano":"2025","numero":"039/2025  (id. 0779646)","contratada":"HP BRASIL INDÚSTRIA E COMÉRCIO E EQUIPAMENTOS ELETRÔNICOS LTDA","objeto":"Fornecimento de computadores, notebooks e monitores, incluindo assistência técnica da garantia. \n(NOTEBOOKS)","unidade":"CJF","fim":"2030-10-09"},{"ano":"2025","numero":"040/2025 (id. 0780580)","contratada":"DATEN TECNOLOGIA LTDA","objeto":"Notebook Tipo I","unidade":"CJF","fim":"2031-05-04"},{"ano":"2025","numero":"041/2025  (id. 0779651)","contratada":"HP BRASIL INDÚSTRIA E COMÉRCIO E EQUIPAMENTOS ELETRÔNICOS LTDA","objeto":"Fornecimento de computadores, notebooks e monitores, incluindo assistência técnica da garantia.\n(MICROCOMPUTADOR TIPO I)","unidade":"CJF","fim":"2030-10-09"},{"ano":"2025","numero":"044/2025 (id. 0792780)","contratada":"LAYER TECNOLOGIA DA INFORMATICA LTDA","objeto":"Solução tecnológica de Controlador de Entrega de Aplicações (Application Delivery Controller – ADC)","unidade":"NUJUFE","fim":"2031-02-17"},{"ano":"2025","numero":"045/2025  (id. 0797176)","contratada":"YSSY SOLUÇÕES S/A","objeto":"Prestação de serviço de suporte técnico e atualização de licenças para equipamentos e software da solução Cisco SmartNet.","unidade":"CJF","fim":"2027-12-01"},{"ano":"2025","numero":"049/2025  (id. 0805575)","contratada":"BK TECNOLOGIA DA INFORMAÇAO LTDA EPP","objeto":"Contratação NACIONAL de empresa especializada para o fornecimento de subscrição Elastic Cloud Enterprise, com suporte e garantia de atualização de versões; com serviço de implantação, serviços técnicos especializados e treinamento oficial.","unidade":"NUJUFE","fim":"2027-12-14"},{"ano":"2025","numero":"053/2025  (id. 0811505)","contratada":"ORACLE DO BRASIL SISTEMAS LTDA","objeto":"Prestação de serviços de atualização de versão de software, suporte especializado ao produto, incluindo suporte avançado do fabricante, dos produtos Oracle licenciados para o CJF","unidade":"NUJUFE","fim":"2030-12-30"},{"ano":"2026","numero":"003/2026  (id. 0822031)","contratada":"RD TELECOM LTDA","objeto":"Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 1","unidade":"NUJUFE","fim":"2027-03-01"},{"ano":"2026","numero":"004/2026  (id. 0822899)","contratada":"CLICK NET BRASIL TELECOMUNICAÇÃO LTDA - ME","objeto":"Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 2","unidade":"NUJUFE","fim":"2027-03-01"},{"ano":"2026","numero":"005/2026  (id. 0822900)","contratada":"ALGAR TELECOM S/A","objeto":"Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 3","unidade":"NUJUFE","fim":"2027-03-02"},{"ano":"2026","numero":"008/2026  (id. 0831338)","contratada":"ALLTECH - SOLUÇÕES EM TECNOLOGIA LTDA","objeto":"Fornecimento de Solução de Proteção de Rede Perimetral (Firewall)","unidade":"NUJUFE","fim":"2031-03-03"},{"ano":"2026","numero":"009/2026 (id. 0833145)","contratada":"INSTITUTO ANTÔNIO HOUAISS","objeto":"Subscrição de licenças da solução Dicionário Houaiss Corporativo","unidade":"CJF","fim":"2027-03-17"},{"ano":"2026","numero":"010/2026 (id. 0833926)","contratada":"JAMC CONSULTORIA E REPRESENTAÇÕES DE SOFTWARE LTDA","objeto":"Solução de gerenciamento de acesso privilegiado (PAM - Privileged Access Management) Senha Segura","unidade":"NUJUFE","fim":"2029-03-16"},{"ano":"2026","numero":"013/2026 (id. 0838959)","contratada":"LANLINK SOLUÇÕES E COMERCIALIZAÇÃO EM INFORMÁTICA S/A","objeto":"Contratação de empresa especializada para o fornecimento de subscrições de licenças de software de colaboração e produtividade Microsoft 365","unidade":"CJF","fim":"2027-05-25"},{"ano":"2026","numero":"014/2026 (id. 0839918)","contratada":"MORI EDUCACAO LTDA","objeto":"Serviço de suporte técnico da plataforma de ensino Moodle do CEJ","unidade":"CJF","fim":"2027-04-06"}const THRESHOLD=195;
+function setupApp(RAW) {
+  const THRESHOLD = 195;
 
-  function calcToday(){
-  const d=new Date();d.setHours(0,0,0,0);return d;
-}
+  function calcToday() {
+    const d = new Date(); d.setHours(0,0,0,0); return d;
+  }
 
-// Enriquece cada contrato calculando status/dias/alert com base na data de hoje
-function enrich(raw){
-  const today=calcToday();
-  const alertLimit=new Date(today.getTime()+THRESHOLD*86400000);
-  return raw.map(r=>{
-    const c=Object.assign({},r);
-    if(c.fim){
-      const fim=new Date(c.fim+'T00:00:00');
-      const diff=Math.round((fim-today)/(86400000));
-      c.dias_restantes=diff;
-      c.status=fim>=today?'vigente':'encerrado';
-      c.alert=c.status==='vigente'&&fim<=alertLimit;
-      // formata para exibição dd/mm/aaaa
-      c.fim_vigencia=fim.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
-    }else{
-      c.dias_restantes=null;c.status='encerrado';c.alert=false;c.fim_vigencia='-';
-    }
-    return c;
-  });
-}
+  function enrich(raw) {
+    const today = calcToday();
+    const alertLimit = new Date(today.getTime() + THRESHOLD * 86400000);
+    return raw.map(r => {
+      const c = Object.assign({}, r);
+      if (c.fim) {
+        const fim = new Date(c.fim + 'T00:00:00');
+        const diff = Math.round((fim - today) / 86400000);
+        c.dias_restantes = diff;
+        c.status = fim >= today ? 'vigente' : 'encerrado';
+        c.alert = c.status === 'vigente' && fim <= alertLimit;
+        c.fim_vigencia = fim.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric'});
+      } else {
+        c.dias_restantes = null; c.status = 'encerrado'; c.alert = false; c.fim_vigencia = '-';
+      }
+      return c;
+    });
+  }
 
-  const C=enrich(RAW);   // recalculado toda vez que o arquivo é aberto
-
-  const PER=25;
-  let page=1,sKey='dias_restantes',sDir=1,currentFilter='todos';
+  const C = enrich(RAW);
+  const PER = 25;
+  let page = 1, sKey = 'dias_restantes', sDir = 1, currentFilter = 'todos';
 
   // Populate filters
-  const anos=[...new Set(RAW.map(d=>d.ano))].sort();
-  anos.forEach(a=>{const o=document.createElement('option');o.value=a;o.textContent=a;document.getElementById('fA').appendChild(o)});
-  const unis=[...new Set(RAW.map(d=>d.unidade).filter(b=>b&&b!=='-'))].sort();
-  unis.forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;document.getElementById('fU').appendChild(o)});
-
-  function fmtD(d){return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'})}
-  const today=calcToday();
-  document.getElementById('hdate').textContent=fmtD(today);
-  const now=new Date();
-  const diaAtual=`${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
-  document.getElementById('udate').textContent=`Planilha carregada em ${diaAtual} — vigências recalculadas a cada abertura`;
-
-// Stats são atualizadas em render() com base no conjunto filtrado
-
-function setFilter(f){
-  currentFilter=f;
-  document.getElementById('fS').value=f;
-  ['todos','vigente','encerrado','alerta'].forEach(k=>{
-    const el=document.getElementById('card-'+k);
-    if(el) el.classList.toggle('active-filter',k===f);
+  const anos = [...new Set(RAW.map(d => d.ano))].sort();
+  anos.forEach(a => {
+    const o = document.createElement('option'); o.value = a; o.textContent = a;
+    document.getElementById('fA').appendChild(o);
   });
-  page=1;render();
-}
-
-function applyF(){
-  const q=document.getElementById('search').value.trim().toLowerCase();
-  const fS=document.getElementById('fS').value;
-  const fA=document.getElementById('fA').value;
-  const fU=document.getElementById('fU').value;
-  return C.filter(c=>{
-    if(fA&&c.ano!==fA)return false;
-    if(fU&&c.unidade!==fU)return false;
-    if(fS==='vigente'&&c.status!=='vigente')return false;
-    if(fS==='encerrado'&&c.status!=='encerrado')return false;
-    if(fS==='alerta'&&!c.alert)return false;
-    if(q&&![c.numero,c.contratada,c.objeto,c.unidade].some(s=>s&&s.toLowerCase().includes(q)))return false;
-    return true;
+  const unis = [...new Set(RAW.map(d => d.unidade).filter(b => b && b !== '-'))].sort();
+  unis.forEach(u => {
+    const o = document.createElement('option'); o.value = u; o.textContent = u;
+    document.getElementById('fU').appendChild(o);
   });
-}
 
-function doSort(arr){
-  return [...arr].sort((a,b)=>{
-    // Para fim_vigencia, ordenar pelo campo 'fim' (YYYY-MM-DD) e não pelo texto formatado
-    const ka = sKey==='fim_vigencia' ? 'fim' : sKey;
-    let av=a[ka], bv=b[ka];
-    if(av===null||av===undefined||av==='')av=sDir===1?'9999-99-99':''  ;
-    if(bv===null||bv===undefined||bv==='')bv=sDir===1?'9999-99-99':'';
-    if(typeof av==='string'&&typeof bv==='string')return sDir*av.localeCompare(bv);
-    return sDir*(av-bv);
-  });
-}
+  function fmtD(d) { return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric'}); }
+  const today = calcToday();
+  document.getElementById('hdate').textContent = fmtD(today);
+  const now = new Date();
+  const diaAtual = String(now.getDate()).padStart(2,'0') + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + now.getFullYear();
+  document.getElementById('udate').textContent = 'Planilha carregada em ' + diaAtual + ' — vigências recalculadas a cada abertura';
 
-function sort(k){
-  if(sKey===k)sDir*=-1;else{sKey=k;sDir=1;}
-  document.querySelectorAll('thead th').forEach(t=>t.classList.remove('sorted'));
-  document.getElementById('h-'+k).classList.add('sorted');
-  document.querySelectorAll('.si').forEach(e=>e.textContent='');
-  document.getElementById('si-'+k).textContent=sDir===1?'↑':'↓';
-  page=1;render();
-}
-
-function gp(n){page=n;render();document.getElementById('table-wrap').scrollIntoView({behavior:'smooth',block:'start'});}
-
-function clearF(){
-  document.getElementById('search').value='';
-  document.getElementById('fS').value='todos';
-  document.getElementById('fA').value='';
-  document.getElementById('fU').value='';
-  currentFilter='todos';
-  ['todos','vigente','encerrado','alerta'].forEach(k=>{
-    const el=document.getElementById('card-'+k);
-    if(el)el.classList.remove('active-filter');
-  });
-  page=1;render();
-}
-
-function render(){
-  const filtered=doSort(applyF());
-  const tot=filtered.length;
-
-  // Contadores refletem sempre o conjunto visível (após todos os filtros)
-  document.getElementById('st-tot').textContent=tot;
-  document.getElementById('st-vig').textContent=filtered.filter(c=>c.status==='vigente').length;
-  document.getElementById('st-enc').textContent=filtered.filter(c=>c.status==='encerrado').length;
-  document.getElementById('st-alt').textContent=filtered.filter(c=>c.alert).length;
-  document.getElementById('rinfo').textContent=
-    tot===C.length?`Exibindo todos os ${tot} contratos`:`${tot} contrato${tot!==1?'s':''} encontrado${tot!==1?'s':''}`;
-
-  const pages=Math.ceil(tot/PER)||1;
-  if(page>pages)page=1;
-  const start=(page-1)*PER;
-  const slice=filtered.slice(start,start+PER);
-
-  const tbody=document.getElementById('tbody');
-  const empty=document.getElementById('empty');
-  const pag=document.getElementById('pag');
-
-  if(!slice.length){tbody.innerHTML='';empty.style.display='block';pag.style.display='none';return;}
-  empty.style.display='none';
-
-  tbody.innerHTML=slice.map(c=>{
-    let badge,dias='-';
-    if(c.alert)badge=`<span class="badge ba">▲ Alerta</span>`;
-    else if(c.status==='vigente')badge=`<span class="badge bv">● Vigente</span>`;
-    else badge=`<span class="badge be">○ Encerrado</span>`;
-    if(c.dias_restantes!==null){
-      const d=c.dias_restantes;
-      if(c.alert)dias=`<span class="da">${d}d</span>`;
-      else if(c.status==='vigente')dias=`<span class="dok">${d}d</span>`;
-      else dias=`<span class="de">${d}d</span>`;
-    }
-    const numParts=c.numero.split('(');
-    return `<tr class="${c.alert?'ra':''}">
-      <td class="tnum" title="${c.numero}">${c.ano}<br>${numParts[0].trim()}</td>
-      <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
-      <td class="tuni">${c.unidade}</td>
-      <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
-      <td class="tdat">${c.fim_vigencia}</td>
-      <td class="tdias">${dias}</td>
-      <td>${badge}</td>
-    </tr>`;
-  }).join('');
-
-  if(pages<=1){pag.style.display='none';return;}
-  pag.style.display='flex';
-  let ph=`<button class="pb" onclick="gp(${page-1})" ${page===1?'disabled':''}>‹</button>`;
-  for(let i=1;i<=pages;i++){
-    if(i===1||i===pages||Math.abs(i-page)<=1)ph+=`<button class="pb ${i===page?'active':''}" onclick="gp(${i})">${i}</button>`;
-    else if(Math.abs(i-page)===2)ph+=`<span class="pe">…</span>`;
+  function setFilter(f) {
+    currentFilter = f;
+    document.getElementById('fS').value = f;
+    ['todos','vigente','encerrado','alerta'].forEach(k => {
+      const el = document.getElementById('card-' + k);
+      if (el) el.classList.toggle('active-filter', k === f);
+    });
+    page = 1; render();
   }
-  ph+=`<button class="pb" onclick="gp(${page+1})" ${page===pages?'disabled':''}>›</button>`;
-  ph+=`<span class="pi">${start+1}–${Math.min(start+PER,tot)} de ${tot}</span>`;
-  pag.innerHTML=ph;
-}
 
-  document.getElementById('search').addEventListener('input',()=>{page=1;render();});
-  document.getElementById('fS').addEventListener('change',e=>{setFilter(e.target.value);});
-  document.getElementById('fA').addEventListener('change',()=>{page=1;render();});
-  document.getElementById('fU').addEventListener('change',()=>{page=1;render();});
+  function applyF() {
+    const q = document.getElementById('search').value.trim().toLowerCase();
+    const fS = document.getElementById('fS').value;
+    const fA = document.getElementById('fA').value;
+    const fU = document.getElementById('fU').value;
+    return C.filter(c => {
+      if (fA && c.ano !== fA) return false;
+      if (fU && c.unidade !== fU) return false;
+      if (fS === 'vigente' && c.status !== 'vigente') return false;
+      if (fS === 'encerrado' && c.status !== 'encerrado') return false;
+      if (fS === 'alerta' && !c.alert) return false;
+      if (q && ![c.numero, c.contratada, c.objeto, c.unidade].some(s => s && s.toLowerCase().includes(q))) return false;
+      return true;
+    });
+  }
 
-  // Expõe funções usadas nos onclick do HTML
-  window.setFilter=setFilter;
-  window.sort=sort;
-  window.gp=gp;
-  window.clearF=clearF;
+  function doSort(arr) {
+    return [...arr].sort((a, b) => {
+      const ka = sKey === 'fim_vigencia' ? 'fim' : sKey;
+      let av = a[ka], bv = b[ka];
+      if (av === null || av === undefined || av === '') av = sDir === 1 ? '9999-99-99' : '';
+      if (bv === null || bv === undefined || bv === '') bv = sDir === 1 ? '9999-99-99' : '';
+      if (typeof av === 'string' && typeof bv === 'string') return sDir * av.localeCompare(bv);
+      return sDir * (av - bv);
+    });
+  }
 
-  document.getElementById('si-dias_restantes').textContent='↑';
+  function sort(k) {
+    if (sKey === k) sDir *= -1; else { sKey = k; sDir = 1; }
+    document.querySelectorAll('thead th').forEach(t => t.classList.remove('sorted'));
+    document.getElementById('h-' + k).classList.add('sorted');
+    document.querySelectorAll('.si').forEach(e => e.textContent = '');
+    document.getElementById('si-' + k).textContent = sDir === 1 ? '↑' : '↓';
+    page = 1; render();
+  }
+
+  function gp(n) { page = n; render(); document.getElementById('table-wrap').scrollIntoView({behavior:'smooth', block:'start'}); }
+
+  function clearF() {
+    document.getElementById('search').value = '';
+    document.getElementById('fS').value = 'todos';
+    document.getElementById('fA').value = '';
+    document.getElementById('fU').value = '';
+    currentFilter = 'todos';
+    ['todos','vigente','encerrado','alerta'].forEach(k => {
+      const el = document.getElementById('card-' + k);
+      if (el) el.classList.remove('active-filter');
+    });
+    page = 1; render();
+  }
+
+  function render() {
+    const filtered = doSort(applyF());
+    const tot = filtered.length;
+    document.getElementById('st-tot').textContent = tot;
+    document.getElementById('st-vig').textContent = filtered.filter(c => c.status === 'vigente').length;
+    document.getElementById('st-enc').textContent = filtered.filter(c => c.status === 'encerrado').length;
+    document.getElementById('st-alt').textContent = filtered.filter(c => c.alert).length;
+    document.getElementById('rinfo').textContent =
+      tot === C.length ? `Exibindo todos os ${tot} contratos` : `${tot} contrato${tot !== 1 ? 's' : ''} encontrado${tot !== 1 ? 's' : ''}`;
+
+    const pages = Math.ceil(tot / PER) || 1;
+    if (page > pages) page = 1;
+    const start = (page - 1) * PER;
+    const slice = filtered.slice(start, start + PER);
+
+    const tbody = document.getElementById('tbody');
+    const empty = document.getElementById('empty');
+    const pag = document.getElementById('pag');
+
+    if (!slice.length) { tbody.innerHTML = ''; empty.style.display = 'block'; pag.style.display = 'none'; return; }
+    empty.style.display = 'none';
+
+    tbody.innerHTML = slice.map(c => {
+      let badge, dias = '-';
+      if (c.alert) badge = `<span class="badge ba">▲ Alerta</span>`;
+      else if (c.status === 'vigente') badge = `<span class="badge bv">● Vigente</span>`;
+      else badge = `<span class="badge be">○ Encerrado</span>`;
+      if (c.dias_restantes !== null) {
+        const d = c.dias_restantes;
+        if (c.alert) dias = `<span class="da">${d}d</span>`;
+        else if (c.status === 'vigente') dias = `<span class="dok">${d}d</span>`;
+        else dias = `<span class="de">${d}d</span>`;
+      }
+      const numParts = c.numero.split('(');
+      return `<tr class="${c.alert ? 'ra' : ''}">
+        <td class="tnum" title="${c.numero}">${c.ano}<br>${numParts[0].trim()}</td>
+        <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
+        <td class="tuni">${c.unidade}</td>
+        <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
+        <td class="tdat">${c.fim_vigencia}</td>
+        <td class="tdias">${dias}</td>
+        <td>${badge}</td>
+      </tr>`;
+    }).join('');
+
+    if (pages <= 1) { pag.style.display = 'none'; return; }
+    pag.style.display = 'flex';
+    let ph = `<button class="pb" onclick="gp(${page-1})" ${page===1?'disabled':''}>‹</button>`;
+    for (let i = 1; i <= pages; i++) {
+      if (i === 1 || i === pages || Math.abs(i - page) <= 1)
+        ph += `<button class="pb ${i===page?'active':''}" onclick="gp(${i})">${i}</button>`;
+      else if (Math.abs(i - page) === 2) ph += `<span class="pe">…</span>`;
+    }
+    ph += `<button class="pb" onclick="gp(${page+1})" ${page===pages?'disabled':''}>›</button>`;
+    ph += `<span class="pi">${start+1}–${Math.min(start+PER,tot)} de ${tot}</span>`;
+    pag.innerHTML = ph;
+  }
+
+  document.getElementById('search').addEventListener('input', () => { page = 1; render(); });
+  document.getElementById('fS').addEventListener('change', e => { setFilter(e.target.value); });
+  document.getElementById('fA').addEventListener('change', () => { page = 1; render(); });
+  document.getElementById('fU').addEventListener('change', () => { page = 1; render(); });
+
+  window.setFilter = setFilter;
+  window.sort = sort;
+  window.gp = gp;
+  window.clearF = clearF;
+
+  document.getElementById('si-dias_restantes').textContent = '↑';
   document.getElementById('h-dias_restantes').classList.add('sorted');
   render();
-} // fim setupApp
+}
 
 init();
 </script>
