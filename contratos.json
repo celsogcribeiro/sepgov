@@ -12,7 +12,7 @@
     "numero": "021/2021 (id. 0238065)",
     "contratada": "AR RP CERTIFICAÇÃO DIGITAL EIRELI",
     "objeto": "Prestação do serviço de emissão de certificados digitais, do tipo A3, padrão Cert-JUS, com visitas técnicas.",
-    "unidade": "-",
+    "unidade": "CJF",
     "fim": "2026-07-20"
   },
   {
@@ -20,7 +20,7 @@
     "numero": "022/2021 (id. 0242876)",
     "contratada": "CERTISIGN CERTIFICADORA DIGITAL S.A.",
     "objeto": "Prestação do serviço de emissão de certificados digitais, do tipo A1, padrão Internacional.",
-    "unidade": "-",
+    "unidade": "CJF",
     "fim": "2026-07-18"
   },
   {
@@ -36,7 +36,7 @@
     "numero": "026/2021 (id. 0249998)",
     "contratada": "SELBETTI GESTÃO DE DOCUMENTOS S.A,",
     "objeto": "Prestação de serviços de impressão distribuída (outsourcing de impressão)",
-    "unidade": "-",
+    "unidade": "CJF",
     "fim": "2026-11-05"
   },
   {
@@ -221,7 +221,7 @@
     "contratada": "BLUE EYE SOLUÇÕES EM TECNOLOGIA LTDA",
     "objeto": "Solução de segurança para proteção de estações de trabalho, Data Center, e-mail corporativo e aplicativos Microsoft 365 - Endpoint.",
     "unidade": "CJF",
-    "fim": "2027-03-25"
+    "fim": "2027-07-31"
   },
   {
     "ano": "2024",
@@ -283,9 +283,9 @@
     "ano": "2024",
     "numero": "037/2024 (id. 0652214)",
     "contratada": "BB TECNOLOGIA E SERVIÇOS S/A",
-    "objeto": "Licenças de software mysql enterprise edition",
+    "objeto": "Licenças de software mysql enterprise edition  (Vigência subscrições: 27/11/2027)",
     "unidade": "CJF",
-    "fim": "2025-11-25"
+    "fim": "2025-11-24"
   },
   {
     "ano": "2024",
@@ -314,7 +314,7 @@
   {
     "ano": "2025",
     "numero": "001/2025 (id. 0682958)",
-    "contratada": "3L LTDA",
+    "contratada": "3F LTDA",
     "objeto": "Licenças do software Orçafascio",
     "unidade": "CJF",
     "fim": "2027-02-19"
@@ -389,7 +389,7 @@
     "contratada": "FAGUNDEZ DISTRIBUIÇÃO LTDA",
     "objeto": "Monitor tipo IV",
     "unidade": "CJF",
-    "fim": "2031-05-04"
+    "fim": "2030-10-29"
   },
   {
     "ano": "2025",
@@ -405,7 +405,7 @@
     "contratada": "DATEN TECNOLOGIA LTDA",
     "objeto": "Notebook Tipo I",
     "unidade": "CJF",
-    "fim": "2031-05-04"
+    "fim": "2030-11-02"
   },
   {
     "ano": "2025",
@@ -518,5 +518,21 @@
     "objeto": "b-CNPJ",
     "unidade": "NUJUFE",
     "fim": "2031-04-14"
+  },
+  {
+    "ano": "2026",
+    "numero": "016/2026 (id. 0849749)",
+    "contratada": "TELEFONICA BRASIL S.A.",
+    "objeto": "Licenciamento Microsoft para Equipamentos Servidores",
+    "unidade": "NUJUFE",
+    "fim": "2029-05-21"
+  },
+  {
+    "ano": "2026",
+    "numero": "020/2026 (id. 0866703)",
+    "contratada": "ASI COMPANY TECNOLOGIA S/A",
+    "objeto": "Suporte técnico (help desk) e manutenção continuada do sistema ASIWEB",
+    "unidade": "CJF",
+    "fim": "2027-05-26"
   }
 ]
