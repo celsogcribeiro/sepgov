@@ -529,10 +529,26 @@
   },
   {
     "ano": "2026",
+    "numero": "018/2026 (id. 0853097)",
+    "contratada": "WISEIT - SISTEMAS E INFORMÁTICA LTDA",
+    "objeto": "Aquisição de Switches Fibre Channel",
+    "unidade": "NUJUFE",
+    "fim": "2031-06-09"
+  },
+  {
+    "ano": "2026",
     "numero": "020/2026 (id. 0866703)",
     "contratada": "ASI COMPANY TECNOLOGIA S/A",
     "objeto": "Suporte técnico (help desk) e manutenção continuada do sistema ASIWEB",
     "unidade": "CJF",
     "fim": "2027-05-26"
+  },
+  {
+    "ano": "2026",
+    "numero": "",
+    "contratada": "",
+    "objeto": "",
+    "unidade": "-",
+    "fim": null
   }
 ]
