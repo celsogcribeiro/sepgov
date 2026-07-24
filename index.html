@@ -520,8 +520,11 @@ function arpRender() {
       else if(c.status==='vigente')dias=`<span class="dok">${d}d</span>`;
       else dias=`<span class="de">${d}d</span>`;
     }
+    const arpMatch = c.numero.match(/^(.*?)\s*\((id\..*?)\)\s*$/i);
+    const arpBase = arpMatch ? arpMatch[1].trim() : c.numero;
+    const arpId   = arpMatch ? arpMatch[2].trim() : null;
     return `<tr class="${c.alert?'ra':''}">
-      <td class="tnum wrap" title="${c.numero}">${c.numero}</td>
+      <td class="tnum wrap" title="${c.numero}">${arpBase}${arpId?`<br><span style="opacity:.55;font-size:10px">${arpId}</span>`:''}</td>
       <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
       <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
       <td class="tdat">${c.fim_vigencia}</td>
