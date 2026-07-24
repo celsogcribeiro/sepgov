@@ -322,7 +322,7 @@ function setupContratos(RAW) {
   unis.forEach(u=>{ const o=document.createElement('option');o.value=u;o.textContent=u;document.getElementById('fU').appendChild(o); });
   document.getElementById('si-dias_restantes').textContent='↑';
   document.getElementById('h-dias_restantes').classList.add('sorted');
-  ctrRender();
+  setFilter('vigente');
 }
 
 function setFilter(f) {
