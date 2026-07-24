@@ -1,0 +1,50 @@
+[
+  {
+    "numero": "ARP  n.008/2025  (id. 0769125)",
+    "contratada": "LAYER TECNOLOGIA DA INFORMATICA LTDA",
+    "objeto": "Solução tecnológica de Controlador de Entrega de Aplicações (Application Delivery Controller – ADC)",
+    "fim": "2026-09-23"
+  },
+  {
+    "numero": "ARP n. 08/2025 - TRF6  (id. 0788009)",
+    "contratada": "Telefônica Brasil S/A",
+    "objeto": "Aquisição de licenças de software Microsoft com a finalidade de atender às necessidades de funcionamento da infraestrutura.",
+    "fim": "2026-10-15"
+  },
+  {
+    "numero": "ARP n. 11/2025 - TRF6 (id. 0789147)",
+    "contratada": "WISEIT - SISTEMAS E INFORMATICA LTDA",
+    "objeto": "Aquisição de switches fibre channel - FC com a finalidade de atender às necessidades de funcionamento da rede SAN (Storage Area Network",
+    "fim": "2026-10-23"
+  },
+  {
+    "numero": "ARP n. 27/2025 - TRF5 (id. 0795508)",
+    "contratada": "BK TECNOLOGIA DA INFORMAÇÃO LTDA EPP",
+    "objeto": "Fornecimento de subscrição Elastic Cloud Enterprise, com suporte e garantia de atualização de versões.",
+    "fim": "2026-11-07"
+  },
+  {
+    "numero": "ARP n. 19/2025 - TRF1 (id. 0813048)",
+    "contratada": "DATAGROUP TECNOLOGIA DA INFORMACAO LTDA",
+    "objeto": "Aquisição de solução de Gerenciamento de Serviços Corporativos de TI - GSC",
+    "fim": "2027-01-04"
+  },
+  {
+    "numero": "ARP n. 07/2026 - STJ (id. xxx)",
+    "contratada": "GLOBAL RED TECNOLOGIA DA INFORMAÇÃO LTDA - EPP",
+    "objeto": "Contratação de solução de APM (Application Performance Monitoring)",
+    "fim": "2027-06-02"
+  },
+  {
+    "numero": "ARP n. 001/2026 (id. 0877915)",
+    "contratada": "BB TECNOLOGIA E SERVIÇOS S.A",
+    "objeto": "Aquisição de subscrições de solução integrada SUSE",
+    "fim": "2027-06-22"
+  },
+  {
+    "numero": "ARP n. 08/2026 - STJ (id. xxx)",
+    "contratada": "CHAIN TECNOLOGIA E SERVIÇOS LTDA",
+    "objeto": "Solução Red Hat de orquestração e gerenciamento de contêineres, na modalidade subscrição, com prestação de serviços de instalação, configuração, migração, suporte técnico e treinamento.",
+    "fim": null
+  }
+]
