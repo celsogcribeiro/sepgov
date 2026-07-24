@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Monitoramento STI — Contratos e ARPs</title>
 <style>
-
 :root{--bg:#f5f4f0;--sf:#fff;--sf2:#f0efe9;--bd:#dddbd3;--tx:#1a1917;--mu:#6b6960;--fa:#9e9c95;--ac:#1a3a5c;--acl:#e8edf3;--al:#92400e;--albg:#fef3c7;--vg:#14532d;--vgbg:#dcfce7;--en:#4b4b4b;--enbg:#efefef;--r:6px;--rl:10px;--mo:'IBM Plex Mono',monospace;--sa:'IBM Plex Sans',sans-serif;--hh:56px;--th:40px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-padding-top:calc(var(--hh) + var(--th) + 4px)}
@@ -79,150 +78,209 @@ td.wrap{white-space:normal;line-height:1.3}
 .legend{display:flex;gap:1.5rem;margin-top:1rem;font-size:11px;color:var(--fa);font-family:var(--mo);align-items:center;flex-wrap:wrap}
 .li{display:flex;align-items:center;gap:6px}
 .ld{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}.field input{width:150px}.field select{width:140px}}
-
-
-/* ── Abas ── */
-.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:2px solid var(--bd);padding-bottom:0}
-.tab-btn{padding:10px 24px;border:none;background:none;cursor:pointer;font-size:.95rem;font-weight:600;color:var(--mu);border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
+/* Abas */
+.tabs{display:flex;gap:0;margin-bottom:1.5rem;border-bottom:2px solid var(--bd)}
+.tab-btn{padding:10px 28px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--mu);border-bottom:3px solid transparent;margin-bottom:-2px;font-family:var(--sa);transition:color .15s,border-color .15s;letter-spacing:-.01em}
 .tab-btn:hover{color:var(--ac)}
 .tab-btn.active{color:var(--ac);border-bottom-color:var(--ac)}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}.field input{width:150px}.field select{width:140px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="hw">
-    <div class="hl">
-      <div class="hico">STI</div>
-      <div>
-        <div class="htitle">Monitoramento de Contratos e ARPs</div>
-        <div class="hsub">Secretaria de Tecnologia da Informação — CJF</div>
-      </div>
-    </div>
-    <div class="hright">
-      <div class="hdate-wrap">Data atual: <strong id="hdate"></strong></div>
+  <div class="logo">
+    <div class="lm">STI</div>
+    <div>
+      <div class="lt">Monitoramento de Contratos e ARPs</div>
+      <div class="ls">Secretaria de Tecnologia da Informação — CJF</div>
     </div>
   </div>
+  <div class="hd" id="hdate"></div>
 </header>
 
-<main>
-  <!-- Abas -->
+<div class="main">
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('ctr')">Contratos</button>
     <button class="tab-btn" onclick="switchTab('arp')">ARPs</button>
   </div>
 
-  <!-- ═══════════════ ABA CONTRATOS ═══════════════ -->
+  <!-- ═══ ABA CONTRATOS ═══ -->
   <div class="tab-panel active" id="tab-ctr">
-    <div class="cards" id="cards-ctr">
-      <div class="card" id="card-todos" onclick="setFilter('todos')">
-        <div class="cv"><span id="st-tot">—</span></div>
-        <div class="cl">Total</div>
+    <div class="stats">
+      <div class="sc tot" onclick="setFilter('todos')" id="card-todos">
+        <div class="sl">Total</div>
+        <div class="sv" id="st-tot">—</div>
+        <div class="sc-hint">clique para ver todos</div>
       </div>
-      <div class="card cv-v" id="card-vigente" onclick="setFilter('vigente')">
-        <div class="cv"><span id="st-vig">—</span></div>
-        <div class="cl">Vigentes</div>
+      <div class="sc vig" onclick="setFilter('vigente')" id="card-vigente">
+        <div class="sl">Vigentes</div>
+        <div class="sv" id="st-vig">—</div>
+        <div class="sc-hint">inclui os em alerta</div>
       </div>
-      <div class="card cv-e" id="card-encerrado" onclick="setFilter('encerrado')">
-        <div class="cv"><span id="st-enc">—</span></div>
-        <div class="cl">Encerrados</div>
+      <div class="sc enc" onclick="setFilter('encerrado')" id="card-encerrado">
+        <div class="sl">Encerrados</div>
+        <div class="sv" id="st-enc">—</div>
+        <div class="sc-hint">fim da vigência &lt; hoje</div>
       </div>
-      <div class="card cv-a" id="card-alerta" onclick="setFilter('alerta')">
-        <div class="cv"><span id="st-alt">—</span></div>
-        <div class="cl">Em Alerta</div>
+      <div class="sc alt" onclick="setFilter('alerta')" id="card-alerta">
+        <div class="sl">Em alerta (≤195 dias)</div>
+        <div class="sv" id="st-alt">—</div>
+        <div class="sc-hint">vigentes que vencem em breve</div>
       </div>
     </div>
 
-    <div class="filters">
-      <input type="text" id="search" placeholder="Buscar contrato, empresa ou objeto…" autocomplete="off">
-      <select id="fS"><option value="todos">Todos os status</option><option value="vigente">Vigentes</option><option value="encerrado">Encerrados</option><option value="alerta">Em alerta</option></select>
-      <select id="fA"><option value="">Todos os anos</option></select>
-      <select id="fU"><option value="">Todas as unidades</option></select>
-      <button class="btn-clear" onclick="clearF()">Limpar filtros</button>
+    <div class="toolbar">
+      <div class="field">
+        <label>Buscar</label>
+        <input type="text" id="search" placeholder="Nº, contratada, objeto…">
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <select id="fS">
+          <option value="todos">Todos</option>
+          <option value="vigente">Vigentes</option>
+          <option value="encerrado">Encerrados</option>
+          <option value="alerta">Em alerta</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Ano</label>
+        <select id="fA"><option value="">Todos</option></select>
+      </div>
+      <div class="field">
+        <label>Orçamento</label>
+        <select id="fU"><option value="">Todos</option></select>
+      </div>
+      <button class="btn" onclick="clearF()">Limpar filtros</button>
     </div>
 
-    <div class="rinfo-bar"><span id="rinfo">Carregando dados…</span><span id="udate" class="udate"></span></div>
+    <div class="rinfo" id="rinfo"></div>
 
-    <div class="table-wrap" id="table-wrap">
+    <div class="tw" id="table-wrap">
       <table>
+        <colgroup>
+          <col style="width:110px">
+          <col style="width:200px">
+          <col style="width:70px">
+          <col>
+          <col style="width:100px">
+          <col style="width:80px">
+          <col style="width:100px">
+        </colgroup>
         <thead>
           <tr>
-            <th id="h-ano" onclick="sort('ano')">Ano <span class="si" id="si-ano"></span></th>
-            <th id="h-numero" onclick="sort('numero')">Nº Contrato <span class="si" id="si-numero"></span></th>
-            <th id="h-contratada" onclick="sort('contratada')">Contratada <span class="si" id="si-contratada"></span></th>
-            <th id="h-unidade" onclick="sort('unidade')">Unidade <span class="si" id="si-unidade"></span></th>
-            <th id="h-objeto" onclick="sort('objeto')">Objeto <span class="si" id="si-objeto"></span></th>
-            <th id="h-fim_vigencia" onclick="sort('fim_vigencia')">Fim Vigência <span class="si" id="si-fim_vigencia"></span></th>
-            <th id="h-dias_restantes" onclick="sort('dias_restantes')">Dias <span class="si" id="si-dias_restantes"></span></th>
-            <th>Status</th>
+            <th onclick="sort('ano')" id="h-ano">Ano / Nº <i class="si" id="si-ano"></i></th>
+            <th onclick="sort('contratada')" id="h-contratada">Contratada <i class="si" id="si-contratada"></i></th>
+            <th onclick="sort('unidade')" id="h-unidade">Orç. <i class="si" id="si-unidade"></i></th>
+            <th onclick="sort('objeto')" id="h-objeto">Objeto <i class="si" id="si-objeto"></i></th>
+            <th onclick="sort('fim_vigencia')" id="h-fim_vigencia">Fim vigência <i class="si" id="si-fim_vigencia"></i></th>
+            <th onclick="sort('dias_restantes')" id="h-dias_restantes" style="text-align:right">Dias <i class="si" id="si-dias_restantes"></i></th>
+            <th onclick="sort('status')" id="h-status">Status <i class="si" id="si-status"></i></th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
       </table>
-      <div class="empty" id="empty" style="display:none">Nenhum contrato encontrado para os filtros aplicados.</div>
+      <div class="empty" id="empty">Nenhum contrato encontrado.</div>
+      <div class="pag" id="pag" style="display:none"></div>
     </div>
-    <div class="pag" id="pag"></div>
+
+    <div class="legend">
+      <span>Legenda:</span>
+      <span class="li"><span class="ld" style="background:#22c55e"></span>Vigente (prazo normal)</span>
+      <span class="li"><span class="ld" style="background:#f59e0b"></span>Em alerta — vence em até 195 dias</span>
+      <span class="li"><span class="ld" style="background:#94a3b8"></span>Encerrado</span>
+      <span style="margin-left:auto">Fonte: Consolidado - CTRs &nbsp;|&nbsp; <span id="udate"></span></span>
+    </div>
   </div>
 
-  <!-- ═══════════════ ABA ARPs ═══════════════ -->
+  <!-- ═══ ABA ARPs ═══ -->
   <div class="tab-panel" id="tab-arp">
-    <div class="cards">
-      <div class="card" id="arp-card-todos" onclick="arpSetFilter('todos')">
-        <div class="cv"><span id="arp-st-tot">—</span></div>
-        <div class="cl">Total</div>
+    <div class="stats">
+      <div class="sc tot" onclick="arpSetFilter('todos')" id="arp-card-todos">
+        <div class="sl">Total</div>
+        <div class="sv" id="arp-st-tot">—</div>
+        <div class="sc-hint">clique para ver todas</div>
       </div>
-      <div class="card cv-v" id="arp-card-vigente" onclick="arpSetFilter('vigente')">
-        <div class="cv"><span id="arp-st-vig">—</span></div>
-        <div class="cl">Vigentes</div>
+      <div class="sc vig" onclick="arpSetFilter('vigente')" id="arp-card-vigente">
+        <div class="sl">Vigentes</div>
+        <div class="sv" id="arp-st-vig">—</div>
+        <div class="sc-hint">inclui as em alerta</div>
       </div>
-      <div class="card cv-e" id="arp-card-encerrado" onclick="arpSetFilter('encerrado')">
-        <div class="cv"><span id="arp-st-enc">—</span></div>
-        <div class="cl">Encerradas</div>
+      <div class="sc enc" onclick="arpSetFilter('encerrado')" id="arp-card-encerrado">
+        <div class="sl">Encerradas</div>
+        <div class="sv" id="arp-st-enc">—</div>
+        <div class="sc-hint">fim da vigência &lt; hoje</div>
       </div>
-      <div class="card cv-a" id="arp-card-alerta" onclick="arpSetFilter('alerta')">
-        <div class="cv"><span id="arp-st-alt">—</span></div>
-        <div class="cl">Em Alerta</div>
+      <div class="sc alt" onclick="arpSetFilter('alerta')" id="arp-card-alerta">
+        <div class="sl">Em alerta (≤195 dias)</div>
+        <div class="sv" id="arp-st-alt">—</div>
+        <div class="sc-hint">vigentes que vencem em breve</div>
       </div>
     </div>
 
-    <div class="filters">
-      <input type="text" id="arp-search" placeholder="Buscar ARP, empresa ou objeto…" autocomplete="off">
-      <select id="arp-fS"><option value="todos">Todos os status</option><option value="vigente">Vigentes</option><option value="encerrado">Encerradas</option><option value="alerta">Em alerta</option></select>
-      <button class="btn-clear" onclick="arpClearF()">Limpar filtros</button>
+    <div class="toolbar">
+      <div class="field">
+        <label>Buscar</label>
+        <input type="text" id="arp-search" placeholder="Nº ARP, contratada, objeto…">
+      </div>
+      <div class="field">
+        <label>Status</label>
+        <select id="arp-fS">
+          <option value="todos">Todos</option>
+          <option value="vigente">Vigentes</option>
+          <option value="encerrado">Encerradas</option>
+          <option value="alerta">Em alerta</option>
+        </select>
+      </div>
+      <button class="btn" onclick="arpClearF()">Limpar filtros</button>
     </div>
 
-    <div class="rinfo-bar"><span id="arp-rinfo">Carregando dados…</span></div>
+    <div class="rinfo" id="arp-rinfo"></div>
 
-    <div class="table-wrap">
+    <div class="tw">
       <table>
+        <colgroup>
+          <col style="width:200px">
+          <col style="width:180px">
+          <col>
+          <col style="width:100px">
+          <col style="width:80px">
+          <col style="width:110px">
+        </colgroup>
         <thead>
           <tr>
-            <th id="arp-h-numero" onclick="arpSort('numero')">Nº ARP <span class="si" id="arp-si-numero"></span></th>
-            <th id="arp-h-contratada" onclick="arpSort('contratada')">Contratada <span class="si" id="arp-si-contratada"></span></th>
-            <th id="arp-h-objeto" onclick="arpSort('objeto')">Objeto <span class="si" id="arp-si-objeto"></span></th>
-            <th id="arp-h-fim_vigencia" onclick="arpSort('fim_vigencia')">Fim Vigência <span class="si" id="arp-si-fim_vigencia"></span></th>
-            <th id="arp-h-dias_restantes" onclick="arpSort('dias_restantes')">Dias <span class="si" id="arp-si-dias_restantes"></span></th>
-            <th>Status</th>
+            <th onclick="arpSort('numero')" id="arp-h-numero">Nº ARP <i class="si" id="arp-si-numero"></i></th>
+            <th onclick="arpSort('contratada')" id="arp-h-contratada">Contratada <i class="si" id="arp-si-contratada"></i></th>
+            <th onclick="arpSort('objeto')" id="arp-h-objeto">Objeto <i class="si" id="arp-si-objeto"></i></th>
+            <th onclick="arpSort('fim_vigencia')" id="arp-h-fim_vigencia">Fim vigência <i class="si" id="arp-si-fim_vigencia"></i></th>
+            <th onclick="arpSort('dias_restantes')" id="arp-h-dias_restantes" style="text-align:right">Dias <i class="si" id="arp-si-dias_restantes"></i></th>
+            <th onclick="arpSort('status')" id="arp-h-status">Status <i class="si" id="arp-si-status"></i></th>
           </tr>
         </thead>
         <tbody id="arp-tbody"></tbody>
       </table>
-      <div class="empty" id="arp-empty" style="display:none">Nenhuma ARP encontrada.</div>
+      <div class="empty" id="arp-empty">Nenhuma ARP encontrada.</div>
+      <div class="pag" id="arp-pag" style="display:none"></div>
     </div>
-    <div class="pag" id="arp-pag"></div>
-  </div>
-</main>
 
-<footer><div class="fw"><span id="fudate"></span></div></footer>
+    <div class="legend">
+      <span>Legenda:</span>
+      <span class="li"><span class="ld" style="background:#22c55e"></span>Vigente (prazo normal)</span>
+      <span class="li"><span class="ld" style="background:#f59e0b"></span>Em alerta — vence em até 195 dias</span>
+      <span class="li"><span class="ld" style="background:#94a3b8"></span>Encerrada</span>
+      <span style="margin-left:auto">Fonte: Consolidado - ARPs</span>
+    </div>
+  </div>
+</div>
 
 <script>
 const THRESHOLD = 195;
 
 function calcToday() { const d = new Date(); d.setHours(0,0,0,0); return d; }
 
-function enrich(raw, hasAno) {
+function enrich(raw) {
   const today = calcToday();
   const alertLimit = new Date(today.getTime() + THRESHOLD * 86400000);
   return raw.map(r => {
@@ -241,12 +299,6 @@ function enrich(raw, hasAno) {
   });
 }
 
-function fmtD(d) { return d.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'}); }
-function showError(id, msg) {
-  document.getElementById(id).textContent = '⚠ ' + msg;
-  document.getElementById(id).style.color = 'var(--al)';
-}
-
 // ── Abas ──
 function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='ctr')||(i===1&&tab==='arp')));
@@ -254,10 +306,10 @@ function switchTab(tab) {
   document.getElementById('tab-arp').classList.toggle('active', tab==='arp');
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════
 // CONTRATOS
-// ══════════════════════════════════════════
-let _CTR = [], ctrPage=1, ctrSKey='dias_restantes', ctrSDir=1, ctrFilter='todos';
+// ══════════════════════════════
+let _CTR=[], ctrPage=1, ctrSKey='dias_restantes', ctrSDir=1;
 
 function setupContratos(RAW) {
   _CTR = enrich(RAW);
@@ -271,8 +323,8 @@ function setupContratos(RAW) {
 }
 
 function setFilter(f) {
-  ctrFilter=f; document.getElementById('fS').value=f;
-  ['todos','vigente','encerrado','alerta'].forEach(k=>{const el=document.getElementById('card-'+k);if(el)el.classList.toggle('active-filter',k===f);});
+  document.getElementById('fS').value=f;
+  ['todos','vigente','encerrado','alerta'].forEach(k=>{ const el=document.getElementById('card-'+k); if(el)el.classList.toggle('active-filter',k===f); });
   ctrPage=1; ctrRender();
 }
 
@@ -304,7 +356,7 @@ function ctrDoSort(arr) {
 }
 
 function sort(k) {
-  if(ctrSKey===k)ctrSDir*=-1;else{ctrSKey=k;ctrSDir=1;}
+  if(ctrSKey===k)ctrSDir*=-1; else{ctrSKey=k;ctrSDir=1;}
   document.querySelectorAll('#tab-ctr thead th').forEach(t=>t.classList.remove('sorted'));
   document.getElementById('h-'+k).classList.add('sorted');
   document.querySelectorAll('#tab-ctr .si').forEach(e=>e.textContent='');
@@ -319,8 +371,7 @@ function clearF() {
   document.getElementById('fS').value='todos';
   document.getElementById('fA').value='';
   document.getElementById('fU').value='';
-  ctrFilter='todos';
-  ['todos','vigente','encerrado','alerta'].forEach(k=>{const el=document.getElementById('card-'+k);if(el)el.classList.remove('active-filter');});
+  ['todos','vigente','encerrado','alerta'].forEach(k=>{ const el=document.getElementById('card-'+k); if(el)el.classList.remove('active-filter'); });
   ctrPage=1; ctrRender();
 }
 
@@ -353,9 +404,9 @@ function ctrRender() {
       else if(c.status==='vigente')dias=`<span class="dok">${d}d</span>`;
       else dias=`<span class="de">${d}d</span>`;
     }
+    const numParts=c.numero.split('(');
     return `<tr class="${c.alert?'ra':''}">
-      <td class="tnum">${c.ano}</td>
-      <td class="tnum wrap" title="${c.numero}">${c.numero}</td>
+      <td class="tnum">${c.ano}<br>${numParts[0].trim()}${numParts[1]?'<br><span style="opacity:.6">('+numParts[1]:''}${numParts[1]?'</span>':''}</td>
       <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
       <td class="tuni">${c.unidade}</td>
       <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
@@ -376,10 +427,10 @@ function ctrRender() {
   pag.innerHTML=ph;
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════
 // ARPs
-// ══════════════════════════════════════════
-let _ARP=[], arpPage=1, arpSKey='dias_restantes', arpSDir=1, arpFilter='todos';
+// ══════════════════════════════
+let _ARP=[], arpPage=1, arpSKey='dias_restantes', arpSDir=1;
 
 function setupArps(RAW) {
   _ARP = enrich(RAW);
@@ -389,8 +440,8 @@ function setupArps(RAW) {
 }
 
 function arpSetFilter(f) {
-  arpFilter=f; document.getElementById('arp-fS').value=f;
-  ['todos','vigente','encerrado','alerta'].forEach(k=>{const el=document.getElementById('arp-card-'+k);if(el)el.classList.toggle('active-filter',k===f);});
+  document.getElementById('arp-fS').value=f;
+  ['todos','vigente','encerrado','alerta'].forEach(k=>{ const el=document.getElementById('arp-card-'+k); if(el)el.classList.toggle('active-filter',k===f); });
   arpPage=1; arpRender();
 }
 
@@ -418,7 +469,7 @@ function arpDoSort(arr) {
 }
 
 function arpSort(k) {
-  if(arpSKey===k)arpSDir*=-1;else{arpSKey=k;arpSDir=1;}
+  if(arpSKey===k)arpSDir*=-1; else{arpSKey=k;arpSDir=1;}
   document.querySelectorAll('#tab-arp thead th').forEach(t=>t.classList.remove('sorted'));
   document.getElementById('arp-h-'+k).classList.add('sorted');
   document.querySelectorAll('#tab-arp .si').forEach(e=>e.textContent='');
@@ -431,8 +482,7 @@ function arpGp(n){arpPage=n;arpRender();}
 function arpClearF() {
   document.getElementById('arp-search').value='';
   document.getElementById('arp-fS').value='todos';
-  arpFilter='todos';
-  ['todos','vigente','encerrado','alerta'].forEach(k=>{const el=document.getElementById('arp-card-'+k);if(el)el.classList.remove('active-filter');});
+  ['todos','vigente','encerrado','alerta'].forEach(k=>{ const el=document.getElementById('arp-card-'+k); if(el)el.classList.remove('active-filter'); });
   arpPage=1; arpRender();
 }
 
@@ -486,31 +536,25 @@ function arpRender() {
   pag.innerHTML=ph;
 }
 
-// ══════════════════════════════════════════
+// ══════════════════════════════
 // INIT
-// ══════════════════════════════════════════
+// ══════════════════════════════
 async function init() {
   const today = calcToday();
-  document.getElementById('hdate').textContent = fmtD(today);
+  document.getElementById('hdate').textContent = today.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
   const now = new Date();
   const diaAtual = String(now.getDate()).padStart(2,'0')+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear();
-  const txt = 'Planilha carregada em '+diaAtual+' — vigências recalculadas a cada abertura';
-  if(document.getElementById('udate')) document.getElementById('udate').textContent = txt;
-  if(document.getElementById('fudate')) document.getElementById('fudate').textContent = txt;
-
+  document.getElementById('udate').textContent = 'Atualizado em '+diaAtual+' — vigências recalculadas a cada abertura';
   try {
-    const [rCtr, rArp] = await Promise.all([
-      fetch('contratos.json?v='+Date.now()),
-      fetch('arps.json?v='+Date.now())
-    ]);
-    if(!rCtr.ok) throw new Error('contratos.json HTTP '+rCtr.status);
-    if(!rArp.ok) throw new Error('arps.json HTTP '+rArp.status);
-    const [ctr, arp] = await Promise.all([rCtr.json(), rArp.json()]);
+    const [rC, rA] = await Promise.all([fetch('contratos.json?v='+Date.now()), fetch('arps.json?v='+Date.now())]);
+    if(!rC.ok) throw new Error('contratos.json HTTP '+rC.status);
+    if(!rA.ok) throw new Error('arps.json HTTP '+rA.status);
+    const [ctr, arp] = await Promise.all([rC.json(), rA.json()]);
     setupContratos(ctr);
     setupArps(arp);
   } catch(e) {
-    showError('rinfo', 'Erro ao carregar dados: '+e.message);
-    showError('arp-rinfo', 'Erro ao carregar dados: '+e.message);
+    document.getElementById('rinfo').textContent = '⚠ Erro ao carregar dados: '+e.message;
+    document.getElementById('arp-rinfo').textContent = '⚠ Erro ao carregar dados: '+e.message;
     console.error(e);
   }
 }
