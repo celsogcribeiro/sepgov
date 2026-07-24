@@ -2,11 +2,10 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Monitoramento de Contratos STI — CJF</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monitoramento STI — Contratos e ARPs</title>
 <style>
+
 :root{--bg:#f5f4f0;--sf:#fff;--sf2:#f0efe9;--bd:#dddbd3;--tx:#1a1917;--mu:#6b6960;--fa:#9e9c95;--ac:#1a3a5c;--acl:#e8edf3;--al:#92400e;--albg:#fef3c7;--vg:#14532d;--vgbg:#dcfce7;--en:#4b4b4b;--enbg:#efefef;--r:6px;--rl:10px;--mo:'IBM Plex Mono',monospace;--sa:'IBM Plex Sans',sans-serif;--hh:56px;--th:40px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-padding-top:calc(var(--hh) + var(--th) + 4px)}
@@ -81,311 +80,447 @@ td.wrap{white-space:normal;line-height:1.3}
 .li{display:flex;align-items:center;gap:6px}
 .ld{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 @media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}.field input{width:150px}.field select{width:140px}}
+
+
+/* ── Abas ── */
+.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:2px solid var(--bd);padding-bottom:0}
+.tab-btn{padding:10px 24px;border:none;background:none;cursor:pointer;font-size:.95rem;font-weight:600;color:var(--mu);border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
+.tab-btn:hover{color:var(--ac)}
+.tab-btn.active{color:var(--ac);border-bottom-color:var(--ac)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">
-    <div class="lm">STI</div>
-    <div>
-      <div class="lt">Monitoramento de Contratos</div>
-      <div class="ls">Secretaria de Tecnologia da Informação — CJF</div>
+  <div class="hw">
+    <div class="hl">
+      <div class="hico">STI</div>
+      <div>
+        <div class="htitle">Monitoramento de Contratos e ARPs</div>
+        <div class="hsub">Secretaria de Tecnologia da Informação — CJF</div>
+      </div>
+    </div>
+    <div class="hright">
+      <div class="hdate-wrap">Data atual: <strong id="hdate"></strong></div>
     </div>
   </div>
-  <div class="hd" id="hdate"></div>
 </header>
 
-<div class="main">
-  <div class="stats">
-    <div class="sc tot" onclick="setFilter('todos')" id="card-todos">
-      <div class="sl">Total</div>
-      <div class="sv" id="st-tot">—</div>
-      <div class="sc-hint">clique para ver todos</div>
-    </div>
-    <div class="sc vig" onclick="setFilter('vigente')" id="card-vigente">
-      <div class="sl">Vigentes</div>
-      <div class="sv" id="st-vig">—</div>
-      <div class="sc-hint">inclui os em alerta</div>
-    </div>
-    <div class="sc enc" onclick="setFilter('encerrado')" id="card-encerrado">
-      <div class="sl">Encerrados</div>
-      <div class="sv" id="st-enc">—</div>
-      <div class="sc-hint">fim da vigência < hoje</div>
-    </div>
-    <div class="sc alt" onclick="setFilter('alerta')" id="card-alerta">
-      <div class="sl">Em alerta (≤195 dias)</div>
-      <div class="sv" id="st-alt">—</div>
-      <div class="sc-hint">vigentes que vencem em breve</div>
-    </div>
+<main>
+  <!-- Abas -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('ctr')">Contratos</button>
+    <button class="tab-btn" onclick="switchTab('arp')">ARPs</button>
   </div>
 
-  <div class="toolbar">
-    <div class="field">
-      <label>Buscar</label>
-      <input type="text" id="search" placeholder="Nº, contratada, objeto…">
+  <!-- ═══════════════ ABA CONTRATOS ═══════════════ -->
+  <div class="tab-panel active" id="tab-ctr">
+    <div class="cards" id="cards-ctr">
+      <div class="card" id="card-todos" onclick="setFilter('todos')">
+        <div class="cv"><span id="st-tot">—</span></div>
+        <div class="cl">Total</div>
+      </div>
+      <div class="card cv-v" id="card-vigente" onclick="setFilter('vigente')">
+        <div class="cv"><span id="st-vig">—</span></div>
+        <div class="cl">Vigentes</div>
+      </div>
+      <div class="card cv-e" id="card-encerrado" onclick="setFilter('encerrado')">
+        <div class="cv"><span id="st-enc">—</span></div>
+        <div class="cl">Encerrados</div>
+      </div>
+      <div class="card cv-a" id="card-alerta" onclick="setFilter('alerta')">
+        <div class="cv"><span id="st-alt">—</span></div>
+        <div class="cl">Em Alerta</div>
+      </div>
     </div>
-    <div class="field">
-      <label>Status</label>
-      <select id="fS">
-        <option value="todos">Todos</option>
-        <option value="vigente">Vigentes</option>
-        <option value="encerrado">Encerrados</option>
-        <option value="alerta">Em alerta</option>
-      </select>
+
+    <div class="filters">
+      <input type="text" id="search" placeholder="Buscar contrato, empresa ou objeto…" autocomplete="off">
+      <select id="fS"><option value="todos">Todos os status</option><option value="vigente">Vigentes</option><option value="encerrado">Encerrados</option><option value="alerta">Em alerta</option></select>
+      <select id="fA"><option value="">Todos os anos</option></select>
+      <select id="fU"><option value="">Todas as unidades</option></select>
+      <button class="btn-clear" onclick="clearF()">Limpar filtros</button>
     </div>
-    <div class="field">
-      <label>Ano</label>
-      <select id="fA"><option value="">Todos</option></select>
+
+    <div class="rinfo-bar"><span id="rinfo">Carregando dados…</span><span id="udate" class="udate"></span></div>
+
+    <div class="table-wrap" id="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th id="h-ano" onclick="sort('ano')">Ano <span class="si" id="si-ano"></span></th>
+            <th id="h-numero" onclick="sort('numero')">Nº Contrato <span class="si" id="si-numero"></span></th>
+            <th id="h-contratada" onclick="sort('contratada')">Contratada <span class="si" id="si-contratada"></span></th>
+            <th id="h-unidade" onclick="sort('unidade')">Unidade <span class="si" id="si-unidade"></span></th>
+            <th id="h-objeto" onclick="sort('objeto')">Objeto <span class="si" id="si-objeto"></span></th>
+            <th id="h-fim_vigencia" onclick="sort('fim_vigencia')">Fim Vigência <span class="si" id="si-fim_vigencia"></span></th>
+            <th id="h-dias_restantes" onclick="sort('dias_restantes')">Dias <span class="si" id="si-dias_restantes"></span></th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="empty" style="display:none">Nenhum contrato encontrado para os filtros aplicados.</div>
     </div>
-    <div class="field">
-      <label>Orçamento</label>
-      <select id="fU"><option value="">Todos</option></select>
-    </div>
-    <button class="btn" onclick="clearF()">Limpar filtros</button>
+    <div class="pag" id="pag"></div>
   </div>
 
-  <div class="rinfo" id="rinfo"></div>
+  <!-- ═══════════════ ABA ARPs ═══════════════ -->
+  <div class="tab-panel" id="tab-arp">
+    <div class="cards">
+      <div class="card" id="arp-card-todos" onclick="arpSetFilter('todos')">
+        <div class="cv"><span id="arp-st-tot">—</span></div>
+        <div class="cl">Total</div>
+      </div>
+      <div class="card cv-v" id="arp-card-vigente" onclick="arpSetFilter('vigente')">
+        <div class="cv"><span id="arp-st-vig">—</span></div>
+        <div class="cl">Vigentes</div>
+      </div>
+      <div class="card cv-e" id="arp-card-encerrado" onclick="arpSetFilter('encerrado')">
+        <div class="cv"><span id="arp-st-enc">—</span></div>
+        <div class="cl">Encerradas</div>
+      </div>
+      <div class="card cv-a" id="arp-card-alerta" onclick="arpSetFilter('alerta')">
+        <div class="cv"><span id="arp-st-alt">—</span></div>
+        <div class="cl">Em Alerta</div>
+      </div>
+    </div>
 
-  <div class="tw" id="table-wrap">
-    <table>
-      <colgroup>
-        <col style="width:110px">
-        <col style="width:200px">
-        <col style="width:70px">
-        <col>
-        <col style="width:100px">
-        <col style="width:80px">
-        <col style="width:100px">
-      </colgroup>
-      <thead>
-        <tr>
-          <th onclick="sort('ano')" id="h-ano">Ano / Nº <i class="si" id="si-ano"></i></th>
-          <th onclick="sort('contratada')" id="h-contratada">Contratada <i class="si" id="si-contratada"></i></th>
-          <th onclick="sort('unidade')" id="h-unidade">Orç. <i class="si" id="si-unidade"></i></th>
-          <th onclick="sort('objeto')" id="h-objeto">Objeto <i class="si" id="si-objeto"></i></th>
-          <th onclick="sort('fim_vigencia')" id="h-fim_vigencia">Fim vigência <i class="si" id="si-fim_vigencia"></i></th>
-          <th onclick="sort('dias_restantes')" id="h-dias_restantes" style="text-align:right">Dias <i class="si" id="si-dias_restantes"></i></th>
-          <th onclick="sort('status')" id="h-status">Status <i class="si" id="si-status"></i></th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-    </table>
-    <div class="empty" id="empty">Nenhum contrato encontrado.</div>
-    <div class="pag" id="pag" style="display:none"></div>
+    <div class="filters">
+      <input type="text" id="arp-search" placeholder="Buscar ARP, empresa ou objeto…" autocomplete="off">
+      <select id="arp-fS"><option value="todos">Todos os status</option><option value="vigente">Vigentes</option><option value="encerrado">Encerradas</option><option value="alerta">Em alerta</option></select>
+      <button class="btn-clear" onclick="arpClearF()">Limpar filtros</button>
+    </div>
+
+    <div class="rinfo-bar"><span id="arp-rinfo">Carregando dados…</span></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th id="arp-h-numero" onclick="arpSort('numero')">Nº ARP <span class="si" id="arp-si-numero"></span></th>
+            <th id="arp-h-contratada" onclick="arpSort('contratada')">Contratada <span class="si" id="arp-si-contratada"></span></th>
+            <th id="arp-h-objeto" onclick="arpSort('objeto')">Objeto <span class="si" id="arp-si-objeto"></span></th>
+            <th id="arp-h-fim_vigencia" onclick="arpSort('fim_vigencia')">Fim Vigência <span class="si" id="arp-si-fim_vigencia"></span></th>
+            <th id="arp-h-dias_restantes" onclick="arpSort('dias_restantes')">Dias <span class="si" id="arp-si-dias_restantes"></span></th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="arp-tbody"></tbody>
+      </table>
+      <div class="empty" id="arp-empty" style="display:none">Nenhuma ARP encontrada.</div>
+    </div>
+    <div class="pag" id="arp-pag"></div>
   </div>
+</main>
 
-  <div class="legend">
-    <span>Legenda:</span>
-    <span class="li"><span class="ld" style="background:#22c55e"></span>Vigente (prazo normal)</span>
-    <span class="li"><span class="ld" style="background:#f59e0b"></span>Em alerta — vence em até 195 dias (contado nos vigentes e nos alertas)</span>
-    <span class="li"><span class="ld" style="background:#94a3b8"></span>Encerrado</span>
-    <span style="margin-left:auto">Fonte: Consolidado - CTRs &nbsp;|&nbsp; <span id="udate"></span></span>
-  </div>
-</div>
+<footer><div class="fw"><span id="fudate"></span></div></footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
-function showError(msg) {
-  document.getElementById('rinfo').textContent = '⚠ ' + msg;
-  document.getElementById('rinfo').style.color = 'var(--al)';
+const THRESHOLD = 195;
+
+function calcToday() { const d = new Date(); d.setHours(0,0,0,0); return d; }
+
+function enrich(raw, hasAno) {
+  const today = calcToday();
+  const alertLimit = new Date(today.getTime() + THRESHOLD * 86400000);
+  return raw.map(r => {
+    const c = Object.assign({}, r);
+    if (c.fim) {
+      const fim = new Date(c.fim + 'T00:00:00');
+      const diff = Math.round((fim - today) / 86400000);
+      c.dias_restantes = diff;
+      c.status = fim >= today ? 'vigente' : 'encerrado';
+      c.alert = c.status === 'vigente' && fim <= alertLimit;
+      c.fim_vigencia = fim.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'});
+    } else {
+      c.dias_restantes = null; c.status = 'encerrado'; c.alert = false; c.fim_vigencia = '-';
+    }
+    return c;
+  });
 }
 
+function fmtD(d) { return d.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'}); }
+function showError(id, msg) {
+  document.getElementById(id).textContent = '⚠ ' + msg;
+  document.getElementById(id).style.color = 'var(--al)';
+}
+
+// ── Abas ──
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='ctr')||(i===1&&tab==='arp')));
+  document.getElementById('tab-ctr').classList.toggle('active', tab==='ctr');
+  document.getElementById('tab-arp').classList.toggle('active', tab==='arp');
+}
+
+// ══════════════════════════════════════════
+// CONTRATOS
+// ══════════════════════════════════════════
+let _CTR = [], ctrPage=1, ctrSKey='dias_restantes', ctrSDir=1, ctrFilter='todos';
+
+function setupContratos(RAW) {
+  _CTR = enrich(RAW);
+  const anos = [...new Set(RAW.map(d=>d.ano))].sort();
+  anos.forEach(a=>{ const o=document.createElement('option');o.value=a;o.textContent=a;document.getElementById('fA').appendChild(o); });
+  const unis = [...new Set(RAW.map(d=>d.unidade).filter(b=>b&&b!=='-'))].sort();
+  unis.forEach(u=>{ const o=document.createElement('option');o.value=u;o.textContent=u;document.getElementById('fU').appendChild(o); });
+  document.getElementById('si-dias_restantes').textContent='↑';
+  document.getElementById('h-dias_restantes').classList.add('sorted');
+  ctrRender();
+}
+
+function setFilter(f) {
+  ctrFilter=f; document.getElementById('fS').value=f;
+  ['todos','vigente','encerrado','alerta'].forEach(k=>{const el=document.getElementById('card-'+k);if(el)el.classList.toggle('active-filter',k===f);});
+  ctrPage=1; ctrRender();
+}
+
+function ctrApplyF() {
+  const q=document.getElementById('search').value.trim().toLowerCase();
+  const fS=document.getElementById('fS').value;
+  const fA=document.getElementById('fA').value;
+  const fU=document.getElementById('fU').value;
+  return _CTR.filter(c=>{
+    if(fA&&c.ano!==fA)return false;
+    if(fU&&c.unidade!==fU)return false;
+    if(fS==='vigente'&&c.status!=='vigente')return false;
+    if(fS==='encerrado'&&c.status!=='encerrado')return false;
+    if(fS==='alerta'&&!c.alert)return false;
+    if(q&&![c.numero,c.contratada,c.objeto,c.unidade].some(s=>s&&s.toLowerCase().includes(q)))return false;
+    return true;
+  });
+}
+
+function ctrDoSort(arr) {
+  return [...arr].sort((a,b)=>{
+    const ka=ctrSKey==='fim_vigencia'?'fim':ctrSKey;
+    let av=a[ka],bv=b[ka];
+    if(av==null||av==='')av=ctrSDir===1?'9999-99-99':'';
+    if(bv==null||bv==='')bv=ctrSDir===1?'9999-99-99':'';
+    if(typeof av==='string'&&typeof bv==='string')return ctrSDir*av.localeCompare(bv);
+    return ctrSDir*(av-bv);
+  });
+}
+
+function sort(k) {
+  if(ctrSKey===k)ctrSDir*=-1;else{ctrSKey=k;ctrSDir=1;}
+  document.querySelectorAll('#tab-ctr thead th').forEach(t=>t.classList.remove('sorted'));
+  document.getElementById('h-'+k).classList.add('sorted');
+  document.querySelectorAll('#tab-ctr .si').forEach(e=>e.textContent='');
+  document.getElementById('si-'+k).textContent=ctrSDir===1?'↑':'↓';
+  ctrPage=1; ctrRender();
+}
+
+function gp(n){ctrPage=n;ctrRender();document.getElementById('table-wrap').scrollIntoView({behavior:'smooth',block:'start'});}
+
+function clearF() {
+  document.getElementById('search').value='';
+  document.getElementById('fS').value='todos';
+  document.getElementById('fA').value='';
+  document.getElementById('fU').value='';
+  ctrFilter='todos';
+  ['todos','vigente','encerrado','alerta'].forEach(k=>{const el=document.getElementById('card-'+k);if(el)el.classList.remove('active-filter');});
+  ctrPage=1; ctrRender();
+}
+
+function ctrRender() {
+  const PER=25;
+  const filtered=ctrDoSort(ctrApplyF());
+  const tot=filtered.length;
+  document.getElementById('st-tot').textContent=tot;
+  document.getElementById('st-vig').textContent=filtered.filter(c=>c.status==='vigente').length;
+  document.getElementById('st-enc').textContent=filtered.filter(c=>c.status==='encerrado').length;
+  document.getElementById('st-alt').textContent=filtered.filter(c=>c.alert).length;
+  document.getElementById('rinfo').textContent=tot===_CTR.length?`Exibindo todos os ${tot} contratos`:`${tot} contrato${tot!==1?'s':''} encontrado${tot!==1?'s':''}`;
+  const pages=Math.ceil(tot/PER)||1;
+  if(ctrPage>pages)ctrPage=1;
+  const start=(ctrPage-1)*PER;
+  const slice=filtered.slice(start,start+PER);
+  const tbody=document.getElementById('tbody');
+  const empty=document.getElementById('empty');
+  const pag=document.getElementById('pag');
+  if(!slice.length){tbody.innerHTML='';empty.style.display='block';pag.style.display='none';return;}
+  empty.style.display='none';
+  tbody.innerHTML=slice.map(c=>{
+    let badge,dias='-';
+    if(c.alert)badge=`<span class="badge ba">▲ Alerta</span>`;
+    else if(c.status==='vigente')badge=`<span class="badge bv">● Vigente</span>`;
+    else badge=`<span class="badge be">○ Encerrado</span>`;
+    if(c.dias_restantes!==null){
+      const d=c.dias_restantes;
+      if(c.alert)dias=`<span class="da">${d}d</span>`;
+      else if(c.status==='vigente')dias=`<span class="dok">${d}d</span>`;
+      else dias=`<span class="de">${d}d</span>`;
+    }
+    return `<tr class="${c.alert?'ra':''}">
+      <td class="tnum">${c.ano}</td>
+      <td class="tnum wrap" title="${c.numero}">${c.numero}</td>
+      <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
+      <td class="tuni">${c.unidade}</td>
+      <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
+      <td class="tdat">${c.fim_vigencia}</td>
+      <td class="tdias">${dias}</td>
+      <td>${badge}</td>
+    </tr>`;
+  }).join('');
+  if(pages<=1){pag.style.display='none';return;}
+  pag.style.display='flex';
+  let ph=`<button class="pb" onclick="gp(${ctrPage-1})" ${ctrPage===1?'disabled':''}>‹</button>`;
+  for(let i=1;i<=pages;i++){
+    if(i===1||i===pages||Math.abs(i-ctrPage)<=1)ph+=`<button class="pb ${i===ctrPage?'active':''}" onclick="gp(${i})">${i}</button>`;
+    else if(Math.abs(i-ctrPage)===2)ph+=`<span class="pe">…</span>`;
+  }
+  ph+=`<button class="pb" onclick="gp(${ctrPage+1})" ${ctrPage===pages?'disabled':''}>›</button>`;
+  ph+=`<span class="pi">${start+1}–${Math.min(start+PER,tot)} de ${tot}</span>`;
+  pag.innerHTML=ph;
+}
+
+// ══════════════════════════════════════════
+// ARPs
+// ══════════════════════════════════════════
+let _ARP=[], arpPage=1, arpSKey='dias_restantes', arpSDir=1, arpFilter='todos';
+
+function setupArps(RAW) {
+  _ARP = enrich(RAW);
+  document.getElementById('arp-si-dias_restantes').textContent='↑';
+  document.getElementById('arp-h-dias_restantes').classList.add('sorted');
+  arpRender();
+}
+
+function arpSetFilter(f) {
+  arpFilter=f; document.getElementById('arp-fS').value=f;
+  ['todos','vigente','encerrado','alerta'].forEach(k=>{const el=document.getElementById('arp-card-'+k);if(el)el.classList.toggle('active-filter',k===f);});
+  arpPage=1; arpRender();
+}
+
+function arpApplyF() {
+  const q=document.getElementById('arp-search').value.trim().toLowerCase();
+  const fS=document.getElementById('arp-fS').value;
+  return _ARP.filter(c=>{
+    if(fS==='vigente'&&c.status!=='vigente')return false;
+    if(fS==='encerrado'&&c.status!=='encerrado')return false;
+    if(fS==='alerta'&&!c.alert)return false;
+    if(q&&![c.numero,c.contratada,c.objeto].some(s=>s&&s.toLowerCase().includes(q)))return false;
+    return true;
+  });
+}
+
+function arpDoSort(arr) {
+  return [...arr].sort((a,b)=>{
+    const ka=arpSKey==='fim_vigencia'?'fim':arpSKey;
+    let av=a[ka],bv=b[ka];
+    if(av==null||av==='')av=arpSDir===1?'9999-99-99':'';
+    if(bv==null||bv==='')bv=arpSDir===1?'9999-99-99':'';
+    if(typeof av==='string'&&typeof bv==='string')return arpSDir*av.localeCompare(bv);
+    return arpSDir*(av-bv);
+  });
+}
+
+function arpSort(k) {
+  if(arpSKey===k)arpSDir*=-1;else{arpSKey=k;arpSDir=1;}
+  document.querySelectorAll('#tab-arp thead th').forEach(t=>t.classList.remove('sorted'));
+  document.getElementById('arp-h-'+k).classList.add('sorted');
+  document.querySelectorAll('#tab-arp .si').forEach(e=>e.textContent='');
+  document.getElementById('arp-si-'+k).textContent=arpSDir===1?'↑':'↓';
+  arpPage=1; arpRender();
+}
+
+function arpGp(n){arpPage=n;arpRender();}
+
+function arpClearF() {
+  document.getElementById('arp-search').value='';
+  document.getElementById('arp-fS').value='todos';
+  arpFilter='todos';
+  ['todos','vigente','encerrado','alerta'].forEach(k=>{const el=document.getElementById('arp-card-'+k);if(el)el.classList.remove('active-filter');});
+  arpPage=1; arpRender();
+}
+
+function arpRender() {
+  const PER=25;
+  const filtered=arpDoSort(arpApplyF());
+  const tot=filtered.length;
+  document.getElementById('arp-st-tot').textContent=tot;
+  document.getElementById('arp-st-vig').textContent=filtered.filter(c=>c.status==='vigente').length;
+  document.getElementById('arp-st-enc').textContent=filtered.filter(c=>c.status==='encerrado').length;
+  document.getElementById('arp-st-alt').textContent=filtered.filter(c=>c.alert).length;
+  document.getElementById('arp-rinfo').textContent=`${tot} ARP${tot!==1?'s':''} encontrada${tot!==1?'s':''}`;
+  const pages=Math.ceil(tot/PER)||1;
+  if(arpPage>pages)arpPage=1;
+  const start=(arpPage-1)*PER;
+  const slice=filtered.slice(start,start+PER);
+  const tbody=document.getElementById('arp-tbody');
+  const empty=document.getElementById('arp-empty');
+  const pag=document.getElementById('arp-pag');
+  if(!slice.length){tbody.innerHTML='';empty.style.display='block';pag.style.display='none';return;}
+  empty.style.display='none';
+  tbody.innerHTML=slice.map(c=>{
+    let badge,dias='-';
+    if(c.alert)badge=`<span class="badge ba">▲ Alerta</span>`;
+    else if(c.status==='vigente')badge=`<span class="badge bv">● Vigente</span>`;
+    else badge=`<span class="badge be">○ Encerrada</span>`;
+    if(c.dias_restantes!==null){
+      const d=c.dias_restantes;
+      if(c.alert)dias=`<span class="da">${d}d</span>`;
+      else if(c.status==='vigente')dias=`<span class="dok">${d}d</span>`;
+      else dias=`<span class="de">${d}d</span>`;
+    }
+    return `<tr class="${c.alert?'ra':''}">
+      <td class="tnum wrap" title="${c.numero}">${c.numero}</td>
+      <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
+      <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
+      <td class="tdat">${c.fim_vigencia}</td>
+      <td class="tdias">${dias}</td>
+      <td>${badge}</td>
+    </tr>`;
+  }).join('');
+  if(pages<=1){pag.style.display='none';return;}
+  pag.style.display='flex';
+  let ph=`<button class="pb" onclick="arpGp(${arpPage-1})" ${arpPage===1?'disabled':''}>‹</button>`;
+  for(let i=1;i<=pages;i++){
+    if(i===1||i===pages||Math.abs(i-arpPage)<=1)ph+=`<button class="pb ${i===arpPage?'active':''}" onclick="arpGp(${i})">${i}</button>`;
+    else if(Math.abs(i-arpPage)===2)ph+=`<span class="pe">…</span>`;
+  }
+  ph+=`<button class="pb" onclick="arpGp(${arpPage+1})" ${arpPage===pages?'disabled':''}>›</button>`;
+  ph+=`<span class="pi">${start+1}–${Math.min(start+PER,tot)} de ${tot}</span>`;
+  pag.innerHTML=ph;
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
 async function init() {
-  document.getElementById('rinfo').textContent = 'Carregando dados…';
+  const today = calcToday();
+  document.getElementById('hdate').textContent = fmtD(today);
+  const now = new Date();
+  const diaAtual = String(now.getDate()).padStart(2,'0')+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear();
+  const txt = 'Planilha carregada em '+diaAtual+' — vigências recalculadas a cada abertura';
+  if(document.getElementById('udate')) document.getElementById('udate').textContent = txt;
+  if(document.getElementById('fudate')) document.getElementById('fudate').textContent = txt;
+
   try {
-    const resp = await fetch('contratos.json?v=' + Date.now());
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const raw = await resp.json();
-    if (!raw.length) { showError('Nenhum contrato encontrado.'); return; }
-    setupApp(raw);
-  } catch (e) {
-    showError('Não foi possível carregar contratos.json. (' + e.message + ')');
+    const [rCtr, rArp] = await Promise.all([
+      fetch('contratos.json?v='+Date.now()),
+      fetch('arps.json?v='+Date.now())
+    ]);
+    if(!rCtr.ok) throw new Error('contratos.json HTTP '+rCtr.status);
+    if(!rArp.ok) throw new Error('arps.json HTTP '+rArp.status);
+    const [ctr, arp] = await Promise.all([rCtr.json(), rArp.json()]);
+    setupContratos(ctr);
+    setupArps(arp);
+  } catch(e) {
+    showError('rinfo', 'Erro ao carregar dados: '+e.message);
+    showError('arp-rinfo', 'Erro ao carregar dados: '+e.message);
     console.error(e);
   }
 }
 
-function setupApp(RAW) {
-  const THRESHOLD = 195;
-
-  function calcToday() {
-    const d = new Date(); d.setHours(0,0,0,0); return d;
-  }
-
-  function enrich(raw) {
-    const today = calcToday();
-    const alertLimit = new Date(today.getTime() + THRESHOLD * 86400000);
-    return raw.map(r => {
-      const c = Object.assign({}, r);
-      if (c.fim) {
-        const fim = new Date(c.fim + 'T00:00:00');
-        const diff = Math.round((fim - today) / 86400000);
-        c.dias_restantes = diff;
-        c.status = fim >= today ? 'vigente' : 'encerrado';
-        c.alert = c.status === 'vigente' && fim <= alertLimit;
-        c.fim_vigencia = fim.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric'});
-      } else {
-        c.dias_restantes = null; c.status = 'encerrado'; c.alert = false; c.fim_vigencia = '-';
-      }
-      return c;
-    });
-  }
-
-  const C = enrich(RAW);
-  const PER = 25;
-  let page = 1, sKey = 'dias_restantes', sDir = 1, currentFilter = 'todos';
-
-  // Populate filters
-  const anos = [...new Set(RAW.map(d => d.ano))].sort();
-  anos.forEach(a => {
-    const o = document.createElement('option'); o.value = a; o.textContent = a;
-    document.getElementById('fA').appendChild(o);
-  });
-  const unis = [...new Set(RAW.map(d => d.unidade).filter(b => b && b !== '-'))].sort();
-  unis.forEach(u => {
-    const o = document.createElement('option'); o.value = u; o.textContent = u;
-    document.getElementById('fU').appendChild(o);
-  });
-
-  function fmtD(d) { return d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric'}); }
-  const today = calcToday();
-  document.getElementById('hdate').textContent = fmtD(today);
-  const now = new Date();
-  const diaAtual = String(now.getDate()).padStart(2,'0') + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + now.getFullYear();
-  document.getElementById('udate').textContent = 'Planilha carregada em ' + diaAtual + ' — vigências recalculadas a cada abertura';
-
-  function setFilter(f) {
-    currentFilter = f;
-    document.getElementById('fS').value = f;
-    ['todos','vigente','encerrado','alerta'].forEach(k => {
-      const el = document.getElementById('card-' + k);
-      if (el) el.classList.toggle('active-filter', k === f);
-    });
-    page = 1; render();
-  }
-
-  function applyF() {
-    const q = document.getElementById('search').value.trim().toLowerCase();
-    const fS = document.getElementById('fS').value;
-    const fA = document.getElementById('fA').value;
-    const fU = document.getElementById('fU').value;
-    return C.filter(c => {
-      if (fA && c.ano !== fA) return false;
-      if (fU && c.unidade !== fU) return false;
-      if (fS === 'vigente' && c.status !== 'vigente') return false;
-      if (fS === 'encerrado' && c.status !== 'encerrado') return false;
-      if (fS === 'alerta' && !c.alert) return false;
-      if (q && ![c.numero, c.contratada, c.objeto, c.unidade].some(s => s && s.toLowerCase().includes(q))) return false;
-      return true;
-    });
-  }
-
-  function doSort(arr) {
-    return [...arr].sort((a, b) => {
-      const ka = sKey === 'fim_vigencia' ? 'fim' : sKey;
-      let av = a[ka], bv = b[ka];
-      if (av === null || av === undefined || av === '') av = sDir === 1 ? '9999-99-99' : '';
-      if (bv === null || bv === undefined || bv === '') bv = sDir === 1 ? '9999-99-99' : '';
-      if (typeof av === 'string' && typeof bv === 'string') return sDir * av.localeCompare(bv);
-      return sDir * (av - bv);
-    });
-  }
-
-  function sort(k) {
-    if (sKey === k) sDir *= -1; else { sKey = k; sDir = 1; }
-    document.querySelectorAll('thead th').forEach(t => t.classList.remove('sorted'));
-    document.getElementById('h-' + k).classList.add('sorted');
-    document.querySelectorAll('.si').forEach(e => e.textContent = '');
-    document.getElementById('si-' + k).textContent = sDir === 1 ? '↑' : '↓';
-    page = 1; render();
-  }
-
-  function gp(n) { page = n; render(); document.getElementById('table-wrap').scrollIntoView({behavior:'smooth', block:'start'}); }
-
-  function clearF() {
-    document.getElementById('search').value = '';
-    document.getElementById('fS').value = 'todos';
-    document.getElementById('fA').value = '';
-    document.getElementById('fU').value = '';
-    currentFilter = 'todos';
-    ['todos','vigente','encerrado','alerta'].forEach(k => {
-      const el = document.getElementById('card-' + k);
-      if (el) el.classList.remove('active-filter');
-    });
-    page = 1; render();
-  }
-
-  function render() {
-    const filtered = doSort(applyF());
-    const tot = filtered.length;
-    document.getElementById('st-tot').textContent = tot;
-    document.getElementById('st-vig').textContent = filtered.filter(c => c.status === 'vigente').length;
-    document.getElementById('st-enc').textContent = filtered.filter(c => c.status === 'encerrado').length;
-    document.getElementById('st-alt').textContent = filtered.filter(c => c.alert).length;
-    document.getElementById('rinfo').textContent =
-      tot === C.length ? `Exibindo todos os ${tot} contratos` : `${tot} contrato${tot !== 1 ? 's' : ''} encontrado${tot !== 1 ? 's' : ''}`;
-
-    const pages = Math.ceil(tot / PER) || 1;
-    if (page > pages) page = 1;
-    const start = (page - 1) * PER;
-    const slice = filtered.slice(start, start + PER);
-
-    const tbody = document.getElementById('tbody');
-    const empty = document.getElementById('empty');
-    const pag = document.getElementById('pag');
-
-    if (!slice.length) { tbody.innerHTML = ''; empty.style.display = 'block'; pag.style.display = 'none'; return; }
-    empty.style.display = 'none';
-
-    tbody.innerHTML = slice.map(c => {
-      let badge, dias = '-';
-      if (c.alert) badge = `<span class="badge ba">▲ Alerta</span>`;
-      else if (c.status === 'vigente') badge = `<span class="badge bv">● Vigente</span>`;
-      else badge = `<span class="badge be">○ Encerrado</span>`;
-      if (c.dias_restantes !== null) {
-        const d = c.dias_restantes;
-        if (c.alert) dias = `<span class="da">${d}d</span>`;
-        else if (c.status === 'vigente') dias = `<span class="dok">${d}d</span>`;
-        else dias = `<span class="de">${d}d</span>`;
-      }
-      const numParts = c.numero.split('(');
-      return `<tr class="${c.alert ? 'ra' : ''}">
-        <td class="tnum" title="${c.numero}">${c.ano}<br>${numParts[0].trim()}</td>
-        <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
-        <td class="tuni">${c.unidade}</td>
-        <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
-        <td class="tdat">${c.fim_vigencia}</td>
-        <td class="tdias">${dias}</td>
-        <td>${badge}</td>
-      </tr>`;
-    }).join('');
-
-    if (pages <= 1) { pag.style.display = 'none'; return; }
-    pag.style.display = 'flex';
-    let ph = `<button class="pb" onclick="gp(${page-1})" ${page===1?'disabled':''}>‹</button>`;
-    for (let i = 1; i <= pages; i++) {
-      if (i === 1 || i === pages || Math.abs(i - page) <= 1)
-        ph += `<button class="pb ${i===page?'active':''}" onclick="gp(${i})">${i}</button>`;
-      else if (Math.abs(i - page) === 2) ph += `<span class="pe">…</span>`;
-    }
-    ph += `<button class="pb" onclick="gp(${page+1})" ${page===pages?'disabled':''}>›</button>`;
-    ph += `<span class="pi">${start+1}–${Math.min(start+PER,tot)} de ${tot}</span>`;
-    pag.innerHTML = ph;
-  }
-
-  document.getElementById('search').addEventListener('input', () => { page = 1; render(); });
-  document.getElementById('fS').addEventListener('change', e => { setFilter(e.target.value); });
-  document.getElementById('fA').addEventListener('change', () => { page = 1; render(); });
-  document.getElementById('fU').addEventListener('change', () => { page = 1; render(); });
-
-  window.setFilter = setFilter;
-  window.sort = sort;
-  window.gp = gp;
-  window.clearF = clearF;
-
-  document.getElementById('si-dias_restantes').textContent = '↑';
-  document.getElementById('h-dias_restantes').classList.add('sorted');
-  render();
-}
+document.getElementById('search').addEventListener('input',()=>{ctrPage=1;ctrRender();});
+document.getElementById('fS').addEventListener('change',e=>{setFilter(e.target.value);});
+document.getElementById('fA').addEventListener('change',()=>{ctrPage=1;ctrRender();});
+document.getElementById('fU').addEventListener('change',()=>{ctrPage=1;ctrRender();});
+document.getElementById('arp-search').addEventListener('input',()=>{arpPage=1;arpRender();});
+document.getElementById('arp-fS').addEventListener('change',e=>{arpSetFilter(e.target.value);});
 
 init();
 </script>
