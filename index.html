@@ -61,8 +61,8 @@ td.wrap{white-space:normal;line-height:1.3}
 .temp{font-size:12px;font-weight:500}
 .tuni{font-family:var(--mo);font-size:11px;color:var(--mu)}
 .tobj{font-size:12px;color:var(--mu)}
-.tdat{font-family:var(--mo);font-size:12px}
-.tdias{font-family:var(--mo);font-size:12px;text-align:right}
+.tdat{font-family:var(--mo);font-size:12px;text-align:center}
+.tdias{font-family:var(--mo);font-size:12px;text-align:center}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:500;font-family:var(--mo)}
 .bv{background:var(--vgbg);color:var(--vg)}
 .be{background:var(--enbg);color:var(--en)}
@@ -178,9 +178,9 @@ td.wrap{white-space:normal;line-height:1.3}
             <th onclick="sort('contratada')" id="h-contratada">Contratada <i class="si" id="si-contratada"></i></th>
             <th onclick="sort('unidade')" id="h-unidade">Orç. <i class="si" id="si-unidade"></i></th>
             <th onclick="sort('objeto')" id="h-objeto">Objeto <i class="si" id="si-objeto"></i></th>
-            <th onclick="sort('fim_vigencia')" id="h-fim_vigencia">Fim vigência <i class="si" id="si-fim_vigencia"></i></th>
-            <th onclick="sort('dias_restantes')" id="h-dias_restantes" style="text-align:right">Dias <i class="si" id="si-dias_restantes"></i></th>
-            <th onclick="sort('status')" id="h-status">Status <i class="si" id="si-status"></i></th>
+            <th onclick="sort('fim_vigencia')" id="h-fim_vigencia" style="text-align:center">Fim vigência <i class="si" id="si-fim_vigencia"></i></th>
+            <th onclick="sort('dias_restantes')" id="h-dias_restantes" style="text-align:center">Dias <i class="si" id="si-dias_restantes"></i></th>
+            <th onclick="sort('status')" id="h-status" style="text-align:center">Status <i class="si" id="si-status"></i></th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -257,9 +257,9 @@ td.wrap{white-space:normal;line-height:1.3}
             <th onclick="arpSort('numero')" id="arp-h-numero">Nº ARP <i class="si" id="arp-si-numero"></i></th>
             <th onclick="arpSort('contratada')" id="arp-h-contratada">Contratada <i class="si" id="arp-si-contratada"></i></th>
             <th onclick="arpSort('objeto')" id="arp-h-objeto">Objeto <i class="si" id="arp-si-objeto"></i></th>
-            <th onclick="arpSort('fim_vigencia')" id="arp-h-fim_vigencia">Fim vigência <i class="si" id="arp-si-fim_vigencia"></i></th>
-            <th onclick="arpSort('dias_restantes')" id="arp-h-dias_restantes" style="text-align:right">Dias <i class="si" id="arp-si-dias_restantes"></i></th>
-            <th onclick="arpSort('status')" id="arp-h-status">Status <i class="si" id="arp-si-status"></i></th>
+            <th onclick="arpSort('fim_vigencia')" id="arp-h-fim_vigencia" style="text-align:center">Fim vigência <i class="si" id="arp-si-fim_vigencia"></i></th>
+            <th onclick="arpSort('dias_restantes')" id="arp-h-dias_restantes" style="text-align:center">Dias <i class="si" id="arp-si-dias_restantes"></i></th>
+            <th onclick="arpSort('status')" id="arp-h-status" style="text-align:center">Status <i class="si" id="arp-si-status"></i></th>
           </tr>
         </thead>
         <tbody id="arp-tbody"></tbody>
@@ -407,15 +407,17 @@ function ctrRender() {
       else if(c.status==='vigente')dias=`<span class="dok">${d}d</span>`;
       else dias=`<span class="de">${d}d</span>`;
     }
-    const numParts=c.numero.split('(');
+    const numMatch = c.numero.match(/^(.*?)\s*\((id\..*?)\)\s*$/i);
+    const numBase = numMatch ? numMatch[1].trim() : c.numero;
+    const numId   = numMatch ? numMatch[2].trim() : null;
     return `<tr class="${c.alert?'ra':''}">
-      <td class="tnum">${c.ano}<br>${numParts[0].trim()}${numParts[1]?'<br><span style="opacity:.6">('+numParts[1]:''}${numParts[1]?'</span>':''}</td>
+      <td class="tnum">${c.ano}<br>${numBase}${numId?`<br><span style="opacity:.55;font-size:10px">${numId}</span>`:''}</td>
       <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
       <td class="tuni">${c.unidade}</td>
       <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
       <td class="tdat">${c.fim_vigencia}</td>
       <td class="tdias">${dias}</td>
-      <td>${badge}</td>
+      <td style="text-align:center">${badge}</td>
     </tr>`;
   }).join('');
   if(pages<=1){pag.style.display='none';return;}
@@ -524,7 +526,7 @@ function arpRender() {
       <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
       <td class="tdat">${c.fim_vigencia}</td>
       <td class="tdias">${dias}</td>
-      <td>${badge}</td>
+      <td style="text-align:center">${badge}</td>
     </tr>`;
   }).join('');
   if(pages<=1){pag.style.display='none';return;}
