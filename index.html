@@ -174,7 +174,7 @@ td.wrap{white-space:normal;line-height:1.3}
         </colgroup>
         <thead>
           <tr>
-            <th onclick="sort('ano')" id="h-ano" style="text-align:center">Ano / Nº <i class="si" id="si-ano"></i></th>
+            <th onclick="sort('ano')" id="h-ano" style="text-align:center">Nº <i class="si" id="si-ano"></i></th>
             <th onclick="sort('contratada')" id="h-contratada">Contratada <i class="si" id="si-contratada"></i></th>
             <th onclick="sort('unidade')" id="h-unidade">Orç. <i class="si" id="si-unidade"></i></th>
             <th onclick="sort('objeto')" id="h-objeto">Objeto <i class="si" id="si-objeto"></i></th>
@@ -411,7 +411,7 @@ function ctrRender() {
     const numBase = numMatch ? numMatch[1].trim() : c.numero;
     const numId   = numMatch ? numMatch[2].trim() : null;
     return `<tr class="${c.alert?'ra':''}">
-      <td class="tnum">${c.ano}<br>${numBase}${numId?`<br><span style="opacity:.55;font-size:10px">${numId}</span>`:''}</td>
+      <td class="tnum">${numBase}${numId?`<br><span style="opacity:.55;font-size:10px">${numId}</span>`:''}</td>
       <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
       <td class="tuni">${c.unidade}</td>
       <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
