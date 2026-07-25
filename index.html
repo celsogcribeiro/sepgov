@@ -254,7 +254,7 @@ td.wrap{white-space:normal;line-height:1.3}
         </colgroup>
         <thead>
           <tr>
-            <th onclick="arpSort('numero')" id="arp-h-numero">Nº ARP <i class="si" id="arp-si-numero"></i></th>
+            <th onclick="arpSort('numero')" id="arp-h-numero" style="text-align:center">Nº ARP <i class="si" id="arp-si-numero"></i></th>
             <th onclick="arpSort('contratada')" id="arp-h-contratada">Contratada <i class="si" id="arp-si-contratada"></i></th>
             <th onclick="arpSort('objeto')" id="arp-h-objeto">Objeto <i class="si" id="arp-si-objeto"></i></th>
             <th onclick="arpSort('fim_vigencia')" id="arp-h-fim_vigencia" style="text-align:center">Fim vigência <i class="si" id="arp-si-fim_vigencia"></i></th>
@@ -524,7 +524,7 @@ function arpRender() {
     const arpBase = arpMatch ? arpMatch[1].trim() : c.numero;
     const arpId   = arpMatch ? arpMatch[2].trim() : null;
     return `<tr class="${c.alert?'ra':''}">
-      <td class="tnum wrap" title="${c.numero}">${arpBase}${arpId?`<br><span style="opacity:.55;font-size:10px">${arpId}</span>`:''}</td>
+      <td class="tnum wrap" title="${c.numero}" style="text-align:center">${arpBase}${arpId?`<br><span style="opacity:.55;font-size:10px">${arpId}</span>`:''}</td>
       <td class="temp wrap" title="${c.contratada}">${c.contratada}</td>
       <td class="tobj wrap" title="${c.objeto}">${c.objeto}</td>
       <td class="tdat">${c.fim_vigencia}</td>
