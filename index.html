@@ -549,19 +549,29 @@ function arpRender() {
 // INIT
 // ══════════════════════════════
 function goHome() {
-  // Limpa todos os filtros, reseta para aba Contratos com filtro Vigentes e sobe ao topo
+  // Limpa filtros de contratos
   document.getElementById('search').value = '';
   document.getElementById('fA').value = '';
   document.getElementById('fU').value = '';
+  ['todos','vigente','encerrado','alerta'].forEach(k => {
+    const el = document.getElementById('card-'+k); if(el) el.classList.remove('active-filter');
+  });
+  ctrPage = 1;
+  // Limpa filtros de ARPs e reseta sort para dias
   document.getElementById('arp-search').value = '';
   document.getElementById('arp-fS').value = 'todos';
   ['todos','vigente','encerrado','alerta'].forEach(k => {
-    const el = document.getElementById('card-'+k); if(el) el.classList.remove('active-filter');
     const ea = document.getElementById('arp-card-'+k); if(ea) ea.classList.remove('active-filter');
   });
-  ctrPage = 1; arpPage = 1;
+  arpPage = 1; arpSKey = 'dias_restantes'; arpSDir = 1;
+  document.querySelectorAll('#tab-arp thead th').forEach(t => t.classList.remove('sorted'));
+  document.getElementById('arp-h-dias_restantes').classList.add('sorted');
+  document.querySelectorAll('#tab-arp .si').forEach(e => e.textContent = '');
+  document.getElementById('arp-si-dias_restantes').textContent = '↑';
+  // Volta ao início com Contratos vigentes
   switchTab('ctr');
   setFilter('vigente');
+  arpRender();
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
