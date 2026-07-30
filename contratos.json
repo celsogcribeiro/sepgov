@@ -27,7 +27,7 @@
     "ano": "2021",
     "numero": "025/2021 (id. 0263353)",
     "contratada": "ORION TELECOMUNICAÇÕES, ENGENHARIA S/A",
-    "objeto": "Prestação dos serviços de assistência técnica para equipamentos pertencentes à solução do ambiente físico seguro e seus subsistemas, do tipo Sala-Cofre Modular, do Conselho da Justiça Federal, abrangendo manutenção preventiva programada, corretiva e evolutiva de software, monitoramento e suporte técnico, com substituição de peças, componentes e equipamentos, bem como a manutenção das certificações ABNT NBR 15247 e NBR 60529 com o grau de proteção IP6 (4° T.A)",
+    "objeto": "Prestação dos serviços de assistência técnica para equipamentos pertencentes à solução do ambiente físico seguro e seus subsistemas, do tipo Sala-Cofre Modular (4° T.A)",
     "unidade": "NUJUFE",
     "fim": "2027-09-22"
   },
@@ -371,7 +371,7 @@
     "ano": "2025",
     "numero": "034/2025  (id. 0758500)",
     "contratada": "JAMC CONSULTORIA E REPRESENTACAO DE SOFTWARE LTDA",
-    "objeto": "Solução em modelo SaaS (Software como Serviço) para auditoria, monitoramento, proteção de dados, detecção e resposta a ameaças a metadados e dados não estruturados, além de análise de dados em repositórios corporativos internos (on-premises) ou em ambiente cloud (nuvem) em plataformas de colaboração. - VARONIS",
+    "objeto": "Solução em modelo SaaS (Software como Serviço) para auditoria, monitoramento, proteção de dados, detecção e resposta a ameaças a metadados e dados não estruturados, além de análise de dados em repositórios corporativos internos (on-premises) ou em ambiente cloud (nuvem) em plataformas de colaboração (VARONIS)",
     "unidade": "CJF",
     "fim": "2027-09-08"
   },
@@ -379,7 +379,7 @@
     "ano": "2025",
     "numero": "035/2025 (id. 0757502)",
     "contratada": "AMM TECNOLOGIA E SERVIÇOS DE INFORMATICA S/A",
-    "objeto": "Subscrições de suporte e garantia para solução de virtualizaçãoVmWare",
+    "objeto": "Subscrições de suporte e garantia para solução de virtualização VMWare",
     "unidade": "NUJUFE",
     "fim": "2030-09-14"
   },
