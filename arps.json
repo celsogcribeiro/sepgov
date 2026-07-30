@@ -30,7 +30,7 @@
     "fim": "2027-01-04"
   },
   {
-    "numero": "ARP n. 07/2026 - STJ (id. xxx)",
+    "numero": "ARP n. 07/2026 - STJ (id. 0895555)",
     "contratada": "GLOBAL RED TECNOLOGIA DA INFORMAÇÃO LTDA - EPP",
     "objeto": "Contratação de solução de APM (Application Performance Monitoring)",
     "fim": "2027-06-02"
@@ -42,9 +42,9 @@
     "fim": "2027-06-22"
   },
   {
-    "numero": "ARP n. 08/2026 - STJ (id. xxx)",
+    "numero": "ARP n. 08/2026 - STJ (id. 0895232)",
     "contratada": "CHAIN TECNOLOGIA E SERVIÇOS LTDA",
     "objeto": "Solução Red Hat de orquestração e gerenciamento de contêineres, na modalidade subscrição, com prestação de serviços de instalação, configuração, migração, suporte técnico e treinamento.",
-    "fim": null
+    "fim": "2027-07-28"
   }
 ]
