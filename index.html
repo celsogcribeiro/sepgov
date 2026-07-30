@@ -549,7 +549,17 @@ function arpRender() {
 // INIT
 // ══════════════════════════════
 function goHome() {
-  // Reseta para aba Contratos com filtro Vigentes e sobe ao topo
+  // Limpa todos os filtros, reseta para aba Contratos com filtro Vigentes e sobe ao topo
+  document.getElementById('search').value = '';
+  document.getElementById('fA').value = '';
+  document.getElementById('fU').value = '';
+  document.getElementById('arp-search').value = '';
+  document.getElementById('arp-fS').value = 'todos';
+  ['todos','vigente','encerrado','alerta'].forEach(k => {
+    const el = document.getElementById('card-'+k); if(el) el.classList.remove('active-filter');
+    const ea = document.getElementById('arp-card-'+k); if(ea) ea.classList.remove('active-filter');
+  });
+  ctrPage = 1; arpPage = 1;
   switchTab('ctr');
   setFilter('vigente');
   window.scrollTo({top: 0, behavior: 'smooth'});
