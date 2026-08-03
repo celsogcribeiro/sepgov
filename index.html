@@ -598,6 +598,7 @@ async function init() {
     const [ctr, arp] = await Promise.all([rC.json(), rA.json()]);
     setupContratos(ctr);
     setupArps(arp);
+    fixTheadTop();
   } catch(e) {
     document.getElementById('rinfo').textContent = '⚠ Erro ao carregar dados: '+e.message;
     document.getElementById('arp-rinfo').textContent = '⚠ Erro ao carregar dados: '+e.message;
