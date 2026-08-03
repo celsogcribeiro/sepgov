@@ -383,7 +383,7 @@ function ctrRender() {
   const PER=25;
   const filtered=ctrDoSort(ctrApplyF());
   const tot=filtered.length;
-  document.getElementById('st-tot').textContent=tot;
+  document.getElementById('st-tot').textContent=_CTR.length;
   document.getElementById('st-vig').textContent=filtered.filter(c=>c.status==='vigente').length;
   document.getElementById('st-enc').textContent=filtered.filter(c=>c.status==='encerrado').length;
   document.getElementById('st-alt').textContent=filtered.filter(c=>c.alert).length;
@@ -496,7 +496,7 @@ function arpRender() {
   const PER=25;
   const filtered=arpDoSort(arpApplyF());
   const tot=filtered.length;
-  document.getElementById('arp-st-tot').textContent=tot;
+  document.getElementById('arp-st-tot').textContent=_ARP.length;
   document.getElementById('arp-st-vig').textContent=filtered.filter(c=>c.status==='vigente').length;
   document.getElementById('arp-st-enc').textContent=filtered.filter(c=>c.status==='encerrado').length;
   document.getElementById('arp-st-alt').textContent=filtered.filter(c=>c.alert).length;
