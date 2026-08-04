@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Monitoramento SEPGOV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +90,67 @@ td.wrap{white-space:normal;line-height:1.3}
 .tab-btn.active{background:var(--sf);color:var(--ac);font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.12)}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
-@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}.field input{width:150px}.field select{width:140px}}
+
+/* ── Tablet (≤900px) ── */
+@media(max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .main{padding:1rem}
+  .field input{width:150px}
+  .field select{width:140px}
+  .lt{font-size:13px}
+}
+
+/* ── Mobile (≤600px) ── */
+@media(max-width:600px){
+  /* Header */
+  header{padding:0 1rem;height:auto;min-height:var(--hh);flex-wrap:wrap;gap:4px;padding-top:8px;padding-bottom:8px}
+  .lt{font-size:12px}
+  .ls{font-size:10px}
+  .lm{width:28px;height:28px}
+  .hd{font-size:11px}
+
+  /* Main */
+  .main{padding:.75rem}
+
+  /* Cards — 2 por linha no mobile */
+  .stats{grid-template-columns:repeat(2,1fr);gap:8px}
+  .sv{font-size:28px}
+  .sl{font-size:9px}
+  .sc{padding:.8rem 1rem}
+  .sc-hint{display:none}
+
+  /* Toolbar — empilhada */
+  .toolbar{flex-direction:column;align-items:stretch;gap:8px;padding:.75rem}
+  .field{width:100%}
+  .field input{width:100%}
+  .field select{width:100%}
+  .btn{width:100%}
+
+  /* Abas */
+  .tabs{gap:2px}
+  .tab-btn{padding:6px 14px;font-size:12px}
+
+  /* Tabela — scroll horizontal */
+  .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:600px}
+  td,thead th{padding:8px 10px;font-size:11px}
+  .tobj{max-width:160px}
+
+  /* Paginação */
+  .pag{gap:4px;padding:.75rem}
+  .pb{height:28px;min-width:28px;font-size:11px}
+  .pi{width:100%;text-align:center;margin-top:4px}
+
+  /* PDTI iframe */
+  #tab-pdti iframe{height:60vh}
+
+  /* Legenda */
+  .legend{font-size:10px;gap:.75rem}
+  .legend span:last-child{display:none}
+
+  /* rinfo */
+  .rinfo{font-size:11px}
+}
 </style>
 </head>
 <body>
