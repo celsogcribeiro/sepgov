@@ -34,7 +34,7 @@
   {
     "ano": "2021",
     "numero": "026/2021 (id. 0249998)",
-    "contratada": "SELBETTI GESTÃO DE DOCUMENTOS S.A,",
+    "contratada": "SELBETTI GESTÃO DE DOCUMENTOS S.A",
     "objeto": "Prestação de serviços de impressão distribuída (outsourcing de impressão)",
     "unidade": "CJF",
     "fim": "2026-11-05"
@@ -227,7 +227,7 @@
     "ano": "2024",
     "numero": "025/2024 (id. 0604841)",
     "contratada": "AMM TECNOLOGIA E SERVIÇOS DE INFORMATICA S/A",
-    "objeto": "Subscrições de suporte e garantia para solução de virtualizaçãoVmWare",
+    "objeto": "Subscrições de suporte e garantia para solução de virtualização VMWare",
     "unidade": "NUJUFE",
     "fim": "2027-08-14"
   },
@@ -339,7 +339,7 @@
     "ano": "2025",
     "numero": "023/2025 (id. 0743255)",
     "contratada": "SERPRO",
-    "objeto": "Prestador de Serviços de Suporte – PSS, para a Autoridade Certificadora da Justiça – AC-JUS",
+    "objeto": "Prestador de Serviços de Suporte – PSS para a Autoridade Certificadora da Justiça – AC-JUS",
     "unidade": "CJF",
     "fim": "2030-07-17"
   },
@@ -550,5 +550,37 @@
     "objeto": "Subscrições do software de engenharia AltoQI Builder Infinity Gov",
     "unidade": "CJF",
     "fim": "2031-06-17"
+  },
+  {
+    "ano": "2026",
+    "numero": "025/2026 (id. 0891987)",
+    "contratada": "BB TECNOLOGIA E SERVIÇOS S.A",
+    "objeto": "Subscrições de solução integrada SUSE",
+    "unidade": "CJF",
+    "fim": null
+  },
+  {
+    "ano": "2026",
+    "numero": "028/2026 (id. 0894676)",
+    "contratada": "YASMYN MYSRAYNE MENESES NOBRE",
+    "objeto": "Subscrições do software Enscape ArchDesign Collection",
+    "unidade": "CJF",
+    "fim": null
+  },
+  {
+    "ano": "2026",
+    "numero": "029/2026 (id. 0896309)",
+    "contratada": "MCR SISTEMAS E CONSULTORIA LTDA",
+    "objeto": "Subscrições do software Autodesk AEC Collection (Architecture Engineering & Construction Collection)",
+    "unidade": "CJF",
+    "fim": null
+  },
+  {
+    "ano": "2026",
+    "numero": "030/2026 (id. 0896610)",
+    "contratada": "MCR SISTEMAS E CONSULTORIA LTDA",
+    "objeto": "Subscrições do software Adobe Creative Cloud e do software Adobe Acrobat Pro",
+    "unidade": "CJF",
+    "fim": null
   }
 ]
