@@ -491,8 +491,8 @@ function ctrRender() {
   const tbody=document.getElementById('tbody');
   const empty=document.getElementById('empty');
   const pag=document.getElementById('pag');
-  if(!slice.length){tbody.innerHTML='';empty.style.display='block';pag.style.display='none';if(mobileCards)mobileCards.innerHTML='';return;}
-  empty.style.display='none';
+  if(!slice.length){tbody.innerHTML='';empty.style.display=window.innerWidth<=600?'none':'block';pag.style.display='none';if(mobileCards){mobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum contrato encontrado.</div>`;}return;}
+  empty.style.display = window.innerWidth <= 600 ? 'none' : 'none';
   tbody.innerHTML=slice.map(c=>{
     let badge,dias='-';
     if(c.alert)badge=`<span class="badge ba">Alerta</span>`;
@@ -639,7 +639,7 @@ function arpRender() {
   const tbody=document.getElementById('arp-tbody');
   const empty=document.getElementById('arp-empty');
   const pag=document.getElementById('arp-pag');
-  if(!slice.length){tbody.innerHTML='';empty.style.display='block';pag.style.display='none';if(mobileCards)mobileCards.innerHTML='';return;}
+  if(!slice.length){tbody.innerHTML='';empty.style.display=window.innerWidth<=600?'none':'block';pag.style.display='none';if(mobileCards){mobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum contrato encontrado.</div>`;}return;}
   empty.style.display='none';
   tbody.innerHTML=slice.map(c=>{
     let badge,dias='-';
