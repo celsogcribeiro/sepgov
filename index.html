@@ -68,6 +68,7 @@ td.wrap{white-space:normal;line-height:1.3}
 .bv{background:var(--vgbg);color:var(--vg)}.bv::before{background:#16a34a}
 .be{background:var(--enbg);color:var(--en)}.be::before{background:#9ca3af}
 .ba{background:var(--albg);color:var(--al);border:1px solid #f59e0b55}.ba::before{background:#f59e0b}
+.bp{background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd55}.bp::before{background:#7c3aed}
 .da{color:var(--al);font-weight:500}
 .dok{color:var(--vg)}
 .de{color:var(--fa)}
@@ -414,7 +415,7 @@ function enrich(raw) {
       c.alert = c.status === 'vigente' && fim <= alertLimit;
       c.fim_vigencia = fim.toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'});
     } else {
-      c.dias_restantes = null; c.status = 'encerrado'; c.alert = false; c.fim_vigencia = '-';
+      c.dias_restantes = null; c.status = 'pendente'; c.alert = false; c.fim_vigencia = '-';
     }
     return c;
   });
@@ -462,6 +463,7 @@ function ctrApplyF() {
     if(fS==='vigente'&&c.status!=='vigente')return false;
     if(fS==='encerrado'&&c.status!=='encerrado')return false;
     if(fS==='alerta'&&!c.alert)return false;
+    if(fS==='todos'&&false)return false;
     if(q&&![c.numero,c.contratada,c.objeto,c.unidade].some(s=>s&&s.toLowerCase().includes(q)))return false;
     return true;
   });
@@ -518,7 +520,8 @@ function ctrRender() {
   empty.style.display='none';
   tbody.innerHTML=slice.map(c=>{
     let badge,dias='-';
-    if(c.alert)badge=`<span class="badge ba">Alerta</span>`;
+    if(c.status==='pendente')badge=`<span class="badge bp">Ag. assinatura</span>`;
+    else if(c.alert)badge=`<span class="badge ba">Alerta</span>`;
     else if(c.status==='vigente')badge=`<span class="badge bv">Vigente</span>`;
     else badge=`<span class="badge be">Encerrado</span>`;
     if(c.dias_restantes!==null){
@@ -612,6 +615,7 @@ function arpApplyF() {
     if(fS==='vigente'&&c.status!=='vigente')return false;
     if(fS==='encerrado'&&c.status!=='encerrado')return false;
     if(fS==='alerta'&&!c.alert)return false;
+    if(fS==='todos'&&false)return false;
     if(q&&![c.numero,c.contratada,c.objeto].some(s=>s&&s.toLowerCase().includes(q)))return false;
     return true;
   });
