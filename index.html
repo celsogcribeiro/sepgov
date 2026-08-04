@@ -109,6 +109,7 @@ td.wrap{white-space:normal;line-height:1.3}
   <div class="tabs-wrap"><div class="tabs">
     <button class="tab-btn active" onclick="switchTab('ctr')">Contratos</button>
     <button class="tab-btn" onclick="switchTab('arp')">ARPs</button>
+    <button class="tab-btn" onclick="switchTab('pdti')">PDTI</button>
   </div></div>
 
   <!-- ═══ ABA CONTRATOS ═══ -->
@@ -278,6 +279,26 @@ td.wrap{white-space:normal;line-height:1.3}
       <span style="margin-left:auto">Fonte: Consolidado - ARPs</span>
     </div>
   </div>
+  <!-- ═══ ABA PDTI ═══ -->
+  <div class="tab-panel" id="tab-pdti">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+      <div>
+        <div style="font-size:15px;font-weight:600;color:var(--tx)">PDTI 2024–2026</div>
+        <div style="font-size:12px;color:var(--mu);margin-top:2px">Plano Diretor de Tecnologia da Informação — Conselho da Justiça Federal</div>
+      </div>
+      <a href="pdti_2024-2026.pdf" download style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--ac);color:#fff;border-radius:var(--r);font-size:12px;font-weight:500;text-decoration:none;transition:opacity .15s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        ↓ Download PDF
+      </a>
+    </div>
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;width:100%;height:80vh">
+      <iframe
+        src="pdti_2024-2026.pdf"
+        style="width:100%;height:100%;border:none;display:block"
+        title="PDTI 2024-2026">
+        <p>Seu navegador não suporta visualização de PDF. <a href="pdti_2024-2026.pdf">Clique aqui para baixar.</a></p>
+      </iframe>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -306,9 +327,10 @@ function enrich(raw) {
 
 // ── Abas ──
 function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='ctr')||(i===1&&tab==='arp')));
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='ctr')||(i===1&&tab==='arp')||(i===2&&tab==='pdti')));
   document.getElementById('tab-ctr').classList.toggle('active', tab==='ctr');
   document.getElementById('tab-arp').classList.toggle('active', tab==='arp');
+  document.getElementById('tab-pdti').classList.toggle('active', tab==='pdti');
 }
 
 // ══════════════════════════════
