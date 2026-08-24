@@ -4,7 +4,8 @@
     "numero": "008/2020 (id. 0721793)",
     "contratada": "ISH TECNOLOGIA S.A",
     "objeto": "Prestação de Serviços Gerenciados de Segurança da Informação para o Conselho de Justiça Federal – CJF",
-    "unidade": "NUJUFE",
+    "unidade": "-",
+    "orcamento": "NUJUFE",
     "fim": "2026-06-24"
   },
   {
@@ -12,7 +13,8 @@
     "numero": "021/2021 (id. 0238065)",
     "contratada": "AR RP CERTIFICAÇÃO DIGITAL EIRELI",
     "objeto": "Prestação do serviço de emissão de certificados digitais, do tipo A3, padrão Cert-JUS, com visitas técnicas.",
-    "unidade": "CJF",
+    "unidade": "-",
+    "orcamento": "CJF",
     "fim": "2026-07-20"
   },
   {
@@ -20,7 +22,8 @@
     "numero": "022/2021 (id. 0242876)",
     "contratada": "CERTISIGN CERTIFICADORA DIGITAL S.A.",
     "objeto": "Prestação do serviço de emissão de certificados digitais, do tipo A1, padrão Internacional. (1° T.A)",
-    "unidade": "CJF",
+    "unidade": "COSTI",
+    "orcamento": "CJF",
     "fim": "2027-07-18"
   },
   {
@@ -28,7 +31,8 @@
     "numero": "025/2021 (id. 0263353)",
     "contratada": "ORION TELECOMUNICAÇÕES, ENGENHARIA S/A",
     "objeto": "Prestação dos serviços de assistência técnica para equipamentos pertencentes à solução do ambiente físico seguro e seus subsistemas, do tipo Sala-Cofre Modular (4° T.A)",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2027-09-22"
   },
   {
@@ -36,7 +40,8 @@
     "numero": "026/2021 (id. 0249998)",
     "contratada": "SELBETTI GESTÃO DE DOCUMENTOS S.A",
     "objeto": "Prestação de serviços de impressão distribuída (outsourcing de impressão)",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2026-09-26"
   },
   {
@@ -45,6 +50,7 @@
     "contratada": "UNIVERSO DA SEGURANÇA COMÉRCIO E SERVIÇOS EIRELI",
     "objeto": "Prestação de serviço de manutenção preventiva e corretiva dos relógios biométricos Henry Primme SF Ponto Bio.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2024-10-27"
   },
   {
@@ -53,6 +59,7 @@
     "contratada": "TECNETWORKING SERVIÇOS E SOLUÇÕES EM TECNOLOGIA DA INFORMAÇÃO LTDA",
     "objeto": "Subscrição de Ferramenta de Gerenciamento de Ciclo de Vida de Software GitLab versão Ultimate.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2023-05-15"
   },
   {
@@ -61,6 +68,7 @@
     "contratada": "LINK DATA INFORMÁTICA E SERVIÇOS S/A",
     "objeto": "Suporte técnico, ajustes, atualização, apoio à migração, capacitação, evolução e manutenção do Software de Gestão Automation System of Inventory - ASIWEB, composto pelos sistemas de Almoxarifado e Patrimônio.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2025-05-25"
   },
   {
@@ -69,6 +77,7 @@
     "contratada": "XP ON CONSULTORIA LTDA",
     "objeto": "Plataforma Zoom Meetings e Plataforma Zoom Events.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2025-07-25"
   },
   {
@@ -76,7 +85,8 @@
     "numero": "019/2022 (id. 0370794)",
     "contratada": "RD TELECOM LTDA",
     "objeto": "Serviços de comunicação de dados para conexão da rede do CJF à Internet com saída pelo STJ.",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2027-08-14"
   },
   {
@@ -85,6 +95,7 @@
     "contratada": "SUPORTE INFORMÁTICA SOLUÇÕES LTDA",
     "objeto": "Empresa especializada para o fornecimento de subscrições de software corporativo de código aberto do tipo plataforma de contêineres, sistemas operacionais e servidores de aplicação da RedHat.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2023-10-19"
   },
   {
@@ -93,6 +104,7 @@
     "contratada": "O3S CONSULTORIA E TECNOLOGIA DA INFORMACAO LTDA",
     "objeto": "Subscrição de serviço de suporte prioritário do sistema operacional SUSE Linux e da ferramenta de gerenciamento centralizado SUSE Manager.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2025-12-27"
   },
   {
@@ -101,6 +113,7 @@
     "contratada": "ASSOCIAÇÃO PARANAENSE DE CULTURA PONTÍFICA UNIVERSIDADE CATÓLICA DO PARANÁ (APC)",
     "objeto": "Suporte técnico mensal, com atualização e manutenção preventiva, corretiva, evolutiva e adaptativa, de migração e integração e de treinamento para o software Pergamum.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2025-11-29"
   },
   {
@@ -109,6 +122,7 @@
     "contratada": "INSTITUTO ANTÔNIO HOUAISS DE LEXICOGRAFIA E BANCO DE DADOS DA LÍNGUA PORTUGUESA S/C LTDA",
     "objeto": "Contratação de software como serviços da licença Dicionário Houaiss Corporativo.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2025-11-24"
   },
   {
@@ -116,7 +130,8 @@
     "numero": "030/2022 (id. 0405074)",
     "contratada": "CONNECTCOM TELEINFORMÁTICA COMÉRCIO E SERVIÇOS LTDA",
     "objeto": "Contratação de empresa especializada para a prestação do serviço técnico de sustentação do ambiente de infraestrutura de TI.",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2028-01-23"
   },
   {
@@ -125,6 +140,7 @@
     "contratada": "DELL COMPUTADORES DO BRASIL LTDA.",
     "objeto": "Contratação de empresa especializada em extensão de garantia do fabricante, serviços de atualização e suporte técnico do equipamento appliance Dell DD6800 e seus componentes.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2026-03-23"
   },
   {
@@ -133,6 +149,7 @@
     "contratada": "NCT INFORMÁTICA LTDA",
     "objeto": "Contratação de extensão de garantia, serviços de atualização e suporte técnico, manutenção corretiva e preventiva das soluções de segurança de perímetro (equipamentos Fortinet - FortiWeb e FortiGate).",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2026-03-05"
   },
   {
@@ -140,7 +157,8 @@
     "numero": "019/2023 (id. 0465117)",
     "contratada": "BRASOFTWARE INFORMATICA LTDA",
     "objeto": "Contratação de subscrições da Microsoft.",
-    "unidade": "CJF",
+    "unidade": "-",
+    "orcamento": "CJF",
     "fim": "2026-05-25"
   },
   {
@@ -148,7 +166,8 @@
     "numero": "020/2023 (id. 0472099)",
     "contratada": "O3S CONSULTORIA E TECNOLOGIA DA INFORMACAO LTDA",
     "objeto": "Contratação de subscrição de ferramenta de gerenciamento de ciclo de vida de software GitLab Ultimate.",
-    "unidade": "NUJUFE",
+    "unidade": "-",
+    "orcamento": "NUJUFE",
     "fim": "2026-06-13"
   },
   {
@@ -156,7 +175,8 @@
     "numero": "021/2023 (id. 0472859)",
     "contratada": "SUPORTE INFORMÁTICA SOLUÇÕES LTDA",
     "objeto": "Contratação de empresa especializada para o fornecimento de subscrições de software corporativo de código aberto do tipo plataforma de contêineres, sistemas operacionais e servidores de aplicação da RedHat.",
-    "unidade": "CJF",
+    "unidade": "-",
+    "orcamento": "CJF",
     "fim": "2026-07-09"
   },
   {
@@ -165,6 +185,7 @@
     "contratada": "HEWLETT-PACKARD BRASIL LTDA",
     "objeto": "Prestação do serviço de suporte técnico dos servidores de rede em lâmina (tipo blade).",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2025-08-30"
   },
   {
@@ -172,7 +193,8 @@
     "numero": "029/2023 (id. 0506149)",
     "contratada": "MCR SISTEMAS E CONSULTORIA LTDA",
     "objeto": "Contratação de licenças de softwares de Design Gráfico - Adobe Creative Cloud.",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2026-09-28"
   },
   {
@@ -180,7 +202,8 @@
     "numero": "031/2023 (id. 0522104)",
     "contratada": "MCR SISTEMAS E CONSULTORIA LTDA",
     "objeto": "Contratação de licenças de softwares de Design Gráfico - AutoDesk AEC.",
-    "unidade": "CJF",
+    "unidade": "COPRA",
+    "orcamento": "CJF",
     "fim": "2026-11-08"
   },
   {
@@ -189,6 +212,7 @@
     "contratada": "DNA TECNOLOGIA LTDA",
     "objeto": "Desenvolvimento do novo Portal CJF.",
     "unidade": "-",
+    "orcamento": "-",
     "fim": "2024-12-28"
   },
   {
@@ -196,7 +220,8 @@
     "numero": "033/2023 (id. 0537214)",
     "contratada": "TORINO INFORMÁTICA LTDA",
     "objeto": "Aquisição de computadores do tipo Workstation.",
-    "unidade": "CJF",
+    "unidade": "COPRA",
+    "orcamento": "CJF",
     "fim": "2029-04-07"
   },
   {
@@ -204,7 +229,8 @@
     "numero": "006/2024 (id. 0558348)",
     "contratada": "SERVIX INFORMÁTICA LTDA",
     "objeto": "Ampliação da solução de armazenamento principal NETAPP FAS9000 do CJF.",
-    "unidade": "CJF",
+    "unidade": "COTEC",
+    "orcamento": "CJF",
     "fim": "2029-05-09"
   },
   {
@@ -212,7 +238,8 @@
     "numero": "007/2024 (id. 0559726)",
     "contratada": "ARVVO TECNOLOGIA, CONSULTORIA E SERVICOS LTDA",
     "objeto": "Aquisição de solução de backup de dados contemplando a subscrição de licenciamento de software e o fornecimento de equipamento(s), serviços de instalação e configuração, transferência de conhecimento, suporte técnico e garantia.",
-    "unidade": "CJF",
+    "unidade": "COTEC",
+    "orcamento": "CJF",
     "fim": "2029-06-05"
   },
   {
@@ -220,7 +247,8 @@
     "numero": "014/2024 (id. 0565666)",
     "contratada": "BLUE EYE SOLUÇÕES EM TECNOLOGIA LTDA",
     "objeto": "Solução de segurança para proteção de estações de trabalho, Data Center, e-mail corporativo e aplicativos Microsoft 365 - Endpoint.",
-    "unidade": "CJF",
+    "unidade": "COSTI",
+    "orcamento": "CJF",
     "fim": "2027-07-31"
   },
   {
@@ -228,7 +256,8 @@
     "numero": "025/2024 (id. 0604841)",
     "contratada": "AMM TECNOLOGIA E SERVIÇOS DE INFORMATICA S/A",
     "objeto": "Subscrições de suporte e garantia para solução de virtualização VMware",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2027-08-14"
   },
   {
@@ -236,7 +265,8 @@
     "numero": "026/2024 (id. 0612432)",
     "contratada": "CYBER WAN TECNOLOGIA LTDA",
     "objeto": "Subscrição e na renovação da subscrição de licenças do software PHPStorm. (1° T.A)",
-    "unidade": "NUJUFE",
+    "unidade": "COSOF",
+    "orcamento": "NUJUFE",
     "fim": "2028-06-28"
   },
   {
@@ -244,7 +274,8 @@
     "numero": "027/2024 (id. 0612433)",
     "contratada": "CYBER WAN TECNOLOGIA LTDA",
     "objeto": "Subscrição do pacote de aplicativos Jetbrains - All Products Pack.",
-    "unidade": "NUJUFE",
+    "unidade": "COSOF",
+    "orcamento": "NUJUFE",
     "fim": "2026-08-29"
   },
   {
@@ -252,7 +283,8 @@
     "numero": "031/2024 (id. 0642388)",
     "contratada": "DATAPREV",
     "objeto": "b-CPF",
-    "unidade": "NUJUFE",
+    "unidade": "DIDIA",
+    "orcamento": "NUJUFE",
     "fim": "2029-10-21"
   },
   {
@@ -260,7 +292,8 @@
     "numero": "033/2024 (id. 0648538)",
     "contratada": "SERPRO",
     "objeto": "Infovia Brasília",
-    "unidade": "CJF",
+    "unidade": "COTEC",
+    "orcamento": "CJF",
     "fim": "2027-04-30"
   },
   {
@@ -268,7 +301,8 @@
     "numero": "034/2024 (id. 0650968)",
     "contratada": "SERPRO",
     "objeto": "Certificados digitais (e-CPF) tipo A3 em nuvem",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2026-11-07"
   },
   {
@@ -276,7 +310,8 @@
     "numero": "036/2024 (id. 0649890)",
     "contratada": "TOTALCAD COMÉRCIO E SERVIÇOS TECNOLÓGICOS LTDA",
     "objeto": "Software Enscape",
-    "unidade": "CJF",
+    "unidade": "-",
+    "orcamento": "CJF",
     "fim": "2025-11-12"
   },
   {
@@ -284,7 +319,8 @@
     "numero": "037/2024 (id. 0652214)",
     "contratada": "BB TECNOLOGIA E SERVIÇOS S/A",
     "objeto": "Licenças de software mysql enterprise edition  (Vigência subscrições: 27/11/2027)",
-    "unidade": "CJF",
+    "unidade": "-",
+    "orcamento": "CJF",
     "fim": "2025-11-24"
   },
   {
@@ -292,7 +328,8 @@
     "numero": "038/2024 (id. 0654742)",
     "contratada": "AMM TECNOLOGIA E SERVIÇOS DE INFORMÁTICA S.A.",
     "objeto": "Subscrição dos softwares de virtualização de servidores, redes e de armazenamento do fabricante VMWARE.",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2029-12-03"
   },
   {
@@ -300,7 +337,8 @@
     "numero": "039/2024 (id. 0658637)",
     "contratada": "TORINO INFORMÁTICA",
     "objeto": "Monitores e assistência técnica",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2029-12-10"
   },
   {
@@ -308,7 +346,8 @@
     "numero": "043/2024 (id. 0668118)",
     "contratada": "LINK DATA INFORMÁTICA E SERVIÇOS S/A",
     "objeto": "Gestão Material e Patrimonial do Conselho da CJF",
-    "unidade": "CJF",
+    "unidade": "-",
+    "orcamento": "CJF",
     "fim": "2024-12-29"
   },
   {
@@ -316,7 +355,8 @@
     "numero": "001/2025 (id. 0682958)",
     "contratada": "3F LTDA",
     "objeto": "Licenças do software Orçafascio",
-    "unidade": "CJF",
+    "unidade": "SGO",
+    "orcamento": "CJF",
     "fim": "2027-02-19"
   },
   {
@@ -324,7 +364,8 @@
     "numero": "015/2025 (id. 0717646)",
     "contratada": "WYNTECH SERVICOS EM TECNOLOGIA DA INFORMACAO LTDA",
     "objeto": "Prestação do serviço técnico de operação de central de atendimento a usuários (Service Desk) no ambiente de TI do CJF",
-    "unidade": "NUJUFE",
+    "unidade": "DIRAC",
+    "orcamento": "NUJUFE",
     "fim": "2030-06-08"
   },
   {
@@ -332,7 +373,8 @@
     "numero": "018/2025 (id. 0726000)",
     "contratada": "ZOOMTECH LTDA",
     "objeto": "Servidores de rede",
-    "unidade": "CJF",
+    "unidade": "COTEC",
+    "orcamento": "CJF",
     "fim": "2030-06-03"
   },
   {
@@ -340,7 +382,8 @@
     "numero": "023/2025 (id. 0743255)",
     "contratada": "SERPRO",
     "objeto": "Prestador de Serviços de Suporte – PSS para a Autoridade Certificadora da Justiça – AC-JUS",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2030-07-17"
   },
   {
@@ -348,7 +391,8 @@
     "numero": "026/2025  (id. 0749251)",
     "contratada": "XP ON CONSULTORIA LTDA",
     "objeto": "Fornecimento de subscrições ZOOM",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2028-08-07"
   },
   {
@@ -356,7 +400,8 @@
     "numero": "032/2025 (id. 0755079)",
     "contratada": "ASSOCIAÇÃO PARANAENSE DE CULTURA – APC",
     "objeto": "Suporte Técnico Software Pergamum",
-    "unidade": "CJF",
+    "unidade": "CEJ",
+    "orcamento": "CJF",
     "fim": "2026-09-04"
   },
   {
@@ -364,7 +409,8 @@
     "numero": "033/2025  (id. 0758033)",
     "contratada": "DECISION SERVIÇOS DE TECNOLOGIA DA INFORMAÇÃO LTDA",
     "objeto": "Aquisição de licenças de subscrição dos softwares de virtualização de servidores, redes e de armazenamento do fabricante VMWARE",
-    "unidade": "NUJUFE",
+    "unidade": "COSTI",
+    "orcamento": "NUJUFE",
     "fim": "2030-09-08"
   },
   {
@@ -372,7 +418,8 @@
     "numero": "034/2025  (id. 0758500)",
     "contratada": "JAMC CONSULTORIA E REPRESENTACAO DE SOFTWARE LTDA",
     "objeto": "Solução em modelo SaaS (Software como Serviço) para auditoria, monitoramento, proteção de dados, detecção e resposta a ameaças a metadados e dados não estruturados, além de análise de dados em repositórios corporativos internos (on-premises) ou em ambiente cloud (nuvem) em plataformas de colaboração (VARONIS)",
-    "unidade": "CJF",
+    "unidade": "COSTI",
+    "orcamento": "CJF",
     "fim": "2027-09-08"
   },
   {
@@ -380,7 +427,8 @@
     "numero": "035/2025 (id. 0757502)",
     "contratada": "AMM TECNOLOGIA E SERVIÇOS DE INFORMATICA S/A",
     "objeto": "Subscrições de suporte e garantia para solução de virtualização VMWare",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2030-09-14"
   },
   {
@@ -388,7 +436,8 @@
     "numero": "038/2025 (id. 0779918)",
     "contratada": "FAGUNDEZ DISTRIBUIÇÃO LTDA",
     "objeto": "Monitor tipo IV",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2030-10-29"
   },
   {
@@ -396,7 +445,8 @@
     "numero": "039/2025  (id. 0779646)",
     "contratada": "HP BRASIL INDÚSTRIA E COMÉRCIO E EQUIPAMENTOS ELETRÔNICOS LTDA",
     "objeto": "Fornecimento de computadores, notebooks e monitores, incluindo assistência técnica da garantia.  (NOTEBOOKS)",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2030-10-09"
   },
   {
@@ -404,7 +454,8 @@
     "numero": "040/2025 (id. 0780580)",
     "contratada": "DATEN TECNOLOGIA LTDA",
     "objeto": "Notebook Tipo I",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2030-11-02"
   },
   {
@@ -412,7 +463,8 @@
     "numero": "041/2025  (id. 0779651)",
     "contratada": "HP BRASIL INDÚSTRIA E COMÉRCIO E EQUIPAMENTOS ELETRÔNICOS LTDA",
     "objeto": "Fornecimento de computadores, notebooks e monitores, incluindo assistência técnica da garantia. (MICROCOMPUTADOR TIPO I)",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2030-10-09"
   },
   {
@@ -420,7 +472,8 @@
     "numero": "044/2025 (id. 0792780)",
     "contratada": "LAYER TECNOLOGIA DA INFORMATICA LTDA",
     "objeto": "Solução tecnológica de Controlador de Entrega de Aplicações (Application Delivery Controller – ADC)",
-    "unidade": "NUJUFE",
+    "unidade": "COSTI",
+    "orcamento": "NUJUFE",
     "fim": "2031-02-17"
   },
   {
@@ -428,7 +481,8 @@
     "numero": "045/2025  (id. 0797176)",
     "contratada": "YSSY SOLUÇÕES S/A",
     "objeto": "Prestação de serviço de suporte técnico e atualização de licenças para equipamentos e software da solução Cisco SmartNet.",
-    "unidade": "CJF",
+    "unidade": "COTEC",
+    "orcamento": "CJF",
     "fim": "2027-12-01"
   },
   {
@@ -436,7 +490,8 @@
     "numero": "049/2025  (id. 0805575)",
     "contratada": "BK TECNOLOGIA DA INFORMAÇAO LTDA EPP",
     "objeto": "Contratação de empresa especializada para o fornecimento de subscrição Elastic Cloud Enterprise, com suporte e garantia de atualização de versões; com serviço de implantação, serviços técnicos especializados e treinamento oficial",
-    "unidade": "NUJUFE",
+    "unidade": "DIDIA",
+    "orcamento": "NUJUFE",
     "fim": "2027-12-14"
   },
   {
@@ -444,7 +499,8 @@
     "numero": "053/2025  (id. 0811505)",
     "contratada": "ORACLE DO BRASIL SISTEMAS LTDA",
     "objeto": "Prestação de serviços de atualização de versão de software, suporte especializado ao produto, incluindo suporte avançado do fabricante, dos produtos Oracle licenciados para o CJF",
-    "unidade": "NUJUFE",
+    "unidade": "DIDIA",
+    "orcamento": "NUJUFE",
     "fim": "2030-12-30"
   },
   {
@@ -452,7 +508,8 @@
     "numero": "003/2026  (id. 0822031)",
     "contratada": "RD TELECOM LTDA",
     "objeto": "Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 1",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2027-03-01"
   },
   {
@@ -460,7 +517,8 @@
     "numero": "004/2026  (id. 0822899)",
     "contratada": "CLICK NET BRASIL TELECOMUNICAÇÃO LTDA - ME",
     "objeto": "Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 2",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2027-03-01"
   },
   {
@@ -468,7 +526,8 @@
     "numero": "005/2026  (id. 0822900)",
     "contratada": "ALGAR TELECOM S/A",
     "objeto": "Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 3",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2027-03-02"
   },
   {
@@ -476,7 +535,8 @@
     "numero": "008/2026  (id. 0831338)",
     "contratada": "ALLTECH - SOLUÇÕES EM TECNOLOGIA LTDA",
     "objeto": "Fornecimento de Solução de Proteção de Rede Perimetral (Firewall)",
-    "unidade": "NUJUFE",
+    "unidade": "COSTI",
+    "orcamento": "NUJUFE",
     "fim": "2031-03-03"
   },
   {
@@ -484,7 +544,8 @@
     "numero": "009/2026 (id. 0833145)",
     "contratada": "INSTITUTO ANTÔNIO HOUAISS",
     "objeto": "Subscrição de licenças da solução Dicionário Houaiss Corporativo",
-    "unidade": "CJF",
+    "unidade": "DG",
+    "orcamento": "CJF",
     "fim": "2027-03-17"
   },
   {
@@ -492,7 +553,8 @@
     "numero": "010/2026 (id. 0833926)",
     "contratada": "JAMC CONSULTORIA E REPRESENTAÇÕES DE SOFTWARE LTDA",
     "objeto": "Solução de gerenciamento de acesso privilegiado (PAM - Privileged Access Management) Senha Segura",
-    "unidade": "NUJUFE",
+    "unidade": "COSTI",
+    "orcamento": "NUJUFE",
     "fim": "2029-03-16"
   },
   {
@@ -500,7 +562,8 @@
     "numero": "013/2026 (id. 0838959)",
     "contratada": "LANLINK SOLUÇÕES E COMERCIALIZAÇÃO EM INFORMÁTICA S/A",
     "objeto": "Contratação de empresa especializada para o fornecimento de subscrições de licenças de software de colaboração e produtividade Microsoft 365",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2027-05-25"
   },
   {
@@ -508,7 +571,8 @@
     "numero": "014/2026 (id. 0839918)",
     "contratada": "MORI EDUCACAO LTDA",
     "objeto": "Serviço de suporte técnico da plataforma de ensino Moodle do CEJ",
-    "unidade": "CJF",
+    "unidade": "DIPRO",
+    "orcamento": "CJF",
     "fim": "2027-04-06"
   },
   {
@@ -516,7 +580,8 @@
     "numero": "015/2026 (id. 0848192)",
     "contratada": "DATAPREV",
     "objeto": "b-CNPJ",
-    "unidade": "NUJUFE",
+    "unidade": "DIDIA",
+    "orcamento": "NUJUFE",
     "fim": "2031-04-14"
   },
   {
@@ -524,7 +589,8 @@
     "numero": "016/2026 (id. 0849749)",
     "contratada": "TELEFONICA BRASIL S.A.",
     "objeto": "Licenciamento Microsoft para Equipamentos Servidores",
-    "unidade": "NUJUFE",
+    "unidade": "DIDIA",
+    "orcamento": "NUJUFE",
     "fim": "2029-05-21"
   },
   {
@@ -532,7 +598,8 @@
     "numero": "018/2026 (id. 0853097)",
     "contratada": "WISEIT - SISTEMAS E INFORMÁTICA LTDA",
     "objeto": "Aquisição de Switches Fibre Channel",
-    "unidade": "NUJUFE",
+    "unidade": "COTEC",
+    "orcamento": "NUJUFE",
     "fim": "2031-06-09"
   },
   {
@@ -540,7 +607,8 @@
     "numero": "020/2026 (id. 0866703)",
     "contratada": "ASI COMPANY TECNOLOGIA S/A",
     "objeto": "Suporte técnico (help desk) e manutenção continuada do sistema ASIWEB",
-    "unidade": "CJF",
+    "unidade": "SAD",
+    "orcamento": "CJF",
     "fim": "2027-05-26"
   },
   {
@@ -548,7 +616,8 @@
     "numero": "022/2026 (id. 0875879)",
     "contratada": "MN TECNOLOGIA E TREINAMENTO LTDA",
     "objeto": "Subscrições do software de engenharia AltoQI Builder Infinity Gov",
-    "unidade": "CJF",
+    "unidade": "SGO",
+    "orcamento": "CJF",
     "fim": "2031-06-17"
   },
   {
@@ -556,7 +625,8 @@
     "numero": "025/2026 (id. 0891987)",
     "contratada": "BB TECNOLOGIA E SERVIÇOS S.A",
     "objeto": "Subscrições de solução integrada SUSE",
-    "unidade": "CJF",
+    "unidade": "COTEC",
+    "orcamento": "CJF",
     "fim": null
   },
   {
@@ -564,7 +634,8 @@
     "numero": "028/2026 (id. 0894676)",
     "contratada": "YASMYN MYSRAYNE MENESES NOBRE",
     "objeto": "Subscrições do software Enscape ArchDesign Collection",
-    "unidade": "CJF",
+    "unidade": "SGO",
+    "orcamento": "CJF",
     "fim": null
   },
   {
@@ -572,7 +643,8 @@
     "numero": "029/2026 (id. 0896309)",
     "contratada": "MCR SISTEMAS E CONSULTORIA LTDA",
     "objeto": "Subscrições do software Autodesk AEC Collection (Architecture Engineering & Construction Collection)",
-    "unidade": "CJF",
+    "unidade": "SGO",
+    "orcamento": "CJF",
     "fim": "2029-08-06"
   },
   {
@@ -580,7 +652,8 @@
     "numero": "030/2026 (id. 0896610)",
     "contratada": "MCR SISTEMAS E CONSULTORIA LTDA",
     "objeto": "Subscrições do software Adobe Creative Cloud e do software Adobe Acrobat Pro",
-    "unidade": "CJF",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
     "fim": "2029-08-06"
   }
 ]
