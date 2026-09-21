@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><!-- v2 -->
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Monitoramento SEPGOV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -537,9 +537,9 @@ function ctrRender() {
   const filtered=ctrDoSort(ctrApplyF());
   const tot=filtered.length;
   document.getElementById('st-tot').textContent=_CTR.length;
-  document.getElementById('st-vig').textContent=filtered.filter(c=>c.status==='vigente').length;
-  document.getElementById('st-enc').textContent=filtered.filter(c=>c.status==='encerrado').length;
-  document.getElementById('st-alt').textContent=filtered.filter(c=>c.alert).length;
+  document.getElementById('st-vig').textContent=_CTR.filter(c=>c.status==='vigente').length;
+  document.getElementById('st-enc').textContent=_CTR.filter(c=>c.status==='encerrado').length;
+  document.getElementById('st-alt').textContent=_CTR.filter(c=>c.alert).length;
   document.getElementById('rinfo').textContent=tot===_CTR.length?`Exibindo todos os ${tot} contratos`:`${tot} contrato${tot!==1?'s':''} encontrado${tot!==1?'s':''}`;
   const pages=Math.ceil(tot/PER)||1;
   if(ctrPage>pages)ctrPage=1;
@@ -687,9 +687,9 @@ function arpRender() {
   const filtered=arpDoSort(arpApplyF());
   const tot=filtered.length;
   document.getElementById('arp-st-tot').textContent=_ARP.length;
-  document.getElementById('arp-st-vig').textContent=filtered.filter(c=>c.status==='vigente').length;
-  document.getElementById('arp-st-enc').textContent=filtered.filter(c=>c.status==='encerrado').length;
-  document.getElementById('arp-st-alt').textContent=filtered.filter(c=>c.alert).length;
+  document.getElementById('arp-st-vig').textContent=_ARP.filter(c=>c.status==='vigente').length;
+  document.getElementById('arp-st-enc').textContent=_ARP.filter(c=>c.status==='encerrado').length;
+  document.getElementById('arp-st-alt').textContent=_ARP.filter(c=>c.alert).length;
   document.getElementById('arp-rinfo').textContent=`${tot} ARP${tot!==1?'s':''} encontrada${tot!==1?'s':''}`;
   const pages=Math.ceil(tot/PER)||1;
   if(arpPage>pages)arpPage=1;
