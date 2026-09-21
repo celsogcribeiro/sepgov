@@ -455,7 +455,7 @@ function switchTab(tab) {
 // ══════════════════════════════
 // CONTRATOS
 // ══════════════════════════════
-let _CTR=[], ctrPage=1, ctrSKey='dias_restantes', ctrSDir=1;
+let _CTR=[], ctrPage=1, ctrSKey='dias_restantes', ctrSDir=1, _fS='vigente';
 
 function setupContratos(RAW) {
   _CTR = enrich(RAW);
@@ -469,6 +469,7 @@ function setupContratos(RAW) {
 }
 
 function setFilter(f) {
+  _fS = f;
   document.getElementById('fS').value=f;
   ['todos','vigente','encerrado','alerta'].forEach(k=>{ const el=document.getElementById('card-'+k); if(el)el.classList.toggle('active-filter',k===f); });
   ctrPage=1; ctrRender();
@@ -476,7 +477,7 @@ function setFilter(f) {
 
 function ctrApplyF() {
   const q=document.getElementById('search').value.trim().toLowerCase();
-  const fS=document.getElementById('fS').value;
+  const fS=_fS;
   const fA=document.getElementById('fA').value;
   const fU=document.getElementById('fU').value;
   return _CTR.filter(c=>{
@@ -485,7 +486,6 @@ function ctrApplyF() {
     if(fS==='vigente'&&c.status!=='vigente')return false;
     if(fS==='encerrado'&&c.status!=='encerrado')return false;
     if(fS==='alerta'&&!c.alert)return false;
-    if(fS==='todos'&&false)return false;
     if(q&&![c.numero,c.contratada,c.objeto,c.unidade].some(s=>s&&s.toLowerCase().includes(q)))return false;
     return true;
   });
@@ -515,6 +515,7 @@ function gp(n){ctrPage=n;ctrRender();document.getElementById('table-wrap').scrol
 
 function clearF() {
   document.getElementById('search').value='';
+  _fS='todos';
   document.getElementById('fS').value='todos';
   document.getElementById('fA').value='';
   document.getElementById('fU').value='';
