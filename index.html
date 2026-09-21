@@ -715,7 +715,6 @@ function arpRender() {
     </tr>`;
   }).join('');
   // Mobile cards ARPs
-  const arpMobileCards = document.getElementById('arp-mobile-cards');
   if(window.innerWidth <= 600 && arpMobileCards) {
     arpMobileCards.innerHTML = slice.map(c => {
       const arpMatch = c.numero.match(/^(.*?)\s*\((id\..*?)\)\s*$/i);
