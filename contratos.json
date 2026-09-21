@@ -6,7 +6,7 @@
     "objeto": "Prestação de Serviços Gerenciados de Segurança da Informação para o Conselho de Justiça Federal – CJF",
     "unidade": "-",
     "orcamento": "NUJUFE",
-    "fim": "2026-06-24"
+    "fim": "2025-06-25"
   },
   {
     "ano": "2021",
@@ -15,7 +15,7 @@
     "objeto": "Prestação do serviço de emissão de certificados digitais, do tipo A3, padrão Cert-JUS, com visitas técnicas.",
     "unidade": "-",
     "orcamento": "CJF",
-    "fim": "2026-07-20"
+    "fim": "2021-07-21"
   },
   {
     "ano": "2021",
@@ -24,7 +24,7 @@
     "objeto": "Prestação do serviço de emissão de certificados digitais, do tipo A1, padrão Internacional. (1° T.A)",
     "unidade": "COSTI",
     "orcamento": "CJF",
-    "fim": "2027-07-18"
+    "fim": "2022-07-19"
   },
   {
     "ano": "2021",
@@ -33,7 +33,7 @@
     "objeto": "Prestação dos serviços de assistência técnica para equipamentos pertencentes à solução do ambiente físico seguro e seus subsistemas, do tipo Sala-Cofre Modular (4° T.A)",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2027-09-22"
+    "fim": "2025-03-23"
   },
   {
     "ano": "2021",
@@ -42,7 +42,7 @@
     "objeto": "Prestação de serviços de impressão distribuída (outsourcing de impressão)",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2026-09-26"
+    "fim": "2021-09-27"
   },
   {
     "ano": "2022",
@@ -51,7 +51,7 @@
     "objeto": "Prestação de serviço de manutenção preventiva e corretiva dos relógios biométricos Henry Primme SF Ponto Bio.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2024-10-27"
+    "fim": "2022-04-28"
   },
   {
     "ano": "2022",
@@ -60,7 +60,7 @@
     "objeto": "Subscrição de Ferramenta de Gerenciamento de Ciclo de Vida de Software GitLab versão Ultimate.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2023-05-15"
+    "fim": "2022-05-16"
   },
   {
     "ano": "2022",
@@ -69,7 +69,7 @@
     "objeto": "Suporte técnico, ajustes, atualização, apoio à migração, capacitação, evolução e manutenção do Software de Gestão Automation System of Inventory - ASIWEB, composto pelos sistemas de Almoxarifado e Patrimônio.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2025-05-25"
+    "fim": "2024-05-26"
   },
   {
     "ano": "2022",
@@ -78,7 +78,7 @@
     "objeto": "Plataforma Zoom Meetings e Plataforma Zoom Events.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2025-07-25"
+    "fim": "2022-07-26"
   },
   {
     "ano": "2022",
@@ -87,7 +87,7 @@
     "objeto": "Serviços de comunicação de dados para conexão da rede do CJF à Internet com saída pelo STJ.",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2027-08-14"
+    "fim": "2025-12-15"
   },
   {
     "ano": "2022",
@@ -96,7 +96,7 @@
     "objeto": "Empresa especializada para o fornecimento de subscrições de software corporativo de código aberto do tipo plataforma de contêineres, sistemas operacionais e servidores de aplicação da RedHat.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2023-10-19"
+    "fim": "2022-10-20"
   },
   {
     "ano": "2022",
@@ -105,7 +105,7 @@
     "objeto": "Subscrição de serviço de suporte prioritário do sistema operacional SUSE Linux e da ferramenta de gerenciamento centralizado SUSE Manager.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2025-12-27"
+    "fim": "2022-12-28"
   },
   {
     "ano": "2022",
@@ -114,7 +114,7 @@
     "objeto": "Suporte técnico mensal, com atualização e manutenção preventiva, corretiva, evolutiva e adaptativa, de migração e integração e de treinamento para o software Pergamum.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2025-11-29"
+    "fim": "2024-11-30"
   },
   {
     "ano": "2022",
@@ -123,7 +123,7 @@
     "objeto": "Contratação de software como serviços da licença Dicionário Houaiss Corporativo.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2025-11-24"
+    "fim": "2022-05-25"
   },
   {
     "ano": "2022",
@@ -132,7 +132,7 @@
     "objeto": "Contratação de empresa especializada para a prestação do serviço técnico de sustentação do ambiente de infraestrutura de TI.",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2028-01-23"
+    "fim": "2026-07-24"
   },
   {
     "ano": "2023",
@@ -141,7 +141,7 @@
     "objeto": "Contratação de empresa especializada em extensão de garantia do fabricante, serviços de atualização e suporte técnico do equipamento appliance Dell DD6800 e seus componentes.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2026-03-23"
+    "fim": "2023-03-24"
   },
   {
     "ano": "2023",
@@ -150,7 +150,7 @@
     "objeto": "Contratação de extensão de garantia, serviços de atualização e suporte técnico, manutenção corretiva e preventiva das soluções de segurança de perímetro (equipamentos Fortinet - FortiWeb e FortiGate).",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2026-03-05"
+    "fim": "2023-03-06"
   },
   {
     "ano": "2023",
@@ -159,7 +159,7 @@
     "objeto": "Contratação de subscrições da Microsoft.",
     "unidade": "-",
     "orcamento": "CJF",
-    "fim": "2026-05-25"
+    "fim": "2023-05-26"
   },
   {
     "ano": "2023",
@@ -168,7 +168,7 @@
     "objeto": "Contratação de subscrição de ferramenta de gerenciamento de ciclo de vida de software GitLab Ultimate.",
     "unidade": "-",
     "orcamento": "NUJUFE",
-    "fim": "2026-06-13"
+    "fim": "2025-06-14"
   },
   {
     "ano": "2023",
@@ -186,7 +186,7 @@
     "objeto": "Prestação do serviço de suporte técnico dos servidores de rede em lâmina (tipo blade).",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2025-08-30"
+    "fim": "2023-08-31"
   },
   {
     "ano": "2023",
@@ -195,7 +195,7 @@
     "objeto": "Contratação de licenças de softwares de Design Gráfico - Adobe Creative Cloud.",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2026-09-28"
+    "fim": "2023-09-29"
   },
   {
     "ano": "2023",
@@ -204,7 +204,7 @@
     "objeto": "Contratação de licenças de softwares de Design Gráfico - AutoDesk AEC.",
     "unidade": "SGO",
     "orcamento": "CJF",
-    "fim": "2026-11-08"
+    "fim": "2023-11-09"
   },
   {
     "ano": "2023",
@@ -213,7 +213,7 @@
     "objeto": "Desenvolvimento do novo Portal CJF.",
     "unidade": "-",
     "orcamento": "-",
-    "fim": "2024-12-28"
+    "fim": "2023-12-29"
   },
   {
     "ano": "2023",
@@ -222,7 +222,7 @@
     "objeto": "Aquisição de computadores do tipo Workstation.",
     "unidade": "SGO",
     "orcamento": "CJF",
-    "fim": "2029-04-07"
+    "fim": "2024-04-08"
   },
   {
     "ano": "2024",
@@ -231,7 +231,7 @@
     "objeto": "Ampliação da solução de armazenamento principal NETAPP FAS9000 do CJF.",
     "unidade": "COTEC",
     "orcamento": "CJF",
-    "fim": "2029-05-09"
+    "fim": "2024-05-10"
   },
   {
     "ano": "2024",
@@ -240,7 +240,7 @@
     "objeto": "Aquisição de solução de backup de dados contemplando a subscrição de licenciamento de software e o fornecimento de equipamento(s), serviços de instalação e configuração, transferência de conhecimento, suporte técnico e garantia.",
     "unidade": "COTEC",
     "orcamento": "CJF",
-    "fim": "2029-06-05"
+    "fim": "2024-06-06"
   },
   {
     "ano": "2024",
@@ -249,7 +249,7 @@
     "objeto": "Solução de segurança para proteção de estações de trabalho, Data Center, e-mail corporativo e aplicativos Microsoft 365 - Endpoint.",
     "unidade": "COSTI",
     "orcamento": "CJF",
-    "fim": "2027-07-31"
+    "fim": "2024-08-01"
   },
   {
     "ano": "2024",
@@ -258,7 +258,7 @@
     "objeto": "Subscrições de suporte e garantia para solução de virtualização VMware",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2027-08-14"
+    "fim": "2024-08-15"
   },
   {
     "ano": "2024",
@@ -267,7 +267,7 @@
     "objeto": "Subscrição e na renovação da subscrição de licenças do software PHPStorm. (1° T.A)",
     "unidade": "COSOF",
     "orcamento": "CJF",
-    "fim": "2028-06-28"
+    "fim": "2026-06-29"
   },
   {
     "ano": "2024",
@@ -276,7 +276,7 @@
     "objeto": "Subscrição do pacote de aplicativos Jetbrains - All Products Pack.  (1º T.A)",
     "unidade": "COSOF",
     "orcamento": "CJF",
-    "fim": "2028-08-29"
+    "fim": "2026-08-30"
   },
   {
     "ano": "2024",
@@ -285,7 +285,7 @@
     "objeto": "b-CPF",
     "unidade": "DIDIA",
     "orcamento": "NUJUFE",
-    "fim": "2029-10-21"
+    "fim": "2024-10-22"
   },
   {
     "ano": "2024",
@@ -294,7 +294,7 @@
     "objeto": "Infovia Brasília",
     "unidade": "COTEC",
     "orcamento": "CJF",
-    "fim": "2027-04-30"
+    "fim": "2024-10-31"
   },
   {
     "ano": "2024",
@@ -303,7 +303,7 @@
     "objeto": "Certificados digitais (e-CPF) tipo A3 em nuvem",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2026-11-07"
+    "fim": "2025-11-08"
   },
   {
     "ano": "2024",
@@ -312,7 +312,7 @@
     "objeto": "Software Enscape",
     "unidade": "-",
     "orcamento": "CJF",
-    "fim": "2025-11-12"
+    "fim": "2024-11-13"
   },
   {
     "ano": "2024",
@@ -321,7 +321,7 @@
     "objeto": "Licenças de software mysql enterprise edition  (Vigência subscrições: 27/11/2027)",
     "unidade": "-",
     "orcamento": "CJF",
-    "fim": "2025-11-24"
+    "fim": "2024-11-25"
   },
   {
     "ano": "2024",
@@ -330,7 +330,7 @@
     "objeto": "Subscrição dos softwares de virtualização de servidores, redes e de armazenamento do fabricante VMWARE.",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2029-12-03"
+    "fim": "2024-12-04"
   },
   {
     "ano": "2024",
@@ -339,7 +339,7 @@
     "objeto": "Monitores e assistência técnica",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2029-12-10"
+    "fim": "2024-12-11"
   },
   {
     "ano": "2024",
@@ -348,7 +348,7 @@
     "objeto": "Gestão Material e Patrimonial do Conselho da CJF",
     "unidade": "-",
     "orcamento": "CJF",
-    "fim": "2024-12-29"
+    "fim": "2023-12-30"
   },
   {
     "ano": "2025",
@@ -357,7 +357,7 @@
     "objeto": "Licenças do software Orçafascio",
     "unidade": "SGO",
     "orcamento": "CJF",
-    "fim": "2027-02-19"
+    "fim": "2026-02-20"
   },
   {
     "ano": "2025",
@@ -366,7 +366,7 @@
     "objeto": "Prestação do serviço técnico de operação de central de atendimento a usuários (Service Desk) no ambiente de TI do CJF",
     "unidade": "DIRAC",
     "orcamento": "NUJUFE",
-    "fim": "2030-06-08"
+    "fim": "2025-06-09"
   },
   {
     "ano": "2025",
@@ -375,7 +375,7 @@
     "objeto": "Servidores de rede",
     "unidade": "COTEC",
     "orcamento": "CJF",
-    "fim": "2030-06-03"
+    "fim": "2025-06-04"
   },
   {
     "ano": "2025",
@@ -384,7 +384,7 @@
     "objeto": "Prestador de Serviços de Suporte – PSS para a Autoridade Certificadora da Justiça – AC-JUS",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2030-07-17"
+    "fim": "2025-07-18"
   },
   {
     "ano": "2025",
@@ -393,7 +393,7 @@
     "objeto": "Fornecimento de subscrições ZOOM",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2028-08-07"
+    "fim": "2025-08-08"
   },
   {
     "ano": "2025",
@@ -402,7 +402,7 @@
     "objeto": "Suporte Técnico Software Pergamum (1° T.A)",
     "unidade": "CEJ",
     "orcamento": "CJF",
-    "fim": "2027-09-04"
+    "fim": "2026-09-05"
   },
   {
     "ano": "2025",
@@ -411,7 +411,7 @@
     "objeto": "Aquisição de licenças de subscrição dos softwares de virtualização de servidores, redes e de armazenamento do fabricante VMWARE",
     "unidade": "COSTI",
     "orcamento": "NUJUFE",
-    "fim": "2030-09-08"
+    "fim": "2025-09-09"
   },
   {
     "ano": "2025",
@@ -420,7 +420,7 @@
     "objeto": "Solução em modelo SaaS (Software como Serviço) para auditoria, monitoramento, proteção de dados, detecção e resposta a ameaças a metadados e dados não estruturados, além de análise de dados em repositórios corporativos internos (on-premises) ou em ambiente cloud (nuvem) em plataformas de colaboração (VARONIS)",
     "unidade": "COSTI",
     "orcamento": "NUJUFE",
-    "fim": "2027-09-08"
+    "fim": "2025-09-09"
   },
   {
     "ano": "2025",
@@ -429,7 +429,7 @@
     "objeto": "Subscrições de suporte e garantia para solução de virtualização VMWare",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2030-09-14"
+    "fim": "2025-09-15"
   },
   {
     "ano": "2025",
@@ -438,7 +438,7 @@
     "objeto": "Monitor tipo IV",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2030-10-29"
+    "fim": "2025-10-30"
   },
   {
     "ano": "2025",
@@ -447,7 +447,7 @@
     "objeto": "Fornecimento de computadores, notebooks e monitores, incluindo assistência técnica da garantia.  (NOTEBOOKS)",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2030-10-09"
+    "fim": "2025-10-10"
   },
   {
     "ano": "2025",
@@ -456,7 +456,7 @@
     "objeto": "Notebook Tipo I",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2030-11-02"
+    "fim": "2025-11-03"
   },
   {
     "ano": "2025",
@@ -465,7 +465,7 @@
     "objeto": "Fornecimento de computadores, notebooks e monitores, incluindo assistência técnica da garantia. (MICROCOMPUTADOR TIPO I)",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2030-10-09"
+    "fim": "2025-10-10"
   },
   {
     "ano": "2025",
@@ -474,7 +474,7 @@
     "objeto": "Solução tecnológica de Controlador de Entrega de Aplicações (Application Delivery Controller – ADC)",
     "unidade": "COSTI",
     "orcamento": "NUJUFE",
-    "fim": "2031-02-17"
+    "fim": "2026-02-18"
   },
   {
     "ano": "2025",
@@ -483,7 +483,7 @@
     "objeto": "Prestação de serviço de suporte técnico e atualização de licenças para equipamentos e software da solução Cisco SmartNet.",
     "unidade": "COTEC",
     "orcamento": "CJF",
-    "fim": "2027-12-01"
+    "fim": "2025-12-02"
   },
   {
     "ano": "2025",
@@ -492,7 +492,7 @@
     "objeto": "Contratação de empresa especializada para o fornecimento de subscrição Elastic Cloud Enterprise, com suporte e garantia de atualização de versões; com serviço de implantação, serviços técnicos especializados e treinamento oficial",
     "unidade": "DIDIA",
     "orcamento": "NUJUFE",
-    "fim": "2027-12-14"
+    "fim": "2025-12-15"
   },
   {
     "ano": "2025",
@@ -501,7 +501,7 @@
     "objeto": "Prestação de serviços de atualização de versão de software, suporte especializado ao produto, incluindo suporte avançado do fabricante, dos produtos Oracle licenciados para o CJF",
     "unidade": "DIDIA",
     "orcamento": "NUJUFE",
-    "fim": "2030-12-30"
+    "fim": "2025-12-31"
   },
   {
     "ano": "2026",
@@ -510,7 +510,7 @@
     "objeto": "Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 1",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2027-03-01"
+    "fim": "2026-03-02"
   },
   {
     "ano": "2026",
@@ -519,7 +519,7 @@
     "objeto": "Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 2",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2027-03-01"
+    "fim": "2026-03-02"
   },
   {
     "ano": "2026",
@@ -528,7 +528,7 @@
     "objeto": "Link de internet dedicado com serviço de proteção contra ataques distribuídos de negação de serviço (anti-DDoS) - Link 3",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2027-03-02"
+    "fim": "2026-03-03"
   },
   {
     "ano": "2026",
@@ -537,7 +537,7 @@
     "objeto": "Fornecimento de Solução de Proteção de Rede Perimetral (Firewall)",
     "unidade": "COSTI",
     "orcamento": "NUJUFE",
-    "fim": "2031-03-03"
+    "fim": "2026-03-04"
   },
   {
     "ano": "2026",
@@ -546,7 +546,7 @@
     "objeto": "Subscrição de licenças da solução Dicionário Houaiss Corporativo",
     "unidade": "CEREVI",
     "orcamento": "CJF",
-    "fim": "2027-03-17"
+    "fim": "2026-03-18"
   },
   {
     "ano": "2026",
@@ -555,7 +555,7 @@
     "objeto": "Solução de gerenciamento de acesso privilegiado (PAM - Privileged Access Management) Senha Segura",
     "unidade": "COSTI",
     "orcamento": "NUJUFE",
-    "fim": "2029-03-16"
+    "fim": "2026-03-17"
   },
   {
     "ano": "2026",
@@ -564,7 +564,7 @@
     "objeto": "Contratação de empresa especializada para o fornecimento de subscrições de licenças de software de colaboração e produtividade Microsoft 365",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2027-05-25"
+    "fim": "2026-05-26"
   },
   {
     "ano": "2026",
@@ -573,7 +573,7 @@
     "objeto": "Serviço de suporte técnico da plataforma de ensino Moodle do CEJ",
     "unidade": "CEJ",
     "orcamento": "CJF",
-    "fim": "2027-04-06"
+    "fim": "2026-04-07"
   },
   {
     "ano": "2026",
@@ -582,7 +582,7 @@
     "objeto": "b-CNPJ",
     "unidade": "DIDIA",
     "orcamento": "NUJUFE",
-    "fim": "2031-04-14"
+    "fim": "2026-04-15"
   },
   {
     "ano": "2026",
@@ -591,7 +591,7 @@
     "objeto": "Licenciamento Microsoft para Equipamentos Servidores",
     "unidade": "DIDIA",
     "orcamento": "NUJUFE",
-    "fim": "2029-05-21"
+    "fim": "2026-05-22"
   },
   {
     "ano": "2026",
@@ -600,7 +600,7 @@
     "objeto": "Aquisição de Switches Fibre Channel",
     "unidade": "COTEC",
     "orcamento": "NUJUFE",
-    "fim": "2031-06-09"
+    "fim": "2026-06-10"
   },
   {
     "ano": "2026",
@@ -609,7 +609,7 @@
     "objeto": "Suporte técnico (help desk) e manutenção continuada do sistema ASIWEB",
     "unidade": "SAD",
     "orcamento": "CJF",
-    "fim": "2027-05-26"
+    "fim": "2026-05-27"
   },
   {
     "ano": "2026",
@@ -618,7 +618,7 @@
     "objeto": "Subscrições do software de engenharia AltoQI Builder Infinity Gov",
     "unidade": "SGO",
     "orcamento": "CJF",
-    "fim": "2031-06-17"
+    "fim": "2026-06-18"
   },
   {
     "ano": "2026",
@@ -627,7 +627,7 @@
     "objeto": "Subscrições de solução integrada SUSE",
     "unidade": "COTEC",
     "orcamento": "CJF",
-    "fim": null
+    "fim": "2026-09-02"
   },
   {
     "ano": "2026",
@@ -645,7 +645,7 @@
     "objeto": "Subscrições do software Autodesk AEC Collection (Architecture Engineering & Construction Collection)",
     "unidade": "SGO",
     "orcamento": "CJF",
-    "fim": "2029-08-06"
+    "fim": "2026-08-07"
   },
   {
     "ano": "2026",
@@ -654,6 +654,15 @@
     "objeto": "Subscrições do software Adobe Creative Cloud e do software Adobe Acrobat Pro",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2029-08-06"
+    "fim": "2026-08-07"
+  },
+  {
+    "ano": "2026",
+    "numero": "032/2026 (id. 0907910)",
+    "contratada": "LANLINK SOLUÇÕES E COMERCIALIZAÇÃO EM INFORMÁTICA S.A",
+    "objeto": "M365 Copilot Sub Add-on",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
+    "fim": null
   }
 ]
