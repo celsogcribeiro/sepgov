@@ -224,6 +224,7 @@ td.wrap{white-space:normal;line-height:1.3}
           <option value="vigente">Vigentes</option>
           <option value="encerrado">Encerrados</option>
           <option value="alerta">Em alerta</option>
+          <option value="pendente">Pendentes</option>
         </select>
       </div>
       <div class="field">
@@ -494,6 +495,7 @@ function ctrApplyF() {
     if(fS==='vigente'&&c.status!=='vigente')return false;
     if(fS==='encerrado'&&c.status!=='encerrado')return false;
     if(fS==='alerta'&&!c.alert)return false;
+    if(fS==='pendente'&&c.status!=='pendente')return false;
     if(q&&![c.numero,c.contratada,c.objeto,c.unidade].some(s=>s&&s.toLowerCase().includes(q)))return false;
     return true;
   });
@@ -647,6 +649,7 @@ function arpApplyF() {
     if(fS==='vigente'&&c.status!=='vigente')return false;
     if(fS==='encerrado'&&c.status!=='encerrado')return false;
     if(fS==='alerta'&&!c.alert)return false;
+    if(fS==='pendente'&&c.status!=='pendente')return false;
     if(fS==='todos'&&false)return false;
     if(q&&![c.numero,c.contratada,c.objeto].some(s=>s&&s.toLowerCase().includes(q)))return false;
     return true;
