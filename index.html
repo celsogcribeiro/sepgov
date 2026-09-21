@@ -688,8 +688,8 @@ function arpRender() {
   const tbody=document.getElementById('arp-tbody');
   const empty=document.getElementById('arp-empty');
   const pag=document.getElementById('arp-pag');
-  const mobileCards = document.getElementById('mobile-cards');
-  if(!slice.length){tbody.innerHTML='';empty.style.display='none';pag.style.display='none';if(mobileCards){mobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum contrato encontrado.</div>`;}return;}
+  const arpMobileCards = document.getElementById('arp-mobile-cards');
+  if(!slice.length){tbody.innerHTML='';empty.style.display='none';pag.style.display='none';if(arpMobileCards){arpMobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhuma ARP encontrada.</div>`;}return;}
   empty.style.display='none';
   tbody.innerHTML=slice.map(c=>{
     let badge,dias='-';
