@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Monitoramento CEGOVE</title>
+<title>Monitoramento SEPGOV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -459,7 +459,7 @@ function switchTab(tab) {
 // ══════════════════════════════
 // CONTRATOS
 // ══════════════════════════════
-let _CTR=[], ctrPage=1, ctrSKey='dias_restantes', ctrSDir=1, _ctrFilter='vigente';
+let _CTR=[], ctrPage=1, ctrSKey='dias_restantes', ctrSDir=1;
 
 function setupContratos(RAW) {
   _CTR = enrich(RAW);
@@ -475,7 +475,6 @@ function setupContratos(RAW) {
 }
 
 function setFilter(f) {
-  _ctrFilter = f;
   document.getElementById('fS').value=f;
   ['todos','vigente','encerrado','alerta'].forEach(k=>{ const el=document.getElementById('card-'+k); if(el)el.classList.toggle('active-filter',k===f); });
   ctrPage=1; ctrRender();
@@ -483,7 +482,7 @@ function setFilter(f) {
 
 function ctrApplyF() {
   const q=document.getElementById('search').value.trim().toLowerCase();
-  const fS=_ctrFilter;
+  const fS=document.getElementById('fS').value;
   const fA=document.getElementById('fA').value;
   const fUN=document.getElementById('fUN').value;
   const fU=document.getElementById('fU').value;
@@ -494,6 +493,7 @@ function ctrApplyF() {
     if(fS==='vigente'&&c.status!=='vigente')return false;
     if(fS==='encerrado'&&c.status!=='encerrado')return false;
     if(fS==='alerta'&&!c.alert)return false;
+    if(fS==='todos'&&false)return false;
     if(q&&![c.numero,c.contratada,c.objeto,c.unidade].some(s=>s&&s.toLowerCase().includes(q)))return false;
     return true;
   });
@@ -523,7 +523,6 @@ function gp(n){ctrPage=n;ctrRender();document.getElementById('table-wrap').scrol
 
 function clearF() {
   document.getElementById('search').value='';
-  _ctrFilter='todos';
   document.getElementById('fS').value='todos';
   document.getElementById('fA').value='';
   document.getElementById('fUN').value='';
@@ -548,7 +547,6 @@ function ctrRender() {
   const tbody=document.getElementById('tbody');
   const empty=document.getElementById('empty');
   const pag=document.getElementById('pag');
-  const mobileCards = document.getElementById('mobile-cards');
   if(!slice.length){tbody.innerHTML='';empty.style.display='none';pag.style.display='none';if(mobileCards){mobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum contrato encontrado.</div>`;}return;}
   empty.style.display='none';
   tbody.innerHTML=slice.map(c=>{
@@ -577,6 +575,7 @@ function ctrRender() {
     </tr>`;
   }).join('');
   // Mobile cards
+  const mobileCards = document.getElementById('mobile-cards');
   if(window.innerWidth <= 600 && mobileCards) {
     mobileCards.innerHTML = slice.map(c => {
       const numMatch = c.numero.match(/^(.*?)\s*\((id\..*?)\)\s*$/i);
@@ -698,8 +697,7 @@ function arpRender() {
   const tbody=document.getElementById('arp-tbody');
   const empty=document.getElementById('arp-empty');
   const pag=document.getElementById('arp-pag');
-  const arpMobileCards = document.getElementById('arp-mobile-cards');
-  if(!slice.length){tbody.innerHTML='';empty.style.display='none';pag.style.display='none';if(arpMobileCards){arpMobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhuma ARP encontrada.</div>`;}return;}
+  if(!slice.length){tbody.innerHTML='';empty.style.display='none';pag.style.display='none';if(mobileCards){mobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum contrato encontrado.</div>`;}return;}
   empty.style.display='none';
   tbody.innerHTML=slice.map(c=>{
     let badge,dias='-';
@@ -725,6 +723,7 @@ function arpRender() {
     </tr>`;
   }).join('');
   // Mobile cards ARPs
+  const arpMobileCards = document.getElementById('arp-mobile-cards');
   if(window.innerWidth <= 600 && arpMobileCards) {
     arpMobileCards.innerHTML = slice.map(c => {
       const arpMatch = c.numero.match(/^(.*?)\s*\((id\..*?)\)\s*$/i);
@@ -775,7 +774,6 @@ function arpRender() {
 function goHome() {
   // Limpa filtros de contratos
   document.getElementById('search').value = '';
-  _ctrFilter = 'vigente';
   document.getElementById('fA').value = '';
   document.getElementById('fUN').value = '';
   document.getElementById('fU').value = '';
