@@ -547,6 +547,7 @@ function ctrRender() {
   const tbody=document.getElementById('tbody');
   const empty=document.getElementById('empty');
   const pag=document.getElementById('pag');
+  const mobileCards = document.getElementById('mobile-cards');
   if(!slice.length){tbody.innerHTML='';empty.style.display='none';pag.style.display='none';if(mobileCards){mobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum contrato encontrado.</div>`;}return;}
   empty.style.display='none';
   tbody.innerHTML=slice.map(c=>{
@@ -575,7 +576,6 @@ function ctrRender() {
     </tr>`;
   }).join('');
   // Mobile cards
-  const mobileCards = document.getElementById('mobile-cards');
   if(window.innerWidth <= 600 && mobileCards) {
     mobileCards.innerHTML = slice.map(c => {
       const numMatch = c.numero.match(/^(.*?)\s*\((id\..*?)\)\s*$/i);
@@ -697,6 +697,7 @@ function arpRender() {
   const tbody=document.getElementById('arp-tbody');
   const empty=document.getElementById('arp-empty');
   const pag=document.getElementById('arp-pag');
+  const mobileCards = document.getElementById('mobile-cards');
   if(!slice.length){tbody.innerHTML='';empty.style.display='none';pag.style.display='none';if(mobileCards){mobileCards.innerHTML=`<div style="text-align:center;padding:2rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum contrato encontrado.</div>`;}return;}
   empty.style.display='none';
   tbody.innerHTML=slice.map(c=>{
@@ -723,7 +724,6 @@ function arpRender() {
     </tr>`;
   }).join('');
   // Mobile cards ARPs
-  const arpMobileCards = document.getElementById('arp-mobile-cards');
   if(window.innerWidth <= 600 && arpMobileCards) {
     arpMobileCards.innerHTML = slice.map(c => {
       const arpMatch = c.numero.match(/^(.*?)\s*\((id\..*?)\)\s*$/i);
