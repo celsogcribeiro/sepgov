@@ -39,10 +39,10 @@
     "ano": "2021",
     "numero": "026/2021 (id. 0249998)",
     "contratada": "SELBETTI GESTÃO DE DOCUMENTOS S.A",
-    "objeto": "Prestação de serviços de impressão distribuída (outsourcing de impressão)",
+    "objeto": "Prestação de serviços de impressão distribuída (outsourcing de impressão) (3º T.A)",
     "unidade": "DIRAC",
     "orcamento": "CJF",
-    "fim": "2026-09-26"
+    "fim": "2027-03-26"
   },
   {
     "ano": "2022",
@@ -664,5 +664,14 @@
     "unidade": "DIRAC",
     "orcamento": "CJF",
     "fim": null
+  },
+  {
+    "ano": "2026",
+    "numero": "034/2026 (id. 0907910)",
+    "contratada": "LANLINK SOLUÇÕES E COMERCIALIZAÇÃO EM INFORMÁTICA S.A",
+    "objeto": "Fornecimento contínuo de solução Red Hat de orquestração e gerenciamento de contêineres, na modalidade subscrição, com prestação de serviços de instalação, configuração, migração, suporte técnico e treinamento",
+    "unidade": "COTEC",
+    "orcamento": "CJF",
+    "fim": "2027-09-23"
   }
 ]
