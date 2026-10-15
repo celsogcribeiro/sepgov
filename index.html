@@ -185,7 +185,7 @@ td.wrap{white-space:normal;line-height:1.3}
     <button class="tab-btn" onclick="switchTab('pdti')">PDTI</button>
     <button class="tab-btn" onclick="switchTab('pctic')">PCTIC 2027</button>
     <button class="tab-btn" onclick="switchTab('manual')">Manual de Redação e Padronização</button>
-    <button class="tab-btn" onclick="window.open('https://claude.ai/artifact/AKav7YN9viDj5P4nFn5PFF','_blank')">Acompanhamento</button>
+    <button class="tab-btn" onclick="switchTab('acomp')">Acompanhamento</button>
   </div></div>
 
   <!-- ═══ ABA CONTRATOS ═══ -->
@@ -402,6 +402,47 @@ td.wrap{white-space:normal;line-height:1.3}
       </iframe>
     </div>
   </div>
+  <!-- ═══ ABA ACOMPANHAMENTO PCTIC 2027 ═══ -->
+  <div class="tab-panel" id="tab-acomp">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px">
+      <div>
+        <div style="font-size:15px;font-weight:600;color:var(--tx)">Acompanhamento PCTIC 2027</div>
+        <div style="font-size:12px;color:var(--mu);margin-top:2px">Controle de etapas de instrução processual — STI/CJF</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div style="font-family:var(--mo);font-size:11px;color:var(--fa)" id="acomp-updated"></div>
+        <select id="acomp-filt-setor" style="height:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);font-size:12px;padding:0 8px;font-family:var(--sa)">
+          <option value="">Todos os setores</option>
+        </select>
+        <select id="acomp-filt-prio" style="height:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);font-size:12px;padding:0 8px;font-family:var(--sa)">
+          <option value="">Todas as prioridades</option>
+          <option value="Alta">Alta</option>
+          <option value="Média">Média</option>
+          <option value="Baixa">Baixa</option>
+        </select>
+        <input id="acomp-search" type="text" placeholder="Buscar…" style="height:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);font-size:12px;padding:0 10px;width:180px;font-family:var(--sa)">
+      </div>
+    </div>
+
+    <!-- Cards resumo -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.25rem" id="acomp-stats">
+      <div class="sc tot"><div class="sl">Total</div><div class="sv" id="acomp-tot">—</div><div class="sc-hint">itens PCTIC</div></div>
+      <div class="sc vig"><div class="sl">Concluídos</div><div class="sv" id="acomp-conc">—</div><div class="sc-hint">todas etapas ✓</div></div>
+      <div class="sc alt"><div class="sl">Em andamento</div><div class="sv" id="acomp-and">—</div><div class="sc-hint">ao menos 1 etapa</div></div>
+      <div class="sc enc"><div class="sl">Não iniciados</div><div class="sv" id="acomp-ni">—</div><div class="sc-hint">nenhuma etapa</div></div>
+    </div>
+
+    <!-- Legenda etapas -->
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:.6rem 1rem;margin-bottom:.75rem;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <span style="font-size:11px;font-weight:600;color:var(--fa);font-family:var(--mo);text-transform:uppercase;letter-spacing:.06em;margin-right:4px">Etapas:</span>
+      <span id="acomp-legenda" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"></span>
+    </div>
+
+    <!-- Lista de itens -->
+    <div id="acomp-list" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div id="acomp-empty" style="display:none;text-align:center;padding:3rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum item encontrado.</div>
+  </div>
+
   <!-- ═══ ABA MANUAL DE REDAÇÃO ═══ -->
   <div class="tab-panel" id="tab-manual">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
@@ -452,12 +493,14 @@ function enrich(raw) {
 
 // ── Abas ──
 function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='ctr')||(i===1&&tab==='arp')||(i===2&&tab==='pdti')||(i===3&&tab==='pctic')||(i===4&&tab==='manual')));
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='ctr')||(i===1&&tab==='arp')||(i===2&&tab==='pdti')||(i===3&&tab==='pctic')||(i===4&&tab==='manual')||(i===5&&tab==='acomp')));
   document.getElementById('tab-ctr').classList.toggle('active', tab==='ctr');
   document.getElementById('tab-arp').classList.toggle('active', tab==='arp');
   document.getElementById('tab-pdti').classList.toggle('active', tab==='pdti');
   document.getElementById('tab-pctic').classList.toggle('active', tab==='pctic');
   document.getElementById('tab-manual').classList.toggle('active', tab==='manual');
+  document.getElementById('tab-acomp').classList.toggle('active', tab==='acomp');
+  if(tab==='acomp' && !_ACOMP_LOADED) acompInit();
 }
 
 // ══════════════════════════════
@@ -834,6 +877,182 @@ async function init() {
     document.getElementById('arp-rinfo').textContent = '⚠ Erro ao carregar dados: '+e.message;
     console.error(e);
   }
+}
+
+// ══════════════════════════════
+// ACOMPANHAMENTO PCTIC 2027
+// ══════════════════════════════
+
+const PCTIC_ITENS = [
+  {num:'PCTIC-2027-004',nome:'Serviços Correio Eletrônico',objeto:'Serviço de Hospedagem de E-mail',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-005',nome:'Segurança – Firewall',objeto:'Solução de Segurança de Perímetro (Firewall)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-006',nome:'Modernização Datacenter',objeto:'Infraestrutura de Datacenter',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-007',nome:'Segurança – Endpoint',objeto:'Solução de Segurança de Endpoint (EDR/XDR)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-008',nome:'Conectividade – Links',objeto:'Links de Comunicação de Dados',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-009',nome:'Telefonia IP',objeto:'Solução de Telefonia IP',setor:'SUINF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-014',nome:'Suporte TI Local',objeto:'Suporte Técnico de TI nos Tribunais Regionais',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-016',nome:'Storage / Backup',objeto:'Solução de Armazenamento e Backup',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-024',nome:'Desenvolvimento de Software',objeto:'Fábrica de Software',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-025',nome:'Testes de Software',objeto:'Fábrica de Testes',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-027',nome:'Gerenciamento de APIs',objeto:'Plataforma de Gerenciamento de APIs',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-028',nome:'Observabilidade',objeto:'Plataforma de Observabilidade e Monitoramento',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-031',nome:'Licenças Microsoft',objeto:'Licenciamento Microsoft 365',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-032',nome:'Suporte Sistemas Legados',objeto:'Suporte a Sistemas Legados (COBOL/Mainframe)',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-033',nome:'Plataforma Low-Code',objeto:'Plataforma de Desenvolvimento Low-Code/No-Code',setor:'SUSOF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-038',nome:'BPM / Automação',objeto:'Plataforma de BPM e Automação de Processos',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-039',nome:'Identidade e Acesso',objeto:'Solução de IAM (Identity and Access Management)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-040',nome:'SIEM / SOC',objeto:'Plataforma SIEM e Serviços de SOC',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-042',nome:'Nuvem Pública',objeto:'Serviços de Computação em Nuvem Pública',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-043',nome:'Virtualização',objeto:'Solução de Virtualização de Servidores',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-049',nome:'BI / Analytics',objeto:'Plataforma de Business Intelligence e Analytics',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-051',nome:'Gestão de Projetos',objeto:'Ferramenta de Gestão de Projetos e Portfólio',setor:'SUINF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-052',nome:'Governança de Dados',objeto:'Plataforma de Governança e Qualidade de Dados',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-053',nome:'Assinatura Digital',objeto:'Serviço de Assinatura Digital Avançada',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-054',nome:'Videoconferência',objeto:'Solução Corporativa de Videoconferência',setor:'SUINF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-055',nome:'Impressão Corporativa',objeto:'Solução de Impressão Gerenciada',setor:'SUINF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-056',nome:'Inteligência Artificial',objeto:'Plataforma de IA / Machine Learning',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-057',nome:'Gestão de Vulnerabilidades',objeto:'Solução de Gestão de Vulnerabilidades',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-058',nome:'Pentest',objeto:'Serviço de Teste de Intrusão (Pentest)',setor:'SUINF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-061',nome:'ERP / SGP',objeto:'Sistema de Gestão de Processos Administrativos',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-062',nome:'Treinamento TI',objeto:'Capacitação e Treinamento em TI',setor:'SUINF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-063',nome:'Portal / Intranet',objeto:'Plataforma de Portal e Intranet',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-064',nome:'Sustentação de Sistemas',objeto:'Sustentação e Manutenção de Sistemas Críticos',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-065',nome:'DevSecOps',objeto:'Plataforma DevSecOps e CI/CD',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-066',nome:'Consultoria Arquitetura',objeto:'Consultoria em Arquitetura de Sistemas',setor:'SUSOF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-068',nome:'Redes / LAN',objeto:'Renovação de Equipamentos de Rede (Switches/AP)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-069',nome:'Microinformática',objeto:'Aquisição de Equipamentos de Microinformática',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-070',nome:'Pen Drives / Mídias',objeto:'Aquisição de Mídias e Periféricos',setor:'SUINF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-071',nome:'Data Loss Prevention',objeto:'Solução de DLP (Data Loss Prevention)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-074',nome:'Serviços de Nuvem Privada',objeto:'Implantação de Nuvem Privada',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
+  {num:'PCTIC-2027-075',nome:'Gestão de Ativos TI',objeto:'Solução de Gestão de Ativos de TI (ITAM)',setor:'SUINF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null}
+];
+
+const PCTIC_STEPS = ['DOD','Reunião','ETP','TR','Riscos','Preços','Rev. Adm.','SEI'];
+const PCTIC_STEP_COLORS = ['#2563eb','#7c3aed','#0891b2','#059669','#d97706','#dc2626','#6b7280','#1a3a5c'];
+
+let _ACOMP_LOADED = false;
+let _ACOMP_DATA = {};
+let _ACOMP_ITENS_ENRICHED = [];
+
+function acompCalcStatus(etapas) {
+  const done = PCTIC_STEPS.filter(s => etapas[s]).length;
+  if (done === 0) return 'ni';
+  if (done === PCTIC_STEPS.length) return 'conc';
+  return 'and';
+}
+
+async function acompInit() {
+  _ACOMP_LOADED = true;
+
+  // Popula legenda
+  const leg = document.getElementById('acomp-legenda');
+  leg.innerHTML = PCTIC_STEPS.map((s,i) =>
+    `<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--tx)"><span style="width:10px;height:10px;border-radius:2px;background:${PCTIC_STEP_COLORS[i]};display:inline-block;flex-shrink:0"></span>${s}</span>`
+  ).join('');
+
+  // Popula filtro de setores
+  const setores = [...new Set(PCTIC_ITENS.map(i => i.setor))].sort();
+  const selSetor = document.getElementById('acomp-filt-setor');
+  setores.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; selSetor.appendChild(o); });
+
+  // Carrega progresso
+  try {
+    const r = await fetch('pctic_progresso.json?v=' + Date.now());
+    if (r.ok) _ACOMP_DATA = (await r.json()).progresso || {};
+  } catch(e) { /* sem progresso ainda */ }
+
+  // Enriquece itens
+  _ACOMP_ITENS_ENRICHED = PCTIC_ITENS.map(item => {
+    const etapas = (_ACOMP_DATA[item.num] || {}).etapas || {};
+    return { ...item, etapas, status: acompCalcStatus(etapas) };
+  });
+
+  // Data atualização
+  try {
+    const r2 = await fetch('pctic_progresso.json?v=' + Date.now());
+    if (r2.ok) {
+      const j = await r2.json();
+      if (j.atualizadoEm) document.getElementById('acomp-updated').textContent = 'Atualizado: ' + new Date(j.atualizadoEm).toLocaleDateString('pt-BR');
+    }
+  } catch(e) {}
+
+  // Eventos filtro
+  document.getElementById('acomp-filt-setor').addEventListener('change', acompRender);
+  document.getElementById('acomp-filt-prio').addEventListener('change', acompRender);
+  document.getElementById('acomp-search').addEventListener('input', acompRender);
+
+  acompRender();
+}
+
+function acompRender() {
+  const setor = document.getElementById('acomp-filt-setor').value;
+  const prio = document.getElementById('acomp-filt-prio').value;
+  const q = document.getElementById('acomp-search').value.toLowerCase().trim();
+
+  let items = _ACOMP_ITENS_ENRICHED.filter(i => {
+    if (setor && i.setor !== setor) return false;
+    if (prio && i.prio !== prio) return false;
+    if (q && !i.num.toLowerCase().includes(q) && !i.nome.toLowerCase().includes(q) && !i.objeto.toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  // Stats
+  document.getElementById('acomp-tot').textContent = items.length;
+  document.getElementById('acomp-conc').textContent = items.filter(i => i.status === 'conc').length;
+  document.getElementById('acomp-and').textContent = items.filter(i => i.status === 'and').length;
+  document.getElementById('acomp-ni').textContent = items.filter(i => i.status === 'ni').length;
+
+  const list = document.getElementById('acomp-list');
+  const empty = document.getElementById('acomp-empty');
+
+  if (!items.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  list.innerHTML = items.map(item => {
+    const doneCount = PCTIC_STEPS.filter(s => item.etapas[s]).length;
+    const pct = Math.round(doneCount / PCTIC_STEPS.length * 100);
+
+    const prioColor = item.prio === 'Alta' ? 'var(--al)' : item.prio === 'Média' ? '#1d4ed8' : 'var(--mu)';
+    const prioBg = item.prio === 'Alta' ? 'var(--albg)' : item.prio === 'Média' ? '#dbeafe' : 'var(--sf2)';
+
+    const stepsHtml = PCTIC_STEPS.map((s, i) => {
+      const done = !!item.etapas[s];
+      return `<span title="${s}" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:4px;font-size:10px;font-weight:600;font-family:var(--mo);
+        background:${done ? PCTIC_STEP_COLORS[i] : 'var(--sf2)'};
+        color:${done ? '#fff' : 'var(--fa)'};
+        border:1px solid ${done ? PCTIC_STEP_COLORS[i] : 'var(--bd)'};
+        cursor:default">${done ? '✓' : (i+1)}</span>`;
+    }).join('');
+
+    const statusLabel = item.status === 'conc' ? '<span style="background:#dcfce7;color:#14532d;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo)">CONCLUÍDO</span>'
+      : item.status === 'and' ? '<span style="background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo)">EM ANDAMENTO</span>'
+      : '<span style="background:var(--sf2);color:var(--fa);padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo)">NÃO INICIADO</span>';
+
+    return `<div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);padding:1rem 1.25rem;transition:box-shadow .15s" onmouseover="this.style.boxShadow='0 4px 16px rgba(0,0,0,.08)'" onmouseout="this.style.boxShadow=''">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:.75rem">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1;min-width:0">
+          <span style="font-family:var(--mo);font-size:11px;font-weight:600;color:var(--ac);white-space:nowrap">${item.num}</span>
+          <span style="font-size:13px;font-weight:600;color:var(--tx);flex:1;min-width:0">${item.nome}</span>
+          <span style="background:${prioBg};color:${prioColor};padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo);white-space:nowrap">${item.prio}</span>
+          <span style="background:var(--acl);color:var(--ac);padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo);white-space:nowrap">${item.setor}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">${statusLabel}</div>
+      </div>
+      <div style="font-size:12px;color:var(--mu);margin-bottom:.75rem">${item.objeto}</div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;gap:4px;flex-wrap:wrap">${stepsHtml}</div>
+        <div style="flex:1;min-width:120px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+            <span style="font-size:10px;color:var(--fa);font-family:var(--mo)">${doneCount}/${PCTIC_STEPS.length} etapas</span>
+            <span style="font-size:10px;color:var(--fa);font-family:var(--mo)">${pct}%</span>
+          </div>
+          <div style="height:6px;background:var(--sf2);border-radius:3px;overflow:hidden;border:1px solid var(--bd)">
+            <div style="height:100%;width:${pct}%;background:${pct===100?'#16a34a':pct>0?'var(--ac)':'transparent'};border-radius:3px;transition:width .3s"></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 document.getElementById('search').addEventListener('input',()=>{ctrPage=1;ctrRender();});
