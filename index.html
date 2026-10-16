@@ -1153,10 +1153,10 @@ function _acRenderSummary() {
   document.getElementById('ac-stages').innerHTML=PCTIC_STEPS_DEF.map((s)=>{
     const c=PCTIC_ITENS.filter(it=>_AC_DATA[it.num]?.etapas?.[s.k]).length;
     const active=_AC_STAGE===s.k;
-    const lbl=s.special?`<span style="font-family:var(--mo);font-size:10px;color:${s.special==='dop'?'#6366f1':'#0891b2'}">Etapa ${s.n}</span>`:`<span style="font-family:var(--mo);font-size:10px;color:var(--mu)">Etapa ${s.n}</span>`;
+    const lbl=`<span style="font-family:var(--mo);font-size:10px;color:var(--mu)">Etapa ${s.n}</span>`;
     return `<button type="button" data-stage="${s.k}" style="text-align:left;background:${active?'var(--acl)':'var(--sf)'};border:1px solid ${active?'var(--ac)':'var(--bd)'};border-radius:var(--r);padding:7px 8px;cursor:pointer;display:grid;gap:3px;min-width:0;transition:border-color .1s">
       ${lbl}
-      <span style="font-weight:600;font-size:11px;line-height:1.2;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${_acEsc(s.t)}</span>
+      <span style="font-weight:600;font-size:11px;line-height:1.2;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${_acEsc(s.special==='dop'?'DOP':s.k==='DOD'?'DOD':s.t)}</span>
       <span style="font-family:var(--mo);font-size:11px">${c} / ${PCTIC_ITENS.length}</span>
       <div style="height:4px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${(c/PCTIC_ITENS.length*100).toFixed(1)}%;background:#14532d;border-radius:3px"></div></div>
     </button>`;
