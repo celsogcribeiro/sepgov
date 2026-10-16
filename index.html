@@ -1156,8 +1156,8 @@ function _acRenderMatrix() {
     const flag=dl==='crit'?'<span style="background:var(--enbg);color:#b42318;font-size:10px;font-weight:600;padding:1px 5px;border-radius:3px;white-space:nowrap">Vencido</span>'
       :dl==='warn'?'<span style="background:var(--albg);color:var(--al);font-size:10px;font-weight:600;padding:1px 5px;border-radius:3px;white-space:nowrap">Prazo próximo</span>':'';
     const prioTxt=['Alta','Média','Baixa'][it.prio-1];
-    const prioBg=it.prio===1?'#dc2626':it.prio===2?'#ea580c':'#6b7280';
-    const prioC='#ffffff';
+    const prioBg=it.prio===1?'#fee2e2':it.prio===2?'#ffedd5':'#f3f4f6';
+    const prioC=it.prio===1?'#991b1b':it.prio===2?'#9a3412':'#4b5563';
     const isOpen=_AC_OPEN.has(it.num);
     const stepsHtml=PCTIC_STEPS_DEF.map(s=>{
       const date=_AC_DATA[it.num]?.etapas?.[s.k];
