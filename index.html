@@ -553,7 +553,7 @@ function enrich(raw) {
 
 // ── Abas ──
 function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='ctr')||(i===1&&tab==='arp')||(i===2&&tab==='pdti')||(i===3&&tab==='pctic')||(i===4&&tab==='manual')||(i===5&&tab==='acomp')));
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0&&tab==='ctr')||(i===1&&tab==='arp')||(i===2&&tab==='pdti')||(i===3&&tab==='pctic')||(i===4&&tab==='acomp')||(i===5&&tab==='manual')));
   document.getElementById('tab-ctr').classList.toggle('active', tab==='ctr');
   document.getElementById('tab-arp').classList.toggle('active', tab==='arp');
   document.getElementById('tab-pdti').classList.toggle('active', tab==='pdti');
