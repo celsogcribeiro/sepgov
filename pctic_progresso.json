@@ -1,47 +1,134 @@
 {
   "versao": "1.0",
-  "atualizadoEm": "2026-10-15T00:00:00-03:00",
+  "atualizadoEm": "2026-10-15T21:24:17-03:00",
   "progresso": {
-    "PCTIC-2027-004": { "etapas": {} },
-    "PCTIC-2027-005": { "etapas": {} },
-    "PCTIC-2027-006": { "etapas": {} },
-    "PCTIC-2027-007": { "etapas": {} },
-    "PCTIC-2027-008": { "etapas": {} },
-    "PCTIC-2027-009": { "etapas": {} },
-    "PCTIC-2027-014": { "etapas": {} },
-    "PCTIC-2027-016": { "etapas": {} },
-    "PCTIC-2027-024": { "etapas": { "DOD": "2026-10-13", "Reunião": "2026-10-13" } },
-    "PCTIC-2027-025": { "etapas": {} },
-    "PCTIC-2027-027": { "etapas": {} },
-    "PCTIC-2027-028": { "etapas": {} },
-    "PCTIC-2027-031": { "etapas": {} },
-    "PCTIC-2027-032": { "etapas": {} },
-    "PCTIC-2027-033": { "etapas": {} },
-    "PCTIC-2027-038": { "etapas": {} },
-    "PCTIC-2027-039": { "etapas": {} },
-    "PCTIC-2027-040": { "etapas": {} },
-    "PCTIC-2027-042": { "etapas": {} },
-    "PCTIC-2027-043": { "etapas": {} },
-    "PCTIC-2027-049": { "etapas": {} },
-    "PCTIC-2027-051": { "etapas": {} },
-    "PCTIC-2027-052": { "etapas": {} },
-    "PCTIC-2027-053": { "etapas": {} },
-    "PCTIC-2027-054": { "etapas": {} },
-    "PCTIC-2027-055": { "etapas": {} },
-    "PCTIC-2027-056": { "etapas": {} },
-    "PCTIC-2027-057": { "etapas": {} },
-    "PCTIC-2027-058": { "etapas": {} },
-    "PCTIC-2027-061": { "etapas": {} },
-    "PCTIC-2027-062": { "etapas": {} },
-    "PCTIC-2027-063": { "etapas": {} },
-    "PCTIC-2027-064": { "etapas": {} },
-    "PCTIC-2027-065": { "etapas": {} },
-    "PCTIC-2027-066": { "etapas": {} },
-    "PCTIC-2027-068": { "etapas": {} },
-    "PCTIC-2027-069": { "etapas": {} },
-    "PCTIC-2027-070": { "etapas": {} },
-    "PCTIC-2027-071": { "etapas": {} },
-    "PCTIC-2027-074": { "etapas": {} },
-    "PCTIC-2027-075": { "etapas": {} }
+    "PCTIC-2027-004": {
+      "etapas": {}
+    },
+    "PCTIC-2027-005": {
+      "etapas": {}
+    },
+    "PCTIC-2027-006": {
+      "etapas": {}
+    },
+    "PCTIC-2027-007": {
+      "etapas": {}
+    },
+    "PCTIC-2027-008": {
+      "etapas": {}
+    },
+    "PCTIC-2027-009": {
+      "etapas": {}
+    },
+    "PCTIC-2027-014": {
+      "etapas": {}
+    },
+    "PCTIC-2027-016": {
+      "etapas": {}
+    },
+    "PCTIC-2027-024": {
+      "etapas": {}
+    },
+    "PCTIC-2027-025": {
+      "etapas": {}
+    },
+    "PCTIC-2027-027": {
+      "etapas": {}
+    },
+    "PCTIC-2027-028": {
+      "etapas": {}
+    },
+    "PCTIC-2027-031": {
+      "etapas": {}
+    },
+    "PCTIC-2027-032": {
+      "etapas": {}
+    },
+    "PCTIC-2027-033": {
+      "etapas": {}
+    },
+    "PCTIC-2027-038": {
+      "etapas": {}
+    },
+    "PCTIC-2027-039": {
+      "etapas": {}
+    },
+    "PCTIC-2027-040": {
+      "etapas": {}
+    },
+    "PCTIC-2027-042": {
+      "etapas": {}
+    },
+    "PCTIC-2027-043": {
+      "etapas": {}
+    },
+    "PCTIC-2027-049": {
+      "etapas": {}
+    },
+    "PCTIC-2027-051": {
+      "etapas": {}
+    },
+    "PCTIC-2027-052": {
+      "etapas": {}
+    },
+    "PCTIC-2027-053": {
+      "etapas": {}
+    },
+    "PCTIC-2027-054": {
+      "etapas": {}
+    },
+    "PCTIC-2027-055": {
+      "etapas": {}
+    },
+    "PCTIC-2027-056": {
+      "etapas": {}
+    },
+    "PCTIC-2027-057": {
+      "etapas": {}
+    },
+    "PCTIC-2027-058": {
+      "etapas": {}
+    },
+    "PCTIC-2027-061": {
+      "etapas": {}
+    },
+    "PCTIC-2027-062": {
+      "etapas": {}
+    },
+    "PCTIC-2027-063": {
+      "etapas": {}
+    },
+    "PCTIC-2027-064": {
+      "etapas": {}
+    },
+    "PCTIC-2027-065": {
+      "etapas": {}
+    },
+    "PCTIC-2027-066": {
+      "etapas": {}
+    },
+    "PCTIC-2027-068": {
+      "etapas": {}
+    },
+    "PCTIC-2027-069": {
+      "etapas": {}
+    },
+    "PCTIC-2027-070": {
+      "etapas": {}
+    },
+    "PCTIC-2027-071": {
+      "etapas": {
+        "DOD": "2026-08-13",
+        "Reunião": "2026-09-14",
+        "ETP": "2026-09-14",
+        "TR": "2026-09-14"
+      }
+    },
+    "PCTIC-2027-074": {
+      "etapas": {}
+    },
+    "PCTIC-2027-075": {
+      "etapas": {}
+    }
   }
 }
