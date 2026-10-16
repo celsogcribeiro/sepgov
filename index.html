@@ -1004,8 +1004,10 @@ const PCTIC_STEPS_DEF = [
   {k:'SEI',t:'Inclusão no SEI',n:8},
   {k:'Contrato',t:'Assinatura do Contrato',n:9,special:'contrato'}
 ];
-// Apenas etapas 1-8 entram no cálculo de progresso
+// Etapas 1-8 (planejamento DOD): entram no cálculo padrão
 const PCTIC_STEPS_PLAN = PCTIC_STEPS_DEF.filter(s=>!s.special);
+// Etapa 9 (Contrato)
+const PCTIC_STEP_CONTRATO = PCTIC_STEPS_DEF.find(s=>s.special==='contrato');
 
 let _ACOMP_LOADED = false;
 let _AC_DATA = {};       // progresso carregado do JSON
@@ -1019,17 +1021,34 @@ const _acFmtLim = s => { const [y,m]=s.split('-'); return _acMeses[+m-1]+'/'+y.s
 const _acDdmm = iso => { const [y,m,d]=iso.split('-'); return d+'/'+m; };
 const _acDdmmyy = iso => { const [y,m,d]=iso.split('-'); return d+'/'+m+'/'+y; };
 
-// Conta apenas etapas 1-8 no progresso (DOP e Contrato excluídos)
-function _acDoneOf(id) { return PCTIC_STEPS_PLAN.filter(s=>_AC_DATA[id]?.etapas?.[s.k]).length; }
-function _acPctOf(id)  { return Math.round(_acDoneOf(id)/PCTIC_STEPS_PLAN.length*100); }
-// Retorna verdade se o item está no modo DOP (etapas 1-8 travadas)
+// Modo DOP: tem DOP e nenhuma etapa 1-8 preenchida
 function _acIsDOP(id)  { return !!_AC_DATA[id]?.etapas?.['DOP'] && !PCTIC_STEPS_PLAN.some(s=>_AC_DATA[id]?.etapas?.[s.k]); }
+// Conta etapas concluídas para fins de filtro/ordenação (etapas 1-8 no modo DOD; DOP+Contrato no modo DOP)
+function _acDoneOf(id) {
+  if(_acIsDOP(id)) {
+    const hasContrato=!!_AC_DATA[id]?.etapas?.[PCTIC_STEP_CONTRATO.k];
+    return hasContrato ? 2 : 1; // DOP=1, DOP+Contrato=2
+  }
+  return PCTIC_STEPS_PLAN.filter(s=>_AC_DATA[id]?.etapas?.[s.k]).length;
+}
+// Percentual: modo DOP → 50% com DOP, 100% com Contrato; modo DOD → etapas 1-9 (plan+contrato)
+function _acPctOf(id) {
+  const etapas=_AC_DATA[id]?.etapas||{};
+  if(_acIsDOP(id)) {
+    const hasContrato=!!etapas[PCTIC_STEP_CONTRATO.k];
+    return hasContrato ? 100 : 50;
+  }
+  // modo DOD: etapas 1-8 + Contrato = 9 etapas no total
+  const planDone=PCTIC_STEPS_PLAN.filter(s=>etapas[s.k]).length;
+  const contratoDone=etapas[PCTIC_STEP_CONTRATO.k]?1:0;
+  return Math.round((planDone+contratoDone)/9*100);
+}
 function _acMonthsTo(lim) {
   const n=new Date(); const [y,m]=lim.split('-').map(Number);
   return (y-n.getFullYear())*12+(m-1-n.getMonth());
 }
 function _acDeadline(it) {
-  if(_acDoneOf(it.num)===PCTIC_STEPS_PLAN.length) return '';
+  if(_acPctOf(it.num)===100) return '';
   const d=_acMonthsTo(it.limite); return d<0?'crit':d<=3?'warn':'';
 }
 
@@ -1091,8 +1110,9 @@ function _acFiltered() {
     if(pr && it.prio!==Number(pr)) return false;
     const d=_acDoneOf(it.num);
     if(sit==='none' && d!==0) return false;
-    if(sit==='prog' && (d===0||d===PCTIC_STEPS_PLAN.length)) return false;
-    if(sit==='done' && d!==PCTIC_STEPS_PLAN.length) return false;
+    const pct=_acPctOf(it.num);
+    if(sit==='prog' && (pct===0||pct===100)) return false;
+    if(sit==='done' && pct!==100) return false;
     if(sit==='late' && !_acDeadline(it)) return false;
     if(_AC_STAGE && _AC_DATA[it.num]?.etapas?.[_AC_STAGE]) return false;
     return true;
@@ -1111,17 +1131,19 @@ function _acFiltered() {
 }
 
 function _acRenderSummary() {
-  let total=0,done=0,prog=0,none=0,late=0;
+  let totalPct=0,done=0,prog=0,none=0,late=0;
   PCTIC_ITENS.forEach(it=>{
-    const d=_acDoneOf(it.num); total+=d;
-    if(d===PCTIC_STEPS_PLAN.length) done++; else if(d>0) prog++; else none++;
+    const p=_acPctOf(it.num); totalPct+=p;
+    if(p===100) done++; else if(p>0) prog++; else none++;
     if(_acDeadline(it)) late++;
   });
-  const max=PCTIC_ITENS.length*PCTIC_STEPS_PLAN.length;
-  const p=Math.round(total/max*100);
+  const p=Math.round(totalPct/PCTIC_ITENS.length);
+  // etapas concluídas: soma real para o label (modo DOD conta plan+contrato, modo DOP conta 1 ou 2)
+  let totalSteps=0;
+  PCTIC_ITENS.forEach(it=>{ totalSteps+=_acDoneOf(it.num); });
   document.getElementById('ac-pct').textContent=p+'%';
-  document.getElementById('ac-bar').style.width=(total/max*100)+'%';
-  document.getElementById('ac-steps-lbl').textContent=total+' de '+max+' etapas concluídas';
+  document.getElementById('ac-bar').style.width=p+'%';
+  document.getElementById('ac-steps-lbl').textContent=done+' de '+PCTIC_ITENS.length+' itens concluídos';
   document.getElementById('ac-done').textContent=done;
   document.getElementById('ac-prog').textContent=prog;
   document.getElementById('ac-none').textContent=none;
@@ -1195,8 +1217,8 @@ function _acRenderMatrix() {
       } else if(lockedX){
         // X automático (trancado)
         bg='#f1f5f9'; border='#94a3b8'; color='#64748b';
-        const xSvg='<svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="display:inline-block;vertical-align:middle"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-        content=xSvg+'<span style="font-family:var(--mo);font-size:9px;display:block;text-align:center">auto</span>';
+        const xSvg='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="display:inline-block;vertical-align:middle"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>';
+        content=xSvg;
       } else {
         // pendente
         bg='var(--sf)'; border='var(--bd)'; color='var(--fa)';
@@ -1215,7 +1237,7 @@ function _acRenderMatrix() {
         <dt style="color:var(--mu)">Valor anual 2027</dt><dd style="margin:0;font-family:var(--mo)">${_acBrl(it.va)}</dd>
         <dt style="color:var(--mu)">Valor global</dt><dd style="margin:0;font-family:var(--mo)">${_acBrl(it.vg)}</dd>
         <dt style="color:var(--mu)">Vigência</dt><dd style="margin:0;font-family:var(--mo)">${it.vig} meses</dd>
-        <dt style="color:var(--mu)">Etapas concluídas</dt><dd style="margin:0;font-family:var(--mo)">${_acDoneOf(it.num)} de ${PCTIC_STEPS_PLAN.length}</dd>
+        <dt style="color:var(--mu)">Progresso</dt><dd style="margin:0;font-family:var(--mo)">${_acPctOf(it.num)}%${_acIsDOP(it.num)?' (via DOP)':''}</dd>
       </dl></div>`:'';
 
     return `<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(10,52px) 100px;align-items:center;border-top:1px solid var(--bd)${isOpen?';background:var(--acl)':''}">
