@@ -416,9 +416,9 @@ td.wrap{white-space:normal;line-height:1.3}
         </select>
         <select id="acomp-filt-prio" style="height:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);font-size:12px;padding:0 8px;font-family:var(--sa)">
           <option value="">Todas as prioridades</option>
-          <option value="Alta">Alta</option>
-          <option value="Média">Média</option>
-          <option value="Baixa">Baixa</option>
+          <option value="1">Alta</option>
+          <option value="2">Média</option>
+          <option value="3">Baixa</option>
         </select>
         <input id="acomp-search" type="text" placeholder="Buscar…" style="height:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);font-size:12px;padding:0 10px;width:180px;font-family:var(--sa)">
       </div>
@@ -884,47 +884,47 @@ async function init() {
 // ══════════════════════════════
 
 const PCTIC_ITENS = [
-  {num:'PCTIC-2027-004',nome:'Serviços Correio Eletrônico',objeto:'Serviço de Hospedagem de E-mail',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-005',nome:'Segurança – Firewall',objeto:'Solução de Segurança de Perímetro (Firewall)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-006',nome:'Modernização Datacenter',objeto:'Infraestrutura de Datacenter',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-007',nome:'Segurança – Endpoint',objeto:'Solução de Segurança de Endpoint (EDR/XDR)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-008',nome:'Conectividade – Links',objeto:'Links de Comunicação de Dados',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-009',nome:'Telefonia IP',objeto:'Solução de Telefonia IP',setor:'SUINF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-014',nome:'Suporte TI Local',objeto:'Suporte Técnico de TI nos Tribunais Regionais',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-016',nome:'Storage / Backup',objeto:'Solução de Armazenamento e Backup',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-024',nome:'Desenvolvimento de Software',objeto:'Fábrica de Software',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-025',nome:'Testes de Software',objeto:'Fábrica de Testes',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-027',nome:'Gerenciamento de APIs',objeto:'Plataforma de Gerenciamento de APIs',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-028',nome:'Observabilidade',objeto:'Plataforma de Observabilidade e Monitoramento',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-031',nome:'Licenças Microsoft',objeto:'Licenciamento Microsoft 365',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-032',nome:'Suporte Sistemas Legados',objeto:'Suporte a Sistemas Legados (COBOL/Mainframe)',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-033',nome:'Plataforma Low-Code',objeto:'Plataforma de Desenvolvimento Low-Code/No-Code',setor:'SUSOF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-038',nome:'BPM / Automação',objeto:'Plataforma de BPM e Automação de Processos',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-039',nome:'Identidade e Acesso',objeto:'Solução de IAM (Identity and Access Management)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-040',nome:'SIEM / SOC',objeto:'Plataforma SIEM e Serviços de SOC',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-042',nome:'Nuvem Pública',objeto:'Serviços de Computação em Nuvem Pública',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-043',nome:'Virtualização',objeto:'Solução de Virtualização de Servidores',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-049',nome:'BI / Analytics',objeto:'Plataforma de Business Intelligence e Analytics',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-051',nome:'Gestão de Projetos',objeto:'Ferramenta de Gestão de Projetos e Portfólio',setor:'SUINF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-052',nome:'Governança de Dados',objeto:'Plataforma de Governança e Qualidade de Dados',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-053',nome:'Assinatura Digital',objeto:'Serviço de Assinatura Digital Avançada',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-054',nome:'Videoconferência',objeto:'Solução Corporativa de Videoconferência',setor:'SUINF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-055',nome:'Impressão Corporativa',objeto:'Solução de Impressão Gerenciada',setor:'SUINF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-056',nome:'Inteligência Artificial',objeto:'Plataforma de IA / Machine Learning',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-057',nome:'Gestão de Vulnerabilidades',objeto:'Solução de Gestão de Vulnerabilidades',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-058',nome:'Pentest',objeto:'Serviço de Teste de Intrusão (Pentest)',setor:'SUINF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-061',nome:'ERP / SGP',objeto:'Sistema de Gestão de Processos Administrativos',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-062',nome:'Treinamento TI',objeto:'Capacitação e Treinamento em TI',setor:'SUINF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-063',nome:'Portal / Intranet',objeto:'Plataforma de Portal e Intranet',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-064',nome:'Sustentação de Sistemas',objeto:'Sustentação e Manutenção de Sistemas Críticos',setor:'SUSOF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-065',nome:'DevSecOps',objeto:'Plataforma DevSecOps e CI/CD',setor:'SUSOF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-066',nome:'Consultoria Arquitetura',objeto:'Consultoria em Arquitetura de Sistemas',setor:'SUSOF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-068',nome:'Redes / LAN',objeto:'Renovação de Equipamentos de Rede (Switches/AP)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-069',nome:'Microinformática',objeto:'Aquisição de Equipamentos de Microinformática',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-070',nome:'Pen Drives / Mídias',objeto:'Aquisição de Mídias e Periféricos',setor:'SUINF',prio:'Baixa',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-071',nome:'Data Loss Prevention',objeto:'Solução de DLP (Data Loss Prevention)',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-074',nome:'Serviços de Nuvem Privada',objeto:'Implantação de Nuvem Privada',setor:'SUINF',prio:'Alta',limite:'2026-12-31',va:null,vg:null,vig:null},
-  {num:'PCTIC-2027-075',nome:'Gestão de Ativos TI',objeto:'Solução de Gestão de Ativos de TI (ITAM)',setor:'SUINF',prio:'Média',limite:'2026-12-31',va:null,vg:null,vig:null}
+  {num:'PCTIC-2027-004',nome:'Estações de trabalho',objeto:'Aquisição de estações de trabalho (computadores com teclado e mouse).',setor:'DIRAC',prio:3,limite:'2027-06',va:3750000,vg:3750000,vig:60},
+  {num:'PCTIC-2027-005',nome:'Notebooks',objeto:'Aquisição de notebooks.',setor:'DIRAC',prio:3,limite:'2027-09',va:165538,vg:165538,vig:60},
+  {num:'PCTIC-2027-006',nome:'Adobe Stock',objeto:'Subscrições de licenças Adobe Stock.',setor:'NUCOM',prio:1,limite:'2027-07',va:10000,vg:10000,vig:12},
+  {num:'PCTIC-2027-007',nome:'Equipamentos de videoconferência',objeto:'Aquisição de equipamentos de videoconferência para salas de reunião e auditórios.',setor:'DIRAC',prio:1,limite:'2027-08',va:360000,vg:360000,vig:60},
+  {num:'PCTIC-2027-008',nome:'Software de gestão de contratos',objeto:'Cessão de direito de uso de software para gestão de contratos administrativos.',setor:'CEGOVE',prio:3,limite:'2027-10',va:17500,vg:210000,vig:36},
+  {num:'PCTIC-2027-009',nome:'Apoio técnico ao planejamento e à fiscalização',objeto:'Contratação de serviços para atividades de apoio técnico ao planejamento e à fiscalização de contratos de TI.',setor:'CEGOVE',prio:3,limite:'2027-12',va:60000,vg:1440000,vig:24},
+  {num:'PCTIC-2027-014',nome:'Segurança perimetral de aplicações web',objeto:'Solução de segurança perimetral para aplicações web (WAF/ADC).',setor:'COSTI',prio:2,limite:'2027-06',va:341021.80,vg:1845230.80,vig:36},
+  {num:'PCTIC-2027-016',nome:'Simulação de ataques (BAS)',objeto:'Solução para simulação de ataques e violações (Breach and Attack Simulation).',setor:'COSTI',prio:3,limite:'2027-08',va:200000,vg:200000,vig:60},
+  {num:'PCTIC-2027-024',nome:'APM em SaaS',objeto:'Contratação de solução APM baseada em SaaS.',setor:'COTEC',prio:2,limite:'2027-09',va:2785000,vg:2785000,vig:12},
+  {num:'PCTIC-2027-025',nome:'Sala-cofre: assistência técnica e climatização',objeto:'Prestação de serviços de assistência técnica e manutenção preventiva e corretiva da sala-cofre, incluindo climatização.',setor:'COTEC',prio:2,limite:'2027-09',va:4160000,vg:6400000,vig:60},
+  {num:'PCTIC-2027-027',nome:'MySQL Enterprise Edition',objeto:'Subscrições de licenças de software MySQL Enterprise Edition.',setor:'COTEC',prio:2,limite:'2027-05',va:200000,vg:200000,vig:36},
+  {num:'PCTIC-2027-028',nome:'Gerenciamento de Serviços Corporativos (GSC)',objeto:'Aquisição de solução de Gerenciamento de Serviços Corporativos (GSC/ESM).',setor:'COTEC/CEGOVE/DIRAC/STI',prio:2,limite:'2027-09',va:1950000,vg:5850000,vig:36},
+  {num:'PCTIC-2027-031',nome:'Monitoramento da Experiência Digital (DEM)',objeto:'Contratação de solução de Monitoramento da Experiência Digital (Digital Experience Monitoring).',setor:'COTEC',prio:3,limite:'2027-07',va:175000,vg:1050000,vig:36},
+  {num:'PCTIC-2027-032',nome:'Link ponto a ponto CJF–STJ',objeto:'Contratação de link de comunicação de dados ponto a ponto entre o CJF e o STJ.',setor:'COTEC',prio:3,limite:'2027-07',va:720000,vg:3600000,vig:60},
+  {num:'PCTIC-2027-033',nome:'Storage de bloco e NAS',objeto:'Solução de Storage de Bloco e NAS.',setor:'COTEC',prio:3,limite:'2027-06',va:16662000,vg:16662000,vig:60},
+  {num:'PCTIC-2027-038',nome:'Detecção de similaridade e plágio',objeto:'Contratação de sistema de detecção de similaridade e plágio para documentos jurídicos.',setor:'SCE',prio:1,limite:'2027-03',va:60000,vg:60000,vig:12},
+  {num:'PCTIC-2027-039',nome:'Busca e recuperação de conteúdos (CAJU)',objeto:'Serviço de tecnologia da informação que possibilite busca e recuperação de conteúdos em processos judiciais eletrônicos.',setor:'SCE',prio:1,limite:'2027-06',va:120000,vg:360000,vig:36},
+  {num:'PCTIC-2027-040',nome:'Equipamentos para treinamento do CEJ',objeto:'Aquisição de equipamentos para o ambiente de treinamento do Centro de Estudos Judiciários.',setor:'SCE',prio:2,limite:'2027-10',va:200000,vg:200000,vig:60},
+  {num:'PCTIC-2027-042',nome:'Software de cálculo estrutural',objeto:'Contratação de software especializado para cálculo estrutural de edificações.',setor:'SGO',prio:1,limite:'2027-07',va:25000,vg:25000,vig:12},
+  {num:'PCTIC-2027-043',nome:'Software de projetos hidrossanitários',objeto:'Atualização de software utilizado para projetos de instalações hidrossanitárias.',setor:'SGO',prio:1,limite:'2027-07',va:22000,vg:22000,vig:12},
+  {num:'PCTIC-2027-049',nome:'Plataforma Miro',objeto:'Disponibilização da plataforma Miro para colaboração visual e gestão ágil.',setor:'SPI/IpêLab',prio:1,limite:'2027-04',va:5000,vg:5000,vig:12},
+  {num:'PCTIC-2027-051',nome:'Plataforma Mentimeter',objeto:'Contratação de licença de uso da plataforma Mentimeter para apresentações interativas.',setor:'SPI/IpêLab',prio:1,limite:'2027-01',va:5000,vg:5000,vig:12},
+  {num:'PCTIC-2027-052',nome:'Criptografia e anonimização',objeto:'Criptografia e anonimização de dados em bancos de dados relacionais.',setor:'DIDIA',prio:3,limite:'2027-08',va:3666945.11,vg:3666945.11,vig:36},
+  {num:'PCTIC-2027-053',nome:'Governança e observabilidade de dados',objeto:'Solução de Governança e Observabilidade de Dados.',setor:'DIDIA',prio:3,limite:'2027-06',va:3000000,vg:3000000,vig:60},
+  {num:'PCTIC-2027-054',nome:'SGSI e SGPI',objeto:'Implantação dos controles de gestão de segurança da informação (SGSI) e de privacidade da informação (SGPI).',setor:'COSTI',prio:3,limite:'2027-07',va:2012000,vg:2012000,vig:12},
+  {num:'PCTIC-2027-055',nome:'VMware vDefend',objeto:'Subscrição de licenças VMware vDefend.',setor:'COSTI',prio:3,limite:'2027-08',va:4256000,vg:4256000,vig:60},
+  {num:'PCTIC-2027-056',nome:'Ampliação do backup Cohesity NetBackup (NUJUFE)',objeto:'Ampliação da Solução de Backup Cohesity NetBackup para atendimento ao NUJUFE.',setor:'COTEC',prio:1,limite:'2027-03',va:12400000,vg:12400000,vig:60},
+  {num:'PCTIC-2027-057',nome:'Gestão de vulnerabilidades',objeto:'Solução de Gestão de Vulnerabilidades.',setor:'COSTI',prio:1,limite:'2027-01',va:640355.99,vg:1557974.69,vig:36},
+  {num:'PCTIC-2027-058',nome:'SOC – segurança cibernética',objeto:'Contratação de serviços de segurança cibernética (Security Operations Center).',setor:'COSTI',prio:1,limite:'2027-01',va:2145900.27,vg:7022946.34,vig:36},
+  {num:'PCTIC-2027-061',nome:'Segurança no uso de ferramentas de IA',objeto:'Solução de segurança para descoberta e monitoramento do uso de ferramentas de IA generativa.',setor:'COSTI',prio:1,limite:'2027-03',va:450000,vg:1800000,vig:36},
+  {num:'PCTIC-2027-062',nome:'Governança de identidades e acessos (IGA)',objeto:'Solução de Governança e Administração de Identidades e Acessos (IGA).',setor:'COSTI',prio:1,limite:'2027-04',va:1000000,vg:3000000,vig:36},
+  {num:'PCTIC-2027-063',nome:'ADC e WAF',objeto:'Solução tecnológica de Controlador de Entrega de Aplicações (ADC) e Firewall de Aplicação Web (WAF).',setor:'COSTI',prio:1,limite:'2027-08',va:7512000,vg:7512000,vig:60},
+  {num:'PCTIC-2027-064',nome:'Sustentação de infraestrutura de TI',objeto:'Contratação de empresa especializada para a prestação do serviço técnico de sustentação de infraestrutura de TI.',setor:'COTEC',prio:1,limite:'2027-12',va:400000,vg:24000000,vig:60},
+  {num:'PCTIC-2027-065',nome:'Wi-Fi 7 corporativo',objeto:'Aquisição de solução de Wi-Fi corporativa de nova geração (Wi-Fi 7).',setor:'COTEC',prio:2,limite:'2027-11',va:3237276.60,vg:3237276.60,vig:60},
+  {num:'PCTIC-2027-066',nome:'Modernização da rede (Datacenter e Campus)',objeto:'Modernização e renovação da infraestrutura de rede do Datacenter e Campus.',setor:'COTEC',prio:2,limite:'2027-11',va:3000000,vg:3000000,vig:60},
+  {num:'PCTIC-2027-068',nome:'IA generativa (GPT-4 ou superior)',objeto:'Aquisição de solução de inteligência artificial generativa (GPT-4 ou superior) para uso corporativo.',setor:'DIDIA',prio:1,limite:'2027-03',va:621667.84,vg:621667.84,vig:12},
+  {num:'PCTIC-2027-069',nome:'IA generativa para engenharia de software',objeto:'Contratação de solução corporativa de IA Generativa para engenharia de software.',setor:'DIDIA',prio:1,limite:'2027-05',va:250000,vg:250000,vig:12},
+  {num:'PCTIC-2027-070',nome:'SERPRO MultiCloud – IA em nuvem',objeto:'Contratação do SERPRO MultiCloud para uso de modelos de IA em nuvem.',setor:'DIDIA',prio:1,limite:'2027-04',va:400000,vg:400000,vig:12},
+  {num:'PCTIC-2027-071',nome:'Outsourcing de impressão',objeto:'Prestação de serviços de impressão distribuída (outsourcing de impressão).',setor:'DIRAC',prio:1,limite:'2027-03',va:110604,vg:442416,vig:48},
+  {num:'PCTIC-2027-074',nome:'Windows 11 Enterprise E3',objeto:'Licenças corporativas do Windows 11 Enterprise E3.',setor:'DIRAC',prio:1,limite:'2027-05',va:26154,vg:26154,vig:36},
+  {num:'PCTIC-2027-075',nome:'Storage de réplica do Site CJF',objeto:'Aquisição de solução de armazenamento para réplica de dados do Site CJF.',setor:'COTEC',prio:3,limite:'2027-07',va:5200000,vg:5200000,vig:60}
 ];
 
 const PCTIC_STEPS = ['DOD','Reunião','ETP','TR','Riscos','Preços','Rev. Adm.','SEI'];
@@ -991,7 +991,7 @@ function acompRender() {
 
   let items = _ACOMP_ITENS_ENRICHED.filter(i => {
     if (setor && i.setor !== setor) return false;
-    if (prio && i.prio !== prio) return false;
+    if (prio && i.prio !== Number(prio)) return false;
     if (q && !i.num.toLowerCase().includes(q) && !i.nome.toLowerCase().includes(q) && !i.objeto.toLowerCase().includes(q)) return false;
     return true;
   });
@@ -1012,8 +1012,9 @@ function acompRender() {
     const doneCount = PCTIC_STEPS.filter(s => item.etapas[s]).length;
     const pct = Math.round(doneCount / PCTIC_STEPS.length * 100);
 
-    const prioColor = item.prio === 'Alta' ? 'var(--al)' : item.prio === 'Média' ? '#1d4ed8' : 'var(--mu)';
-    const prioBg = item.prio === 'Alta' ? 'var(--albg)' : item.prio === 'Média' ? '#dbeafe' : 'var(--sf2)';
+    const prioLabel = item.prio === 1 ? 'Alta' : item.prio === 2 ? 'Média' : 'Baixa';
+    const prioColor = item.prio === 1 ? 'var(--al)' : item.prio === 2 ? '#1d4ed8' : 'var(--mu)';
+    const prioBg = item.prio === 1 ? 'var(--albg)' : item.prio === 2 ? '#dbeafe' : 'var(--sf2)';
 
     const stepsHtml = PCTIC_STEPS.map((s, i) => {
       const done = !!item.etapas[s];
@@ -1033,7 +1034,7 @@ function acompRender() {
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1;min-width:0">
           <span style="font-family:var(--mo);font-size:11px;font-weight:600;color:var(--ac);white-space:nowrap">${item.num}</span>
           <span style="font-size:13px;font-weight:600;color:var(--tx);flex:1;min-width:0">${item.nome}</span>
-          <span style="background:${prioBg};color:${prioColor};padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo);white-space:nowrap">${item.prio}</span>
+          <span style="background:${prioBg};color:${prioColor};padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo);white-space:nowrap">${prioLabel}</span>
           <span style="background:var(--acl);color:var(--ac);padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo);white-space:nowrap">${item.setor}</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">${statusLabel}</div>
