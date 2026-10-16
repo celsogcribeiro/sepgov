@@ -1099,38 +1099,39 @@ function _acFiltered() {
   return list.sort(sorters[ord]||byNum);
 }
 
-function _acRenderSummary() {
+function _acRenderSummary(list) {
   let total=0,done=0,prog=0,none=0,late=0;
-  PCTIC_ITENS.forEach(it=>{
+  list.forEach(it=>{
     const d=_acDoneOf(it.num); total+=d;
     if(d===PCTIC_STEPS_DEF.length) done++; else if(d>0) prog++; else none++;
     if(_acDeadline(it)) late++;
   });
-  const max=PCTIC_ITENS.length*PCTIC_STEPS_DEF.length;
-  const p=Math.round(total/max*100);
+  const n=list.length;
+  const max=n*PCTIC_STEPS_DEF.length;
+  const p=max>0?Math.round(total/max*100):0;
   document.getElementById('ac-pct').textContent=p+'%';
-  document.getElementById('ac-bar').style.width=(total/max*100)+'%';
-  document.getElementById('ac-steps-lbl').textContent=total+' de '+max+' etapas concluídas';
+  document.getElementById('ac-bar').style.width=p+'%';
+  document.getElementById('ac-steps-lbl').textContent=total+' de '+max+' etapas concluídas'+(n<PCTIC_ITENS.length?' (filtro ativo)':'');
   document.getElementById('ac-done').textContent=done;
   document.getElementById('ac-prog').textContent=prog;
   document.getElementById('ac-none').textContent=none;
   document.getElementById('ac-late').textContent=late;
 
-  // Strip etapas
+  // Strip etapas — conta apenas nos itens filtrados
   document.getElementById('ac-stages').innerHTML=PCTIC_STEPS_DEF.map((s,i)=>{
-    const c=PCTIC_ITENS.filter(it=>_AC_DATA[it.num]?.etapas?.[s.k]).length;
+    const c=list.filter(it=>_AC_DATA[it.num]?.etapas?.[s.k]).length;
     const active=_AC_STAGE===s.k;
     return `<button type="button" data-stage="${s.k}" style="text-align:left;background:${active?'var(--acl)':'var(--sf)'};border:1px solid ${active?'var(--ac)':'var(--bd)'};border-radius:var(--r);padding:10px 11px;cursor:pointer;display:grid;gap:5px;min-width:0;transition:border-color .1s">
       <span style="font-family:var(--mo);font-size:10px;color:var(--mu)">Etapa ${i+1}</span>
       <span style="font-weight:600;font-size:12px;line-height:1.2;min-height:2.4em">${_acEsc(s.t)}</span>
-      <span style="font-family:var(--mo);font-size:12px">${c} / ${PCTIC_ITENS.length}</span>
-      <div style="height:5px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${(c/PCTIC_ITENS.length*100).toFixed(1)}%;background:#14532d;border-radius:3px"></div></div>
+      <span style="font-family:var(--mo);font-size:12px">${c} / ${n}</span>
+      <div style="height:5px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${n>0?(c/n*100).toFixed(1):0}%;background:#14532d;border-radius:3px"></div></div>
     </button>`;
   }).join('');
 }
 
-function _acRenderMatrix() {
-  const list=_acFiltered();
+function _acRenderMatrix(list) {
+  if(!list) list=_acFiltered();
   document.getElementById('ac-count').textContent=list.length===PCTIC_ITENS.length?PCTIC_ITENS.length+' itens':list.length+' de '+PCTIC_ITENS.length+' itens';
   const checkSvg='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="display:inline-block;vertical-align:middle"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -1202,7 +1203,7 @@ function _acRenderMatrix() {
   document.getElementById('ac-matrix').innerHTML=head+rows;
 }
 
-function _acRender() { _acRenderSummary(); _acRenderMatrix(); }
+function _acRender() { const list=_acFiltered(); _acRenderSummary(list); _acRenderMatrix(list); }
 
 document.getElementById('search').addEventListener('input',()=>{ctrPage=1;ctrRender();});
 document.getElementById('fS').addEventListener('change',e=>{setFilter(e.target.value);});
