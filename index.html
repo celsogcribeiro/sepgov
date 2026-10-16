@@ -404,43 +404,103 @@ td.wrap{white-space:normal;line-height:1.3}
   </div>
   <!-- ═══ ABA ACOMPANHAMENTO PCTIC 2027 ═══ -->
   <div class="tab-panel" id="tab-acomp">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px">
-      <div>
-        <div style="font-size:15px;font-weight:600;color:var(--tx)">Acompanhamento PCTIC 2027</div>
-        <div style="font-size:12px;color:var(--mu);margin-top:2px">Controle de etapas de instrução processual — STI/CJF</div>
+
+    <!-- Cabeçalho -->
+    <div style="margin-bottom:1.25rem">
+      <div style="font-family:var(--mo);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">CJF · STI · CEGOVE · Planejamento das contratações de TIC</div>
+      <div style="font-size:20px;font-weight:700;color:var(--tx);margin-bottom:4px">Controle do PCTIC 2027</div>
+      <div style="font-size:12px;color:var(--mu)">Acompanhamento das etapas de planejamento dos 41 itens de nova contratação. As 20 prorrogações estão fora deste controle.</div>
+    </div>
+
+    <!-- Barra de resumo -->
+    <div id="ac-summary" style="display:grid;grid-template-columns:minmax(0,1.3fr) repeat(4,minmax(0,1fr));background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);margin-bottom:1.25rem">
+      <div style="padding:14px 16px;display:grid;gap:4px;border-right:1px solid var(--bd)">
+        <span style="font-size:12px;color:var(--mu)">Conclusão geral do planejamento</span>
+        <span style="font-family:var(--mo);font-size:36px;font-weight:700;color:var(--ac);line-height:1" id="ac-pct">0%</span>
+        <div style="height:8px;border-radius:4px;background:var(--sf2);overflow:hidden;margin-top:4px"><div id="ac-bar" style="height:100%;width:0%;background:var(--ac);border-radius:4px;transition:width .3s"></div></div>
+        <span style="font-size:11px;color:var(--mu);font-family:var(--mo)" id="ac-steps-lbl">0 de 328 etapas concluídas</span>
       </div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <div style="font-family:var(--mo);font-size:11px;color:var(--fa)" id="acomp-updated"></div>
-        <select id="acomp-filt-setor" style="height:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);font-size:12px;padding:0 8px;font-family:var(--sa)">
-          <option value="">Todos os setores</option>
-        </select>
-        <select id="acomp-filt-prio" style="height:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);font-size:12px;padding:0 8px;font-family:var(--sa)">
-          <option value="">Todas as prioridades</option>
-          <option value="1">Alta</option>
-          <option value="2">Média</option>
-          <option value="3">Baixa</option>
-        </select>
-        <input id="acomp-search" type="text" placeholder="Buscar…" style="height:32px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);font-size:12px;padding:0 10px;width:180px;font-family:var(--sa)">
+      <div style="padding:14px 16px;display:grid;gap:4px;border-right:1px solid var(--bd)">
+        <span style="font-size:12px;color:var(--mu)">Planejamento concluído</span>
+        <span style="font-family:var(--mo);font-size:30px;font-weight:700;line-height:1;color:#14532d" id="ac-done">0</span>
+        <span style="font-size:11px;color:var(--mu)">8 de 8 etapas</span>
+      </div>
+      <div style="padding:14px 16px;display:grid;gap:4px;border-right:1px solid var(--bd)">
+        <span style="font-size:12px;color:var(--mu)">Em andamento</span>
+        <span style="font-family:var(--mo);font-size:30px;font-weight:700;line-height:1" id="ac-prog">0</span>
+        <span style="font-size:11px;color:var(--mu)">ao menos 1 etapa</span>
+      </div>
+      <div style="padding:14px 16px;display:grid;gap:4px;border-right:1px solid var(--bd)">
+        <span style="font-size:12px;color:var(--mu)">Não iniciados</span>
+        <span style="font-family:var(--mo);font-size:30px;font-weight:700;line-height:1" id="ac-none">41</span>
+        <span style="font-size:11px;color:var(--mu)">nenhuma etapa</span>
+      </div>
+      <div style="padding:14px 16px;display:grid;gap:4px">
+        <span style="font-size:12px;color:var(--mu)">Prazo próximo ou vencido</span>
+        <span style="font-family:var(--mo);font-size:30px;font-weight:700;line-height:1;color:var(--al)" id="ac-late">0</span>
+        <span style="font-size:11px;color:var(--mu)">em até 3 meses</span>
       </div>
     </div>
 
-    <!-- Cards resumo -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.25rem" id="acomp-stats">
-      <div class="sc tot"><div class="sl">Total</div><div class="sv" id="acomp-tot">—</div><div class="sc-hint">itens PCTIC</div></div>
-      <div class="sc vig"><div class="sl">Concluídos</div><div class="sv" id="acomp-conc">—</div><div class="sc-hint">todas etapas ✓</div></div>
-      <div class="sc alt"><div class="sl">Em andamento</div><div class="sv" id="acomp-and">—</div><div class="sc-hint">ao menos 1 etapa</div></div>
-      <div class="sc enc"><div class="sl">Não iniciados</div><div class="sv" id="acomp-ni">—</div><div class="sc-hint">nenhuma etapa</div></div>
+    <!-- Strip de etapas -->
+    <div style="margin-bottom:1.25rem">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+        <span style="font-size:14px;font-weight:600;color:var(--tx)">Andamento por etapa</span>
+        <span style="font-size:12px;color:var(--mu)" id="ac-updated"></span>
+      </div>
+      <div id="ac-stages" style="display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px"></div>
     </div>
 
-    <!-- Legenda etapas -->
-    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:.6rem 1rem;margin-bottom:.75rem;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-      <span style="font-size:11px;font-weight:600;color:var(--fa);font-family:var(--mo);text-transform:uppercase;letter-spacing:.06em;margin-right:4px">Etapas:</span>
-      <span id="acomp-legenda" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"></span>
+    <!-- Toolbar filtros -->
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-bottom:.75rem">
+      <div style="display:grid;gap:3px;flex:1 1 200px">
+        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Buscar</label>
+        <input id="ac-busca" type="search" placeholder="Número, objeto ou setor…" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px">
+      </div>
+      <div style="display:grid;gap:3px">
+        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Setor</label>
+        <select id="ac-setor" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px"><option value="">Todos</option></select>
+      </div>
+      <div style="display:grid;gap:3px">
+        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Prioridade</label>
+        <select id="ac-prio" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px">
+          <option value="">Todas</option>
+          <option value="1">1 · Alta</option>
+          <option value="2">2 · Média</option>
+          <option value="3">3 · Baixa</option>
+        </select>
+      </div>
+      <div style="display:grid;gap:3px">
+        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Situação</label>
+        <select id="ac-sit" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px">
+          <option value="">Todas</option>
+          <option value="none">Não iniciados</option>
+          <option value="prog">Em andamento</option>
+          <option value="done">Concluídos</option>
+          <option value="late">Prazo próximo ou vencido</option>
+        </select>
+      </div>
+      <div style="display:grid;gap:3px">
+        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Ordenar por</label>
+        <select id="ac-ord" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px">
+          <option value="lim">Data-limite</option>
+          <option value="num">Número PCTIC</option>
+          <option value="pctAsc">Menor conclusão</option>
+          <option value="pctDesc">Maior conclusão</option>
+          <option value="prio">Prioridade</option>
+          <option value="valor">Valor global</option>
+        </select>
+      </div>
+      <button id="ac-clear" type="button" style="background:none;border:1px solid transparent;color:var(--ac);padding:7px 10px;border-radius:var(--r);cursor:pointer;min-height:34px;font:inherit;font-size:12px" onmouseover="this.style.borderColor='var(--bd)'" onmouseout="this.style.borderColor='transparent'">Limpar filtros</button>
+      <span id="ac-count" style="font-size:12px;color:var(--mu);align-self:center;margin-left:auto;font-family:var(--mo)"></span>
     </div>
 
-    <!-- Lista de itens -->
-    <div id="acomp-list" style="display:flex;flex-direction:column;gap:8px"></div>
-    <div id="acomp-empty" style="display:none;text-align:center;padding:3rem;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum item encontrado.</div>
+    <!-- Matriz -->
+    <div style="overflow-x:auto;border:1px solid var(--bd);border-radius:var(--rl);background:var(--sf)">
+      <div id="ac-matrix" style="min-width:1060px"></div>
+    </div>
+    <div style="font-size:11px;color:var(--fa);margin-top:.5rem">Fonte: PCTIC 2027, versão 2 (itens do tipo "Nova Contratação"). Prazo próximo: data-limite em até 3 meses com planejamento incompleto; vencido: mês da data-limite já passou.</div>
+
   </div>
 
   <!-- ═══ ABA MANUAL DE REDAÇÃO ═══ -->
@@ -927,134 +987,221 @@ const PCTIC_ITENS = [
   {num:'PCTIC-2027-075',nome:'Storage de réplica do Site CJF',objeto:'Aquisição de solução de armazenamento para réplica de dados do Site CJF.',setor:'COTEC',prio:3,limite:'2027-07',va:5200000,vg:5200000,vig:60}
 ];
 
-const PCTIC_STEPS = ['DOD','Reunião','ETP','TR','Riscos','Preços','Rev. Adm.','SEI'];
-const PCTIC_STEP_COLORS = ['#2563eb','#7c3aed','#0891b2','#059669','#d97706','#dc2626','#6b7280','#1a3a5c'];
+// ═══ ACOMPANHAMENTO PCTIC 2027 ═══
+const PCTIC_STEPS_DEF = [
+  {k:'DOD',t:'Documento de Oficialização de Demanda'},
+  {k:'Reunião',t:'Reunião Inicial'},
+  {k:'ETP',t:'Estudo Técnico Preliminar'},
+  {k:'TR',t:'Termo de Referência'},
+  {k:'Riscos',t:'Análise de Riscos'},
+  {k:'Preços',t:'Pesquisa de Preços'},
+  {k:'Rev. Adm.',t:'Revisão Administrativa'},
+  {k:'SEI',t:'Inclusão no SEI'}
+];
 
 let _ACOMP_LOADED = false;
-let _ACOMP_DATA = {};
-let _ACOMP_ITENS_ENRICHED = [];
+let _AC_DATA = {};       // progresso carregado do JSON
+let _AC_OPEN = new Set(); // IDs com detalhe aberto
+let _AC_STAGE = '';      // etapa filtrada pelo strip
 
-function acompCalcStatus(etapas) {
-  const done = PCTIC_STEPS.filter(s => etapas[s]).length;
-  if (done === 0) return 'ni';
-  if (done === PCTIC_STEPS.length) return 'conc';
-  return 'and';
+const _acEsc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const _acBrl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const _acMeses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const _acFmtLim = s => { const [y,m]=s.split('-'); return _acMeses[+m-1]+'/'+y.slice(2); };
+const _acDdmm = iso => { const [y,m,d]=iso.split('-'); return d+'/'+m; };
+const _acDdmmyy = iso => { const [y,m,d]=iso.split('-'); return d+'/'+m+'/'+y; };
+
+function _acDoneOf(id) { return PCTIC_STEPS_DEF.filter(s=>_AC_DATA[id]?.etapas?.[s.k]).length; }
+function _acPctOf(id)  { return Math.round(_acDoneOf(id)/PCTIC_STEPS_DEF.length*100); }
+function _acMonthsTo(lim) {
+  const n=new Date(); const [y,m]=lim.split('-').map(Number);
+  return (y-n.getFullYear())*12+(m-1-n.getMonth());
+}
+function _acDeadline(it) {
+  if(_acDoneOf(it.num)===PCTIC_STEPS_DEF.length) return '';
+  const d=_acMonthsTo(it.limite); return d<0?'crit':d<=3?'warn':'';
 }
 
 async function acompInit() {
   _ACOMP_LOADED = true;
 
-  // Popula legenda
-  const leg = document.getElementById('acomp-legenda');
-  leg.innerHTML = PCTIC_STEPS.map((s,i) =>
-    `<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--tx)"><span style="width:10px;height:10px;border-radius:2px;background:${PCTIC_STEP_COLORS[i]};display:inline-block;flex-shrink:0"></span>${s}</span>`
-  ).join('');
-
   // Popula filtro de setores
-  const setores = [...new Set(PCTIC_ITENS.map(i => i.setor))].sort();
-  const selSetor = document.getElementById('acomp-filt-setor');
-  setores.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; selSetor.appendChild(o); });
+  const setores = [...new Set(PCTIC_ITENS.map(i=>i.setor))].sort();
+  const selSetor = document.getElementById('ac-setor');
+  setores.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;selSetor.appendChild(o);});
 
-  // Carrega progresso
+  // Carrega progresso JSON
   try {
-    const r = await fetch('pctic_progresso.json?v=' + Date.now());
-    if (r.ok) _ACOMP_DATA = (await r.json()).progresso || {};
-  } catch(e) { /* sem progresso ainda */ }
+    const r = await fetch('pctic_progresso.json?v='+Date.now());
+    if(r.ok){
+      const j=await r.json();
+      _AC_DATA=j.progresso||{};
+      if(j.atualizadoEm) document.getElementById('ac-updated').textContent='Atualizado em '+new Date(j.atualizadoEm).toLocaleDateString('pt-BR');
+    }
+  } catch(e){}
 
-  // Enriquece itens
-  _ACOMP_ITENS_ENRICHED = PCTIC_ITENS.map(item => {
-    const etapas = (_ACOMP_DATA[item.num] || {}).etapas || {};
-    return { ...item, etapas, status: acompCalcStatus(etapas) };
+  // Eventos
+  document.getElementById('ac-busca').addEventListener('input', _acRenderMatrix);
+  document.getElementById('ac-setor').addEventListener('change', _acRenderMatrix);
+  document.getElementById('ac-prio').addEventListener('change', _acRenderMatrix);
+  document.getElementById('ac-sit').addEventListener('change', _acRenderMatrix);
+  document.getElementById('ac-ord').addEventListener('change', _acRenderMatrix);
+  document.getElementById('ac-clear').addEventListener('click', ()=>{
+    document.getElementById('ac-busca').value='';
+    document.getElementById('ac-setor').value='';
+    document.getElementById('ac-prio').value='';
+    document.getElementById('ac-sit').value='';
+    document.getElementById('ac-ord').value='lim';
+    _AC_STAGE='';
+    _acRender();
   });
 
-  // Data atualização
-  try {
-    const r2 = await fetch('pctic_progresso.json?v=' + Date.now());
-    if (r2.ok) {
-      const j = await r2.json();
-      if (j.atualizadoEm) document.getElementById('acomp-updated').textContent = 'Atualizado: ' + new Date(j.atualizadoEm).toLocaleDateString('pt-BR');
-    }
-  } catch(e) {}
+  // Cliques na matriz (toggle detalhe + strip)
+  document.getElementById('ac-matrix').addEventListener('click', e=>{
+    const tog=e.target.closest('[data-ac-toggle]');
+    if(tog){ const id=tog.dataset.acToggle; _AC_OPEN.has(id)?_AC_OPEN.delete(id):_AC_OPEN.add(id); _acRenderMatrix(); return; }
+  });
+  document.getElementById('ac-stages').addEventListener('click', e=>{
+    const btn=e.target.closest('[data-stage]');
+    if(btn){ _AC_STAGE=_AC_STAGE===btn.dataset.stage?'':btn.dataset.stage; _acRender(); }
+  });
 
-  // Eventos filtro
-  document.getElementById('acomp-filt-setor').addEventListener('change', acompRender);
-  document.getElementById('acomp-filt-prio').addEventListener('change', acompRender);
-  document.getElementById('acomp-search').addEventListener('input', acompRender);
-
-  acompRender();
+  _acRender();
 }
 
-function acompRender() {
-  const setor = document.getElementById('acomp-filt-setor').value;
-  const prio = document.getElementById('acomp-filt-prio').value;
-  const q = document.getElementById('acomp-search').value.toLowerCase().trim();
-
-  let items = _ACOMP_ITENS_ENRICHED.filter(i => {
-    if (setor && i.setor !== setor) return false;
-    if (prio && i.prio !== Number(prio)) return false;
-    if (q && !i.num.toLowerCase().includes(q) && !i.nome.toLowerCase().includes(q) && !i.objeto.toLowerCase().includes(q)) return false;
+function _acFiltered() {
+  const q=document.getElementById('ac-busca').value.trim().toLowerCase();
+  const st=document.getElementById('ac-setor').value;
+  const pr=document.getElementById('ac-prio').value;
+  const sit=document.getElementById('ac-sit').value;
+  let list=PCTIC_ITENS.filter(it=>{
+    if(q && !(it.num+' '+it.nome+' '+it.objeto+' '+it.setor).toLowerCase().includes(q)) return false;
+    if(st && it.setor!==st) return false;
+    if(pr && it.prio!==Number(pr)) return false;
+    const d=_acDoneOf(it.num);
+    if(sit==='none' && d!==0) return false;
+    if(sit==='prog' && (d===0||d===PCTIC_STEPS_DEF.length)) return false;
+    if(sit==='done' && d!==PCTIC_STEPS_DEF.length) return false;
+    if(sit==='late' && !_acDeadline(it)) return false;
+    if(_AC_STAGE && _AC_DATA[it.num]?.etapas?.[_AC_STAGE]) return false;
     return true;
   });
+  const ord=document.getElementById('ac-ord').value;
+  const byNum=(a,b)=>a.num.localeCompare(b.num);
+  const sorters={
+    lim:(a,b)=>a.limite.localeCompare(b.limite)||a.prio-b.prio||byNum(a,b),
+    num:byNum,
+    pctAsc:(a,b)=>_acDoneOf(a.num)-_acDoneOf(b.num)||a.limite.localeCompare(b.limite),
+    pctDesc:(a,b)=>_acDoneOf(b.num)-_acDoneOf(a.num)||a.limite.localeCompare(b.limite),
+    prio:(a,b)=>a.prio-b.prio||a.limite.localeCompare(b.limite),
+    valor:(a,b)=>b.vg-a.vg
+  };
+  return list.sort(sorters[ord]||byNum);
+}
 
-  // Stats
-  document.getElementById('acomp-tot').textContent = items.length;
-  document.getElementById('acomp-conc').textContent = items.filter(i => i.status === 'conc').length;
-  document.getElementById('acomp-and').textContent = items.filter(i => i.status === 'and').length;
-  document.getElementById('acomp-ni').textContent = items.filter(i => i.status === 'ni').length;
+function _acRenderSummary() {
+  let total=0,done=0,prog=0,none=0,late=0;
+  PCTIC_ITENS.forEach(it=>{
+    const d=_acDoneOf(it.num); total+=d;
+    if(d===PCTIC_STEPS_DEF.length) done++; else if(d>0) prog++; else none++;
+    if(_acDeadline(it)) late++;
+  });
+  const max=PCTIC_ITENS.length*PCTIC_STEPS_DEF.length;
+  const p=Math.round(total/max*100);
+  document.getElementById('ac-pct').textContent=p+'%';
+  document.getElementById('ac-bar').style.width=(total/max*100)+'%';
+  document.getElementById('ac-steps-lbl').textContent=total+' de '+max+' etapas concluídas';
+  document.getElementById('ac-done').textContent=done;
+  document.getElementById('ac-prog').textContent=prog;
+  document.getElementById('ac-none').textContent=none;
+  document.getElementById('ac-late').textContent=late;
 
-  const list = document.getElementById('acomp-list');
-  const empty = document.getElementById('acomp-empty');
-
-  if (!items.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-
-  list.innerHTML = items.map(item => {
-    const doneCount = PCTIC_STEPS.filter(s => item.etapas[s]).length;
-    const pct = Math.round(doneCount / PCTIC_STEPS.length * 100);
-
-    const prioLabel = item.prio === 1 ? 'Alta' : item.prio === 2 ? 'Média' : 'Baixa';
-    const prioColor = item.prio === 1 ? 'var(--al)' : item.prio === 2 ? '#1d4ed8' : 'var(--mu)';
-    const prioBg = item.prio === 1 ? 'var(--albg)' : item.prio === 2 ? '#dbeafe' : 'var(--sf2)';
-
-    const stepsHtml = PCTIC_STEPS.map((s, i) => {
-      const done = !!item.etapas[s];
-      return `<span title="${s}" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:4px;font-size:10px;font-weight:600;font-family:var(--mo);
-        background:${done ? PCTIC_STEP_COLORS[i] : 'var(--sf2)'};
-        color:${done ? '#fff' : 'var(--fa)'};
-        border:1px solid ${done ? PCTIC_STEP_COLORS[i] : 'var(--bd)'};
-        cursor:default">${done ? '✓' : (i+1)}</span>`;
-    }).join('');
-
-    const statusLabel = item.status === 'conc' ? '<span style="background:#dcfce7;color:#14532d;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo)">CONCLUÍDO</span>'
-      : item.status === 'and' ? '<span style="background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo)">EM ANDAMENTO</span>'
-      : '<span style="background:var(--sf2);color:var(--fa);padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo)">NÃO INICIADO</span>';
-
-    return `<div style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);padding:1rem 1.25rem;transition:box-shadow .15s" onmouseover="this.style.boxShadow='0 4px 16px rgba(0,0,0,.08)'" onmouseout="this.style.boxShadow=''">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:.75rem">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1;min-width:0">
-          <span style="font-family:var(--mo);font-size:11px;font-weight:600;color:var(--ac);white-space:nowrap">${item.num}</span>
-          <span style="font-size:13px;font-weight:600;color:var(--tx);flex:1;min-width:0">${item.nome}</span>
-          <span style="background:${prioBg};color:${prioColor};padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo);white-space:nowrap">${prioLabel}</span>
-          <span style="background:var(--acl);color:var(--ac);padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;font-family:var(--mo);white-space:nowrap">${item.setor}</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">${statusLabel}</div>
-      </div>
-      <div style="font-size:12px;color:var(--mu);margin-bottom:.75rem">${item.objeto}</div>
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-        <div style="display:flex;gap:4px;flex-wrap:wrap">${stepsHtml}</div>
-        <div style="flex:1;min-width:120px">
-          <div style="display:flex;justify-content:space-between;margin-bottom:3px">
-            <span style="font-size:10px;color:var(--fa);font-family:var(--mo)">${doneCount}/${PCTIC_STEPS.length} etapas</span>
-            <span style="font-size:10px;color:var(--fa);font-family:var(--mo)">${pct}%</span>
-          </div>
-          <div style="height:6px;background:var(--sf2);border-radius:3px;overflow:hidden;border:1px solid var(--bd)">
-            <div style="height:100%;width:${pct}%;background:${pct===100?'#16a34a':pct>0?'var(--ac)':'transparent'};border-radius:3px;transition:width .3s"></div>
-          </div>
-        </div>
-      </div>
-    </div>`;
+  // Strip etapas
+  document.getElementById('ac-stages').innerHTML=PCTIC_STEPS_DEF.map((s,i)=>{
+    const c=PCTIC_ITENS.filter(it=>_AC_DATA[it.num]?.etapas?.[s.k]).length;
+    const active=_AC_STAGE===s.k;
+    return `<button type="button" data-stage="${s.k}" style="text-align:left;background:${active?'var(--acl)':'var(--sf)'};border:1px solid ${active?'var(--ac)':'var(--bd)'};border-radius:var(--r);padding:10px 11px;cursor:pointer;display:grid;gap:5px;min-width:0;transition:border-color .1s">
+      <span style="font-family:var(--mo);font-size:10px;color:var(--mu)">Etapa ${i+1}</span>
+      <span style="font-weight:600;font-size:12px;line-height:1.2;min-height:2.4em">${_acEsc(s.t)}</span>
+      <span style="font-family:var(--mo);font-size:12px">${c} / ${PCTIC_ITENS.length}</span>
+      <div style="height:5px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${(c/PCTIC_ITENS.length*100).toFixed(1)}%;background:#14532d;border-radius:3px"></div></div>
+    </button>`;
   }).join('');
 }
+
+function _acRenderMatrix() {
+  const list=_acFiltered();
+  document.getElementById('ac-count').textContent=list.length===PCTIC_ITENS.length?PCTIC_ITENS.length+' itens':list.length+' de '+PCTIC_ITENS.length+' itens';
+  const checkSvg='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="display:inline-block;vertical-align:middle"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  const head=`<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(8,52px) 100px;align-items:center;background:var(--sf2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:2">
+    <div style="padding:8px 8px 8px 14px;font-size:11px;color:var(--mu)">Item do PCTIC</div>
+    <div style="padding:8px;font-size:11px;color:var(--mu)">Setor</div>
+    <div style="padding:8px;font-size:11px;color:var(--mu)">Prior.</div>
+    <div style="padding:8px;font-size:11px;color:var(--mu)">Data-limite</div>
+    ${PCTIC_STEPS_DEF.map((s,i)=>`<div style="padding:8px 4px;text-align:center;font-size:10px;color:var(--mu);line-height:1.2" title="${_acEsc(s.t)}"><b style="display:block;font-family:var(--mo);font-weight:500">${i+1}</b>${_acEsc(s.k)}</div>`).join('')}
+    <div style="padding:8px 14px 8px 8px;font-size:11px;color:var(--mu)">Conclusão</div>
+  </div>`;
+
+  if(!list.length){
+    document.getElementById('ac-matrix').innerHTML=head+'<div style="padding:28px;text-align:center;color:var(--mu);font-size:13px">Nenhum item corresponde aos filtros. Use "Limpar filtros" para ver todos.</div>';
+    return;
+  }
+
+  const rows=list.map(it=>{
+    const pct=_acPctOf(it.num);
+    const dl=_acDeadline(it);
+    const flag=dl==='crit'?'<span style="background:var(--enbg);color:#b42318;font-size:10px;font-weight:600;padding:1px 5px;border-radius:3px;white-space:nowrap">Vencido</span>'
+      :dl==='warn'?'<span style="background:var(--albg);color:var(--al);font-size:10px;font-weight:600;padding:1px 5px;border-radius:3px;white-space:nowrap">Prazo próximo</span>':'';
+    const prioTxt=['Alta','Média','Baixa'][it.prio-1];
+    const prioC=it.prio===1?'#b42318':it.prio===2?'var(--al)':'var(--mu)';
+    const isOpen=_AC_OPEN.has(it.num);
+    const stepsHtml=PCTIC_STEPS_DEF.map(s=>{
+      const date=_AC_DATA[it.num]?.etapas?.[s.k];
+      const on=!!date;
+      const title=s.t+(on?' · concluída em '+_acDdmmyy(date):' · pendente');
+      return `<div style="display:flex;justify-content:center;padding:4px">
+        <div title="${_acEsc(title)}" style="width:42px;height:38px;border:1.5px solid ${on?'#14532d':'var(--bd)'};background:${on?'#dcfce7':'var(--sf)'};border-radius:6px;display:grid;place-items:center;align-content:center;gap:1px;color:${on?'#14532d':'var(--fa)'}">
+          ${on?checkSvg+'<span style="font-family:var(--mo);font-size:9px;display:block;text-align:center">'+_acDdmm(date)+'</span>':'<span style="font-family:var(--mo);font-size:10px;color:var(--fa)">—</span>'}
+        </div></div>`;
+    }).join('');
+
+    const detail=isOpen?`<div style="grid-column:1/-1;padding:0 14px 14px 30px;display:grid;grid-template-columns:minmax(0,65ch) auto;gap:8px 28px;font-size:13px">
+      <p style="margin:0;color:var(--tx)">${_acEsc(it.objeto)}</p>
+      <dl style="margin:0;display:grid;grid-template-columns:auto auto;gap:2px 12px;font-size:12px;align-content:start">
+        <dt style="color:var(--mu)">Valor anual 2027</dt><dd style="margin:0;font-family:var(--mo)">${_acBrl(it.va)}</dd>
+        <dt style="color:var(--mu)">Valor global</dt><dd style="margin:0;font-family:var(--mo)">${_acBrl(it.vg)}</dd>
+        <dt style="color:var(--mu)">Vigência</dt><dd style="margin:0;font-family:var(--mo)">${it.vig} meses</dd>
+        <dt style="color:var(--mu)">Etapas concluídas</dt><dd style="margin:0;font-family:var(--mo)">${_acDoneOf(it.num)} de ${PCTIC_STEPS_DEF.length}</dd>
+      </dl></div>`:'';
+
+    return `<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(8,52px) 100px;align-items:center;border-top:1px solid var(--bd)${isOpen?';background:var(--acl)':''}">
+      <div style="padding:10px 8px 10px 14px;display:grid;gap:2px">
+        <span style="font-family:var(--mo);font-size:11px;color:var(--mu)">${it.num}</span>
+        <button type="button" data-ac-toggle="${it.num}" style="background:none;border:0;padding:0;text-align:left;cursor:pointer;font-weight:600;font-size:13px;line-height:1.3;color:var(--tx)" onmouseover="this.style.color='var(--ac)'" onmouseout="this.style.color='var(--tx)'">
+          <span style="display:inline-block;width:1em;transition:transform .15s;transform:${isOpen?'rotate(90deg)':'rotate(0)'};color:var(--mu)">›</span>${_acEsc(it.nome)}
+        </button>
+      </div>
+      <div style="padding:10px 8px;font-size:12px">${_acEsc(it.setor)}</div>
+      <div style="padding:10px 8px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mo);font-size:11px;padding:2px 6px;border-radius:999px;border:1px solid;color:${prioC};border-color:${prioC};white-space:nowrap">${it.prio} · ${prioTxt}</span>
+      </div>
+      <div style="padding:10px 8px;font-family:var(--mo);font-size:12px;display:grid;gap:3px">
+        <span>${_acFmtLim(it.limite)}</span>${flag}
+      </div>
+      ${stepsHtml}
+      <div style="padding:10px 14px 10px 8px;display:grid;gap:4px">
+        <span style="font-family:var(--mo);font-size:13px;font-weight:500;color:${pct===100?'#14532d':'inherit'}">${pct}%</span>
+        <div style="height:6px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${pct}%;background:${pct===100?'#16a34a':'var(--ac)'};border-radius:3px;transition:width .3s"></div></div>
+      </div>
+      ${detail}
+    </div>`;
+  }).join('');
+
+  document.getElementById('ac-matrix').innerHTML=head+rows;
+}
+
+function _acRender() { _acRenderSummary(); _acRenderMatrix(); }
 
 document.getElementById('search').addEventListener('input',()=>{ctrPage=1;ctrRender();});
 document.getElementById('fS').addEventListener('change',e=>{setFilter(e.target.value);});
