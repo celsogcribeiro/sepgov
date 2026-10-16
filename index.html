@@ -990,16 +990,22 @@ const PCTIC_ITENS = [
 ];
 
 // ═══ ACOMPANHAMENTO PCTIC 2027 ═══
+// Etapa 0 = DOP, etapas 1-8 = planejamento (contam no %, travadas pela DOP),
+// etapa 9 = Contrato (não conta no %, sempre livre)
 const PCTIC_STEPS_DEF = [
-  {k:'DOD',t:'Documento de Oficialização de Demanda'},
-  {k:'Reunião',t:'Reunião Inicial'},
-  {k:'ETP',t:'Estudo Técnico Preliminar'},
-  {k:'TR',t:'Termo de Referência'},
-  {k:'Riscos',t:'Análise de Riscos'},
-  {k:'Preços',t:'Pesquisa de Preços'},
-  {k:'Rev. Adm.',t:'Revisão Administrativa'},
-  {k:'SEI',t:'Inclusão no SEI'}
+  {k:'DOP',t:'Documento de Oficialização de Participação',n:0,special:'dop'},
+  {k:'DOD',t:'Documento de Oficialização de Demanda',n:1},
+  {k:'Reunião',t:'Reunião Inicial',n:2},
+  {k:'ETP',t:'Estudo Técnico Preliminar',n:3},
+  {k:'TR',t:'Termo de Referência',n:4},
+  {k:'Riscos',t:'Análise de Riscos',n:5},
+  {k:'Preços',t:'Pesquisa de Preços',n:6},
+  {k:'Rev. Adm.',t:'Revisão Administrativa',n:7},
+  {k:'SEI',t:'Inclusão no SEI',n:8},
+  {k:'Contrato',t:'Assinatura do Contrato',n:9,special:'contrato'}
 ];
+// Apenas etapas 1-8 entram no cálculo de progresso
+const PCTIC_STEPS_PLAN = PCTIC_STEPS_DEF.filter(s=>!s.special);
 
 let _ACOMP_LOADED = false;
 let _AC_DATA = {};       // progresso carregado do JSON
@@ -1013,14 +1019,17 @@ const _acFmtLim = s => { const [y,m]=s.split('-'); return _acMeses[+m-1]+'/'+y.s
 const _acDdmm = iso => { const [y,m,d]=iso.split('-'); return d+'/'+m; };
 const _acDdmmyy = iso => { const [y,m,d]=iso.split('-'); return d+'/'+m+'/'+y; };
 
-function _acDoneOf(id) { return PCTIC_STEPS_DEF.filter(s=>_AC_DATA[id]?.etapas?.[s.k]).length; }
-function _acPctOf(id)  { return Math.round(_acDoneOf(id)/PCTIC_STEPS_DEF.length*100); }
+// Conta apenas etapas 1-8 no progresso (DOP e Contrato excluídos)
+function _acDoneOf(id) { return PCTIC_STEPS_PLAN.filter(s=>_AC_DATA[id]?.etapas?.[s.k]).length; }
+function _acPctOf(id)  { return Math.round(_acDoneOf(id)/PCTIC_STEPS_PLAN.length*100); }
+// Retorna verdade se o item está no modo DOP (etapas 1-8 travadas)
+function _acIsDOP(id)  { return !!_AC_DATA[id]?.etapas?.['DOP'] && !PCTIC_STEPS_PLAN.some(s=>_AC_DATA[id]?.etapas?.[s.k]); }
 function _acMonthsTo(lim) {
   const n=new Date(); const [y,m]=lim.split('-').map(Number);
   return (y-n.getFullYear())*12+(m-1-n.getMonth());
 }
 function _acDeadline(it) {
-  if(_acDoneOf(it.num)===PCTIC_STEPS_DEF.length) return '';
+  if(_acDoneOf(it.num)===PCTIC_STEPS_PLAN.length) return '';
   const d=_acMonthsTo(it.limite); return d<0?'crit':d<=3?'warn':'';
 }
 
@@ -1082,8 +1091,8 @@ function _acFiltered() {
     if(pr && it.prio!==Number(pr)) return false;
     const d=_acDoneOf(it.num);
     if(sit==='none' && d!==0) return false;
-    if(sit==='prog' && (d===0||d===PCTIC_STEPS_DEF.length)) return false;
-    if(sit==='done' && d!==PCTIC_STEPS_DEF.length) return false;
+    if(sit==='prog' && (d===0||d===PCTIC_STEPS_PLAN.length)) return false;
+    if(sit==='done' && d!==PCTIC_STEPS_PLAN.length) return false;
     if(sit==='late' && !_acDeadline(it)) return false;
     if(_AC_STAGE && _AC_DATA[it.num]?.etapas?.[_AC_STAGE]) return false;
     return true;
@@ -1105,10 +1114,10 @@ function _acRenderSummary() {
   let total=0,done=0,prog=0,none=0,late=0;
   PCTIC_ITENS.forEach(it=>{
     const d=_acDoneOf(it.num); total+=d;
-    if(d===PCTIC_STEPS_DEF.length) done++; else if(d>0) prog++; else none++;
+    if(d===PCTIC_STEPS_PLAN.length) done++; else if(d>0) prog++; else none++;
     if(_acDeadline(it)) late++;
   });
-  const max=PCTIC_ITENS.length*PCTIC_STEPS_DEF.length;
+  const max=PCTIC_ITENS.length*PCTIC_STEPS_PLAN.length;
   const p=Math.round(total/max*100);
   document.getElementById('ac-pct').textContent=p+'%';
   document.getElementById('ac-bar').style.width=(total/max*100)+'%';
@@ -1119,11 +1128,12 @@ function _acRenderSummary() {
   document.getElementById('ac-late').textContent=late;
 
   // Strip etapas
-  document.getElementById('ac-stages').innerHTML=PCTIC_STEPS_DEF.map((s,i)=>{
+  document.getElementById('ac-stages').innerHTML=PCTIC_STEPS_DEF.map((s)=>{
     const c=PCTIC_ITENS.filter(it=>_AC_DATA[it.num]?.etapas?.[s.k]).length;
     const active=_AC_STAGE===s.k;
+    const lbl=s.special?`<span style="font-family:var(--mo);font-size:10px;color:${s.special==='dop'?'#6366f1':'#0891b2'}">Etapa ${s.n}</span>`:`<span style="font-family:var(--mo);font-size:10px;color:var(--mu)">Etapa ${s.n}</span>`;
     return `<button type="button" data-stage="${s.k}" style="text-align:left;background:${active?'var(--acl)':'var(--sf)'};border:1px solid ${active?'var(--ac)':'var(--bd)'};border-radius:var(--r);padding:10px 11px;cursor:pointer;display:grid;gap:5px;min-width:0;transition:border-color .1s">
-      <span style="font-family:var(--mo);font-size:10px;color:var(--mu)">Etapa ${i+1}</span>
+      ${lbl}
       <span style="font-weight:600;font-size:12px;line-height:1.2;min-height:2.4em">${_acEsc(s.t)}</span>
       <span style="font-family:var(--mo);font-size:12px">${c} / ${PCTIC_ITENS.length}</span>
       <div style="height:5px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${(c/PCTIC_ITENS.length*100).toFixed(1)}%;background:#14532d;border-radius:3px"></div></div>
@@ -1136,12 +1146,12 @@ function _acRenderMatrix() {
   document.getElementById('ac-count').textContent=list.length===PCTIC_ITENS.length?PCTIC_ITENS.length+' itens':list.length+' de '+PCTIC_ITENS.length+' itens';
   const checkSvg='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="display:inline-block;vertical-align:middle"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  const head=`<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(8,52px) 100px;align-items:center;background:var(--sf2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:2">
+  const head=`<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(10,52px) 100px;align-items:center;background:var(--sf2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:2">
     <div style="padding:8px 8px 8px 14px;font-size:11px;color:var(--mu)">Item do PCTIC</div>
     <div style="padding:8px;font-size:11px;color:var(--mu)">Setor</div>
     <div style="padding:8px;font-size:11px;color:var(--mu);text-align:center">Prior.</div>
     <div style="padding:8px;font-size:11px;color:var(--mu);text-align:center">Data-limite</div>
-    ${PCTIC_STEPS_DEF.map((s,i)=>`<div style="padding:8px 4px;text-align:center;font-size:10px;color:var(--mu);line-height:1.2" title="${_acEsc(s.t)}"><b style="display:block;font-family:var(--mo);font-weight:500">${i+1}</b>${_acEsc(s.k)}</div>`).join('')}
+    ${PCTIC_STEPS_DEF.map(s=>`<div style="padding:8px 4px;text-align:center;font-size:10px;color:${s.special?'var(--ac)':'var(--mu)'};line-height:1.2" title="${_acEsc(s.t)}"><b style="display:block;font-family:var(--mo);font-weight:500">${s.n}</b>${_acEsc(s.k)}</div>`).join('')}
     <div style="padding:8px 14px 8px 8px;font-size:11px;color:var(--mu)">Conclusão</div>
   </div>`;
 
@@ -1159,13 +1169,43 @@ function _acRenderMatrix() {
     const prioBg=it.prio===1?'#fee2e2':it.prio===2?'#ffedd5':'#f3f4f6';
     const prioC=it.prio===1?'#991b1b':it.prio===2?'#9a3412':'#4b5563';
     const isOpen=_AC_OPEN.has(it.num);
+    const id=it.num;
+    const etapas=_AC_DATA[id]?.etapas||{};
+    const hasDOP=!!etapas['DOP'];
+    const hasPlan=PCTIC_STEPS_PLAN.some(s=>etapas[s.k]);
+    // DOP marcada e nenhuma etapa 1-8: modo DOP (etapas 1-8 com X travado)
+    const dopMode=hasDOP && !hasPlan;
+    // Alguma etapa 1-8 marcada: DOP recebe X travado
+    const planMode=hasPlan && !hasDOP;
+
     const stepsHtml=PCTIC_STEPS_DEF.map(s=>{
-      const date=_AC_DATA[it.num]?.etapas?.[s.k];
+      const date=etapas[s.k];
       const on=!!date;
-      const title=s.t+(on?' · concluída em '+_acDdmmyy(date):' · pendente');
+      let locked=false, lockedX=false;
+      if(s.special==='dop' && planMode)   { locked=true; lockedX=true; }  // DOP travada com X
+      if(!s.special && !s.special==='contrato' && dopMode) { locked=true; lockedX=true; } // etapas 1-8 travadas com X
+      // Refina: etapas 1-8 no modo DOP
+      if(dopMode && !s.special)           { locked=true; lockedX=true; }
+
+      let bg,border,color,content;
+      if(on && !locked){
+        // marcada normalmente
+        bg='#dcfce7'; border='#14532d'; color='#14532d';
+        content=checkSvg+'<span style="font-family:var(--mo);font-size:9px;display:block;text-align:center">'+_acDdmm(date)+'</span>';
+      } else if(lockedX){
+        // X automático (trancado)
+        bg='#f1f5f9'; border='#94a3b8'; color='#64748b';
+        const xSvg='<svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="display:inline-block;vertical-align:middle"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+        content=xSvg+'<span style="font-family:var(--mo);font-size:9px;display:block;text-align:center">auto</span>';
+      } else {
+        // pendente
+        bg='var(--sf)'; border='var(--bd)'; color='var(--fa)';
+        content='<span style="font-family:var(--mo);font-size:10px;color:var(--fa)">—</span>';
+      }
+      const title=s.t+(on?' · concluída em '+_acDdmmyy(date):lockedX?' · preenchido automaticamente':' · pendente');
       return `<div style="display:flex;justify-content:center;padding:4px">
-        <div title="${_acEsc(title)}" style="width:42px;height:38px;border:1.5px solid ${on?'#14532d':'var(--bd)'};background:${on?'#dcfce7':'var(--sf)'};border-radius:6px;display:grid;place-items:center;align-content:center;gap:1px;color:${on?'#14532d':'var(--fa)'}">
-          ${on?checkSvg+'<span style="font-family:var(--mo);font-size:9px;display:block;text-align:center">'+_acDdmm(date)+'</span>':'<span style="font-family:var(--mo);font-size:10px;color:var(--fa)">—</span>'}
+        <div title="${_acEsc(title)}" style="width:42px;height:38px;border:1.5px solid ${border};background:${bg};border-radius:6px;display:grid;place-items:center;align-content:center;gap:1px;color:${color}">
+          ${content}
         </div></div>`;
     }).join('');
 
@@ -1175,10 +1215,10 @@ function _acRenderMatrix() {
         <dt style="color:var(--mu)">Valor anual 2027</dt><dd style="margin:0;font-family:var(--mo)">${_acBrl(it.va)}</dd>
         <dt style="color:var(--mu)">Valor global</dt><dd style="margin:0;font-family:var(--mo)">${_acBrl(it.vg)}</dd>
         <dt style="color:var(--mu)">Vigência</dt><dd style="margin:0;font-family:var(--mo)">${it.vig} meses</dd>
-        <dt style="color:var(--mu)">Etapas concluídas</dt><dd style="margin:0;font-family:var(--mo)">${_acDoneOf(it.num)} de ${PCTIC_STEPS_DEF.length}</dd>
+        <dt style="color:var(--mu)">Etapas concluídas</dt><dd style="margin:0;font-family:var(--mo)">${_acDoneOf(it.num)} de ${PCTIC_STEPS_PLAN.length}</dd>
       </dl></div>`:'';
 
-    return `<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(8,52px) 100px;align-items:center;border-top:1px solid var(--bd)${isOpen?';background:var(--acl)':''}">
+    return `<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(10,52px) 100px;align-items:center;border-top:1px solid var(--bd)${isOpen?';background:var(--acl)':''}">
       <div style="padding:10px 8px 10px 14px;display:grid;gap:2px">
         <span style="font-family:var(--mo);font-size:11px;color:var(--mu)">${it.num}</span>
         <button type="button" data-ac-toggle="${it.num}" style="background:none;border:0;padding:0;text-align:left;cursor:pointer;font-weight:600;font-size:13px;line-height:1.3;color:var(--tx)" onmouseover="this.style.color='var(--ac)'" onmouseout="this.style.color='var(--tx)'">
