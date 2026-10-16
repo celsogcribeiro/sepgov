@@ -1137,8 +1137,8 @@ function _acRenderMatrix() {
   const head=`<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(8,52px) 100px;align-items:center;background:var(--sf2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:2">
     <div style="padding:8px 8px 8px 14px;font-size:11px;color:var(--mu)">Item do PCTIC</div>
     <div style="padding:8px;font-size:11px;color:var(--mu)">Setor</div>
-    <div style="padding:8px;font-size:11px;color:var(--mu)">Prior.</div>
-    <div style="padding:8px;font-size:11px;color:var(--mu)">Data-limite</div>
+    <div style="padding:8px;font-size:11px;color:var(--mu);text-align:center">Prior.</div>
+    <div style="padding:8px;font-size:11px;color:var(--mu);text-align:center">Data-limite</div>
     ${PCTIC_STEPS_DEF.map((s,i)=>`<div style="padding:8px 4px;text-align:center;font-size:10px;color:var(--mu);line-height:1.2" title="${_acEsc(s.t)}"><b style="display:block;font-family:var(--mo);font-weight:500">${i+1}</b>${_acEsc(s.k)}</div>`).join('')}
     <div style="padding:8px 14px 8px 8px;font-size:11px;color:var(--mu)">Conclusão</div>
   </div>`;
@@ -1154,7 +1154,8 @@ function _acRenderMatrix() {
     const flag=dl==='crit'?'<span style="background:var(--enbg);color:#b42318;font-size:10px;font-weight:600;padding:1px 5px;border-radius:3px;white-space:nowrap">Vencido</span>'
       :dl==='warn'?'<span style="background:var(--albg);color:var(--al);font-size:10px;font-weight:600;padding:1px 5px;border-radius:3px;white-space:nowrap">Prazo próximo</span>':'';
     const prioTxt=['Alta','Média','Baixa'][it.prio-1];
-    const prioC=it.prio===1?'#b42318':it.prio===2?'var(--al)':'var(--mu)';
+    const prioBg=it.prio===1?'#dc2626':it.prio===2?'#ea580c':'#6b7280';
+    const prioC='#ffffff';
     const isOpen=_AC_OPEN.has(it.num);
     const stepsHtml=PCTIC_STEPS_DEF.map(s=>{
       const date=_AC_DATA[it.num]?.etapas?.[s.k];
@@ -1183,10 +1184,10 @@ function _acRenderMatrix() {
         </button>
       </div>
       <div style="padding:10px 8px;font-size:12px">${_acEsc(it.setor)}</div>
-      <div style="padding:10px 8px">
-        <span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mo);font-size:11px;padding:2px 6px;border-radius:999px;border:1px solid;color:${prioC};border-color:${prioC};white-space:nowrap">${it.prio} · ${prioTxt}</span>
+      <div style="padding:10px 8px;text-align:center">
+        <span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mo);font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;background:${prioBg};color:${prioC};white-space:nowrap">${prioTxt}</span>
       </div>
-      <div style="padding:10px 8px;font-family:var(--mo);font-size:12px;display:grid;gap:3px">
+      <div style="padding:10px 8px;font-family:var(--mo);font-size:12px;display:grid;gap:3px;text-align:center;justify-items:center">
         <span>${_acFmtLim(it.limite)}</span>${flag}
       </div>
       ${stepsHtml}
