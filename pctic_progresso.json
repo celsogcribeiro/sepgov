@@ -1,6 +1,6 @@
 {
   "versao": "1.0",
-  "atualizadoEm": "2026-10-16T12:49:00-03:00",
+  "atualizadoEm": "2026-10-16T13:33:00-03:00",
   "progresso": {
     "PCTIC-2027-004": {
       "etapas": {}
@@ -24,6 +24,9 @@
       "etapas": {}
     },
     "PCTIC-2027-016": {
+      "etapas": {}
+    },
+    "PCTIC-2027-018": {
       "etapas": {}
     },
     "PCTIC-2027-024": {
@@ -141,6 +144,9 @@
       "etapas": {}
     },
     "PCTIC-2027-075": {
+      "etapas": {}
+    },
+    "PCTIC-2027-076": {
       "etapas": {}
     }
   }
