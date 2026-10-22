@@ -631,15 +631,6 @@
   },
   {
     "ano": "2026",
-    "numero": "028/2026 (id. 0894676)",
-    "contratada": "YASMYN MYSRAYNE MENESES NOBRE",
-    "objeto": "Subscrições do software Enscape ArchDesign Collection",
-    "unidade": "SGO",
-    "orcamento": "CJF",
-    "fim": null
-  },
-  {
-    "ano": "2026",
     "numero": "029/2026 (id. 0896309)",
     "contratada": "MCR SISTEMAS E CONSULTORIA LTDA",
     "objeto": "Subscrições do software Autodesk AEC Collection (Architecture Engineering & Construction Collection)",
@@ -673,5 +664,23 @@
     "unidade": "COTEC",
     "orcamento": "CJF",
     "fim": "2027-09-23"
+  },
+  {
+    "ano": "2026",
+    "numero": "036/2026 (id. 0926166)",
+    "contratada": "TECNOSET INFORMÁTICA PRODUTOS E SERVIÇOS LTDA",
+    "objeto": "Contratação de pessoa jurídica especializada na prestação de serviços comuns e continuados, sem dedicação exclusiva de mão de obra, de impressão corporativa (outsourcing de impressão)",
+    "unidade": "DIRAC",
+    "orcamento": "CJF",
+    "fim": null
+  },
+  {
+    "ano": "2026",
+    "numero": "037/2026 (id. 0928610)",
+    "contratada": "V2TEC SOLUÇÕES LTDA",
+    "objeto": "Serviço de desenvolvimento, manutenção e sustentação de software, mediante alocação de perfis profissionais de TI vinculada ao alcance de resultados",
+    "unidade": "COSOF",
+    "orcamento": "CJF",
+    "fim": "2027-10-21"
   }
 ]

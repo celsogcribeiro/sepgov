@@ -50,7 +50,13 @@
   {
     "numero": "ARP n. 50/2026 - TRF2 (id. 0923093)",
     "contratada": "SYSTECH SISTEMAS E TECNOLOGIA EM INFORMÁTICA LTDA",
-    "objeto": "Aquisição de licenças de subscrição dos softwares de virtualização de servidores, redes e de armazenamento do fabricante VMWARE, garantindo o direito ao suporte técnico, à atualização de versões e de correções de segurança dos produtos junto ao fabricante, pelo prazo de 60 meses, através do Sistema de Registro de Preços (Contratação Nacional)",
+    "objeto": "Aquisição de licenças de subscrição dos softwares de virtualização de servidores, redes e de armazenamento do fabricante VMWARE.",
     "fim": "2027-10-08"
+  },
+  {
+    "numero": "ARP n. 002/2026 - CJF (id. 0923040)",
+    "contratada": "O3S CONSULTORIA E TECNOLOGIA DA INFORMAÇÃO LTDA",
+    "objeto": "Subscrição da ferramenta de gerenciamento do ciclo de vida de software GitLab",
+    "fim": "2027-10-15"
   }
 ]
