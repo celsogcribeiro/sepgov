@@ -91,10 +91,37 @@ td.wrap{white-space:normal;line-height:1.3}
 .tab-btn.active{background:var(--sf);color:var(--ac);font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.12)}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
+/* Controle PCTIC 2027 — mesmo padrão visual da aba Contratos */
+.stats.s5{grid-template-columns:repeat(5,1fr)}
+.sc.and{background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%)}
+.sc-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.2);overflow:hidden;margin-top:8px}
+.sc-bar>div{height:100%;width:0;background:#fff;border-radius:3px;transition:width .3s}
+.ac-sec{font-size:11px;font-weight:500;color:var(--fa);text-transform:uppercase;letter-spacing:.06em;font-family:var(--mo)}
+.ac-scroll{overflow-x:auto;border-radius:var(--rl)}
+.ac-grid{display:grid;grid-template-columns:minmax(220px,1fr) 90px 80px 100px repeat(10,52px) 100px;align-items:center;min-width:1080px}
+.ac-head{position:sticky;top:0;z-index:2;background:var(--sf2);border-bottom:1px solid var(--bd)}
+.ac-head>div{padding:10px 8px;text-align:center;font-size:11px;font-weight:500;color:var(--fa);text-transform:uppercase;letter-spacing:.06em;font-family:var(--mo);line-height:1.2}
+.ac-head>div:first-child{text-align:left;padding-left:14px}
+.ac-head .ac-stp{font-size:10px;letter-spacing:.02em;text-transform:none;padding:10px 4px}
+.ac-row{border-bottom:1px solid var(--bd);transition:background .1s}
+.ac-row:last-child{border-bottom:none}
+.ac-row:hover{background:var(--acl)}
+.ac-row.ra:hover{background:#fef9e7}
+.ac-row.open{background:var(--acl)}
+.ac-row>div{padding:10px 8px;min-width:0}
+.ac-name{background:none;border:0;padding:0;text-align:left;cursor:pointer;font-family:var(--sa);font-size:12px;font-weight:500;line-height:1.3;color:var(--tx)}
+.ac-name:hover{color:var(--ac)}
+.bpa{background:#fee2e2;color:#991b1b}.bpa::before{background:#dc2626}
+.bpm{background:#ffedd5;color:#9a3412}.bpm::before{background:#ea580c}
+.bpb{background:var(--enbg);color:var(--en)}.bpb::before{background:#9ca3af}
+.bvc{background:#fee2e2;color:#b42318;border:1px solid #f8717155}.bvc::before{background:#dc2626}
+.ac-steps{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;margin-bottom:1rem}
+.ac-stage{text-align:left;border-radius:var(--r);padding:7px 8px;cursor:pointer;display:grid;gap:3px;min-width:0;font-family:var(--sa);color:var(--tx);transition:border-color .1s,background .1s}
 
 /* ── Tablet (≤900px) ── */
 @media(max-width:900px){
-  .stats{grid-template-columns:repeat(2,1fr)}
+  .stats,.stats.s5{grid-template-columns:repeat(2,1fr)}
+  .ac-steps{grid-template-columns:repeat(5,minmax(0,1fr))}
   .main{padding:1rem}
   .field input{width:150px}
   .field select{width:140px}
@@ -146,6 +173,10 @@ td.wrap{white-space:normal;line-height:1.3}
   .mc-uni{font-family:var(--mo);font-size:10px;color:var(--fa);background:var(--sf2);padding:2px 7px;border-radius:4px}
   .mc-dat{font-family:var(--mo);font-size:11px;color:var(--mu)}
   .mc-dias{font-family:var(--mo);font-size:11px}
+
+  /* Controle PCTIC: a matriz continua com rolagem horizontal no mobile */
+  #tab-acomp .tw{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl)}
+  .stats.s5 .sc:first-child{grid-column:1/-1}
 
   /* Paginação */
   .pag{gap:4px;padding:.75rem}
@@ -405,74 +436,62 @@ td.wrap{white-space:normal;line-height:1.3}
   <!-- ═══ ABA ACOMPANHAMENTO PCTIC 2027 ═══ -->
   <div class="tab-panel" id="tab-acomp">
 
-    <!-- Cabeçalho -->
-    <div style="margin-bottom:1.25rem">
-      <div style="font-family:var(--mo);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:4px">CJF · STI · CEGOVE · Planejamento das contratações de TIC</div>
-      <div style="font-size:20px;font-weight:700;color:var(--tx);margin-bottom:4px">Controle do PCTIC 2027</div>
-      <div style="font-size:12px;color:var(--mu)">Acompanhamento das etapas de contratação dos 43 itens de nova contratação. As 20 prorrogações estão fora deste controle.</div>
-    </div>
-
-    <!-- Barra de resumo -->
-    <div id="ac-summary" style="display:grid;grid-template-columns:minmax(0,1.3fr) repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem">
-      <div style="padding:14px 16px;display:grid;gap:4px;background:linear-gradient(135deg,#1a3a5c 0%,#2a5298 100%);border-radius:var(--rl);box-shadow:0 2px 8px rgba(0,0,0,.15)">
-        <span style="font-size:12px;color:rgba(255,255,255,.7);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mo)">Conclusão geral</span>
-        <span style="font-family:var(--mo);font-size:36px;font-weight:700;color:#fff;line-height:1" id="ac-pct">0%</span>
-        <div style="height:8px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden;margin-top:4px"><div id="ac-bar" style="height:100%;width:0%;background:#fff;border-radius:4px;transition:width .3s"></div></div>
-        <span style="font-size:11px;color:rgba(255,255,255,.6);font-family:var(--mo)" id="ac-steps-lbl">0 de 344 etapas concluídas</span>
+    <!-- Cartões de resumo (clicáveis, como na aba Contratos) -->
+    <div class="stats s5">
+      <div class="sc tot" id="ac-card-todos" data-ac-card="">
+        <div class="sl">Conclusão geral</div>
+        <div class="sv" id="ac-pct">0%</div>
+        <div class="sc-bar"><div id="ac-bar"></div></div>
+        <div class="sc-hint" id="ac-steps-lbl">0 de 43 itens concluídos</div>
       </div>
-      <div style="padding:14px 16px;display:grid;gap:4px;background:linear-gradient(135deg,#14532d 0%,#16a34a 100%);border-radius:var(--rl);box-shadow:0 2px 8px rgba(0,0,0,.15)">
-        <span style="font-size:12px;color:rgba(255,255,255,.7);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mo)">Contratos assinados</span>
-        <span style="font-family:var(--mo);font-size:30px;font-weight:700;line-height:1;color:#fff" id="ac-done">0</span>
-        <span style="font-size:11px;color:rgba(255,255,255,.6)">8 de 8 etapas</span>
+      <div class="sc vig" id="ac-card-done" data-ac-card="done">
+        <div class="sl">Contratos assinados</div>
+        <div class="sv" id="ac-done">0</div>
+        <div class="sc-hint">100% das etapas</div>
       </div>
-      <div style="padding:14px 16px;display:grid;gap:4px;background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%);border-radius:var(--rl);box-shadow:0 2px 8px rgba(0,0,0,.15)">
-        <span style="font-size:12px;color:rgba(255,255,255,.7);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mo)">Em andamento</span>
-        <span style="font-family:var(--mo);font-size:30px;font-weight:700;line-height:1;color:#fff" id="ac-prog">0</span>
-        <span style="font-size:11px;color:rgba(255,255,255,.6)">ao menos 1 etapa</span>
+      <div class="sc and" id="ac-card-prog" data-ac-card="prog">
+        <div class="sl">Em andamento</div>
+        <div class="sv" id="ac-prog">0</div>
+        <div class="sc-hint">ao menos 1 etapa</div>
       </div>
-      <div style="padding:14px 16px;display:grid;gap:4px;background:linear-gradient(135deg,#374151 0%,#6b7280 100%);border-radius:var(--rl);box-shadow:0 2px 8px rgba(0,0,0,.15)">
-        <span style="font-size:12px;color:rgba(255,255,255,.7);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mo)">Não iniciados</span>
-        <span style="font-family:var(--mo);font-size:30px;font-weight:700;line-height:1;color:#fff" id="ac-none">43</span>
-        <span style="font-size:11px;color:rgba(255,255,255,.6)">nenhuma etapa</span>
+      <div class="sc enc" id="ac-card-none" data-ac-card="none">
+        <div class="sl">Não iniciados</div>
+        <div class="sv" id="ac-none">43</div>
+        <div class="sc-hint">nenhuma etapa</div>
       </div>
-      <div style="padding:14px 16px;display:grid;gap:4px;background:linear-gradient(135deg,#92400e 0%,#d97706 100%);border-radius:var(--rl);box-shadow:0 2px 8px rgba(0,0,0,.15)">
-        <span style="font-size:12px;color:rgba(255,255,255,.7);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mo)">Prazo próximo / vencido</span>
-        <span style="font-family:var(--mo);font-size:30px;font-weight:700;line-height:1;color:#fff" id="ac-late">0</span>
-        <span style="font-size:11px;color:rgba(255,255,255,.6)">em até 3 meses</span>
+      <div class="sc alt" id="ac-card-late" data-ac-card="late">
+        <div class="sl">Prazo próximo / vencido</div>
+        <div class="sv" id="ac-late">0</div>
+        <div class="sc-hint">data-limite em até 3 meses</div>
       </div>
     </div>
 
-    <!-- Strip de etapas -->
-    <div style="margin-bottom:1.25rem">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px">
-        <span style="font-size:14px;font-weight:600;color:var(--tx)">Andamento por etapa</span>
-        <span style="font-size:12px;color:var(--mu)" id="ac-updated"></span>
-      </div>
-      <div id="ac-stages" style="display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px"></div>
-    </div>
+    <!-- Andamento por etapa -->
+    <div class="ac-sec" style="margin-bottom:6px">Andamento por etapa <span style="text-transform:none;letter-spacing:0">· clique para ver os itens pendentes na etapa</span></div>
+    <div id="ac-stages" class="ac-steps"></div>
 
-    <!-- Toolbar filtros -->
-    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-bottom:.75rem">
-      <div style="display:grid;gap:3px;flex:1 1 200px">
-        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Buscar</label>
-        <input id="ac-busca" type="search" placeholder="Número, objeto ou setor…" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px">
+    <!-- Filtros -->
+    <div class="toolbar">
+      <div class="field">
+        <label>Buscar</label>
+        <input id="ac-busca" type="text" placeholder="Número, objeto ou setor…">
       </div>
-      <div style="display:grid;gap:3px">
-        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Setor</label>
-        <select id="ac-setor" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px"><option value="">Todos</option></select>
+      <div class="field">
+        <label>Setor</label>
+        <select id="ac-setor"><option value="">Todos</option></select>
       </div>
-      <div style="display:grid;gap:3px">
-        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Prioridade</label>
-        <select id="ac-prio" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px">
+      <div class="field">
+        <label>Prioridade</label>
+        <select id="ac-prio">
           <option value="">Todas</option>
-          <option value="1">1 · Alta</option>
-          <option value="2">2 · Média</option>
-          <option value="3">3 · Baixa</option>
+          <option value="1">Alta</option>
+          <option value="2">Média</option>
+          <option value="3">Baixa</option>
         </select>
       </div>
-      <div style="display:grid;gap:3px">
-        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Situação</label>
-        <select id="ac-sit" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px">
+      <div class="field">
+        <label>Situação</label>
+        <select id="ac-sit">
           <option value="">Todas</option>
           <option value="none">Não iniciados</option>
           <option value="prog">Em andamento</option>
@@ -480,9 +499,9 @@ td.wrap{white-space:normal;line-height:1.3}
           <option value="late">Prazo próximo ou vencido</option>
         </select>
       </div>
-      <div style="display:grid;gap:3px">
-        <label style="font-size:11px;color:var(--mu);font-family:var(--mo)">Ordenar por</label>
-        <select id="ac-ord" style="background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;min-height:34px;font:inherit;color:inherit;font-size:12px">
+      <div class="field">
+        <label>Ordenar por</label>
+        <select id="ac-ord">
           <option value="lim">Data-limite</option>
           <option value="num">Número PCTIC</option>
           <option value="pctAsc">Menor conclusão</option>
@@ -491,15 +510,24 @@ td.wrap{white-space:normal;line-height:1.3}
           <option value="valor">Valor global</option>
         </select>
       </div>
-      <button id="ac-clear" type="button" style="background:none;border:1px solid transparent;color:var(--ac);padding:7px 10px;border-radius:var(--r);cursor:pointer;min-height:34px;font:inherit;font-size:12px" onmouseover="this.style.borderColor='var(--bd)'" onmouseout="this.style.borderColor='transparent'">Limpar filtros</button>
-      <span id="ac-count" style="font-size:12px;color:var(--mu);align-self:center;margin-left:auto;font-family:var(--mo)"></span>
+      <button id="ac-clear" type="button" class="btn">Limpar filtros</button>
     </div>
 
+    <div class="rinfo" id="ac-count"></div>
+
     <!-- Matriz -->
-    <div style="overflow-x:auto;border:1px solid var(--bd);border-radius:var(--rl);background:var(--sf)">
-      <div id="ac-matrix" style="min-width:1060px"></div>
+    <div class="tw">
+      <div class="ac-scroll"><div id="ac-matrix"></div></div>
     </div>
-    <div style="font-size:11px;color:var(--fa);margin-top:.5rem">Fonte: PCTIC 2027, versão 2 (itens do tipo "Nova Contratação"). Prazo próximo: data-limite em até 3 meses sem a assinatura do contrato; vencido: mês da data-limite já passou.</div>
+
+    <div class="legend">
+      <span>Legenda:</span>
+      <span class="li"><span class="ld" style="background:#16a34a"></span>Etapa concluída</span>
+      <span class="li"><span class="ld" style="background:#94a3b8"></span>Não se aplica (preenchida automaticamente)</span>
+      <span class="li"><span class="ld" style="background:#f59e0b"></span>Prazo próximo — data-limite em até 3 meses</span>
+      <span class="li"><span class="ld" style="background:#dc2626"></span>Vencido — mês da data-limite já passou</span>
+      <span style="margin-left:auto">Fonte: PCTIC 2027, v2 — 43 itens de nova contratação (prorrogações não entram) &nbsp;|&nbsp; <span id="ac-updated"></span></span>
+    </div>
 
   </div>
 
@@ -1076,7 +1104,6 @@ async function acompInit() {
   document.getElementById('ac-busca').addEventListener('input', _acRenderMatrix);
   document.getElementById('ac-setor').addEventListener('change', _acRenderMatrix);
   document.getElementById('ac-prio').addEventListener('change', _acRenderMatrix);
-  document.getElementById('ac-sit').addEventListener('change', _acRenderMatrix);
   document.getElementById('ac-ord').addEventListener('change', _acRenderMatrix);
   document.getElementById('ac-clear').addEventListener('click', ()=>{
     document.getElementById('ac-busca').value='';
@@ -1093,6 +1120,13 @@ async function acompInit() {
     const tog=e.target.closest('[data-ac-toggle]');
     if(tog){ const id=tog.dataset.acToggle; _AC_OPEN.has(id)?_AC_OPEN.delete(id):_AC_OPEN.add(id); _acRenderMatrix(); return; }
   });
+  // Cartões de resumo filtram a situação (mesmo comportamento dos cartões de Contratos)
+  document.querySelectorAll('[data-ac-card]').forEach(el=>el.addEventListener('click', ()=>{
+    const sel=document.getElementById('ac-sit');
+    sel.value = (el.dataset.acCard && sel.value!==el.dataset.acCard) ? el.dataset.acCard : '';
+    _acRender();
+  }));
+  document.getElementById('ac-sit').addEventListener('change', _acRender);
   document.getElementById('ac-stages').addEventListener('click', e=>{
     const btn=e.target.closest('[data-stage]');
     if(btn){ _AC_STAGE=_AC_STAGE===btn.dataset.stage?'':btn.dataset.stage; _acRender(); }
@@ -1150,48 +1184,52 @@ function _acRenderSummary() {
   document.getElementById('ac-prog').textContent=prog;
   document.getElementById('ac-none').textContent=none;
   document.getElementById('ac-late').textContent=late;
+  const sit=document.getElementById('ac-sit').value;
+  ['todos','done','prog','none','late'].forEach(k=>{
+    const el=document.getElementById('ac-card-'+k);
+    if(el) el.classList.toggle('active-filter', sit ? k===sit : false);
+  });
 
   // Strip etapas
   document.getElementById('ac-stages').innerHTML=PCTIC_STEPS_DEF.map((s)=>{
     const c=PCTIC_ITENS.filter(it=>_AC_DATA[it.num]?.etapas?.[s.k]).length;
     const active=_AC_STAGE===s.k;
     const lbl=`<span style="font-family:var(--mo);font-size:10px;color:var(--mu)">Etapa ${s.n}</span>`;
-    return `<button type="button" data-stage="${s.k}" style="text-align:left;background:${active?'var(--acl)':'var(--sf)'};border:1px solid ${active?'var(--ac)':'var(--bd)'};border-radius:var(--r);padding:7px 8px;cursor:pointer;display:grid;gap:3px;min-width:0;transition:border-color .1s">
+    return `<button type="button" class="ac-stage" data-stage="${s.k}" style="background:${active?'var(--acl)':'var(--sf)'};border:1px solid ${active?'var(--ac)':'var(--bd)'}">
       ${lbl}
       <span style="font-weight:600;font-size:11px;line-height:1.2;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${_acEsc(s.special==='dop'?'DOP':s.k==='DOD'?'DOD':s.t)}</span>
       <span style="font-family:var(--mo);font-size:11px">${c} / ${PCTIC_ITENS.length}</span>
-      <div style="height:4px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${(c/PCTIC_ITENS.length*100).toFixed(1)}%;background:#14532d;border-radius:3px"></div></div>
+      <div style="height:4px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${(c/PCTIC_ITENS.length*100).toFixed(1)}%;background:#16a34a;border-radius:3px"></div></div>
     </button>`;
   }).join('');
 }
 
 function _acRenderMatrix() {
   const list=_acFiltered();
-  document.getElementById('ac-count').textContent=list.length===PCTIC_ITENS.length?PCTIC_ITENS.length+' itens':list.length+' de '+PCTIC_ITENS.length+' itens';
+  document.getElementById('ac-count').textContent=list.length===PCTIC_ITENS.length?`Exibindo todos os ${PCTIC_ITENS.length} itens`:`${list.length} ite${list.length!==1?'ns':'m'} encontrado${list.length!==1?'s':''}`;
   const checkSvg='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="display:inline-block;vertical-align:middle"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  const head=`<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(10,52px) 100px;align-items:center;background:var(--sf2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:2">
-    <div style="padding:8px 8px 8px 14px;font-size:11px;color:var(--mu)">Item do PCTIC</div>
-    <div style="padding:8px;font-size:11px;color:var(--mu)">Setor</div>
-    <div style="padding:8px;font-size:11px;color:var(--mu);text-align:center">Prior.</div>
-    <div style="padding:8px;font-size:11px;color:var(--mu);text-align:center">Data-limite</div>
-    ${PCTIC_STEPS_DEF.map(s=>`<div style="padding:8px 4px;text-align:center;font-size:10px;color:var(--mu);line-height:1.2" title="${_acEsc(s.t)}"><b style="display:block;font-family:var(--mo);font-weight:500">${s.n}</b>${_acEsc(s.k)}</div>`).join('')}
-    <div style="padding:8px 14px 8px 8px;font-size:11px;color:var(--mu)">Conclusão</div>
+  const head=`<div class="ac-grid ac-head">
+    <div>Item do PCTIC</div>
+    <div>Setor</div>
+    <div>Prioridade</div>
+    <div>Data-limite</div>
+    ${PCTIC_STEPS_DEF.map(s=>`<div class="ac-stp" title="${_acEsc(s.t)}"><b style="display:block;font-weight:600">${s.n}</b>${_acEsc(s.k)}</div>`).join('')}
+    <div>Conclusão</div>
   </div>`;
 
   if(!list.length){
-    document.getElementById('ac-matrix').innerHTML=head+'<div style="padding:28px;text-align:center;color:var(--mu);font-size:13px">Nenhum item corresponde aos filtros. Use "Limpar filtros" para ver todos.</div>';
+    document.getElementById('ac-matrix').innerHTML=head+'<div style="padding:3rem;text-align:center;color:var(--fa);font-family:var(--mo);font-size:13px">Nenhum item encontrado.</div>';
     return;
   }
 
   const rows=list.map(it=>{
     const pct=_acPctOf(it.num);
     const dl=_acDeadline(it);
-    const flag=dl==='crit'?'<span style="background:var(--enbg);color:#b42318;font-size:10px;font-weight:600;padding:1px 5px;border-radius:3px;white-space:nowrap">Vencido</span>'
-      :dl==='warn'?'<span style="background:var(--albg);color:var(--al);font-size:10px;font-weight:600;padding:1px 5px;border-radius:3px;white-space:nowrap">Prazo próximo</span>':'';
+    const flag=dl==='crit'?'<span class="badge bvc" style="font-size:10px;padding:1px 8px">Vencido</span>'
+      :dl==='warn'?'<span class="badge ba" style="font-size:10px;padding:1px 8px;white-space:nowrap">Prazo próximo</span>':'';
     const prioTxt=['Alta','Média','Baixa'][it.prio-1];
-    const prioBg=it.prio===1?'#fee2e2':it.prio===2?'#ffedd5':'#f3f4f6';
-    const prioC=it.prio===1?'#991b1b':it.prio===2?'#9a3412':'#4b5563';
+    const prioCls=['bpa','bpm','bpb'][it.prio-1];
     const isOpen=_AC_OPEN.has(it.num);
     const id=it.num;
     const etapas=_AC_DATA[id]?.etapas||{};
@@ -1214,7 +1252,7 @@ function _acRenderMatrix() {
       let bg,border,color,content;
       if(on && !locked){
         // marcada normalmente
-        bg='#dcfce7'; border='#14532d'; color='#14532d';
+        bg='var(--vgbg)'; border='#16a34a'; color='var(--vg)';
         content=checkSvg+'<span style="font-family:var(--mo);font-size:9px;display:block;text-align:center">'+_acDdmm(date)+'</span>';
       } else if(lockedX){
         // X automático (trancado)
@@ -1233,8 +1271,8 @@ function _acRenderMatrix() {
         </div></div>`;
     }).join('');
 
-    const detail=isOpen?`<div style="grid-column:1/-1;padding:0 14px 14px 30px;display:grid;grid-template-columns:minmax(0,65ch) auto;gap:8px 28px;font-size:13px">
-      <p style="margin:0;color:var(--tx)">${_acEsc(it.objeto)}</p>
+    const detail=isOpen?`<div style="grid-column:1/-1;padding:0 14px 14px 30px;color:var(--mu);display:grid;grid-template-columns:minmax(0,65ch) auto;gap:8px 28px;font-size:13px">
+      <p class="tobj" style="margin:0;white-space:normal">${_acEsc(it.objeto)}</p>
       <dl style="margin:0;display:grid;grid-template-columns:auto auto;gap:2px 12px;font-size:12px;align-content:start">
         <dt style="color:var(--mu)">Valor anual 2027</dt><dd style="margin:0;font-family:var(--mo)">${_acBrl(it.va)}</dd>
         <dt style="color:var(--mu)">Valor global</dt><dd style="margin:0;font-family:var(--mo)">${_acBrl(it.vg)}</dd>
@@ -1242,23 +1280,19 @@ function _acRenderMatrix() {
         <dt style="color:var(--mu)">Progresso</dt><dd style="margin:0;font-family:var(--mo)">${_acPctOf(it.num)}%${_acIsDOP(it.num)?' (via DOP)':''}</dd>
       </dl></div>`:'';
 
-    return `<div style="display:grid;grid-template-columns:minmax(220px,1fr) 90px 68px 100px repeat(10,52px) 100px;align-items:center;border-top:1px solid var(--bd)${isOpen?';background:var(--acl)':''}">
-      <div style="padding:10px 8px 10px 14px;display:grid;gap:2px">
-        <span style="font-family:var(--mo);font-size:11px;color:var(--mu)">${it.num}</span>
-        <button type="button" data-ac-toggle="${it.num}" style="background:none;border:0;padding:0;text-align:left;cursor:pointer;font-weight:600;font-size:13px;line-height:1.3;color:var(--tx)" onmouseover="this.style.color='var(--ac)'" onmouseout="this.style.color='var(--tx)'">
-          <span style="display:inline-block;width:1em;transition:transform .15s;transform:${isOpen?'rotate(90deg)':'rotate(0)'};color:var(--mu)">›</span>${_acEsc(it.nome)}
+    return `<div class="ac-grid ac-row${dl?' ra':''}${isOpen?' open':''}">
+      <div style="padding-left:14px;display:grid;gap:2px">
+        <span class="tnum" style="text-align:left">${it.num}</span>
+        <button type="button" class="ac-name" data-ac-toggle="${it.num}">
+          <span style="display:inline-block;width:1em;transition:transform .15s;transform:${isOpen?'rotate(90deg)':'rotate(0)'};color:var(--fa)">›</span>${_acEsc(it.nome)}
         </button>
       </div>
-      <div style="padding:10px 8px;font-size:12px">${_acEsc(it.setor)}</div>
-      <div style="padding:10px 8px;text-align:center">
-        <span style="display:inline-flex;align-items:center;justify-content:center;font-family:var(--mo);font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;background:${prioBg};color:${prioC};white-space:nowrap">${prioTxt}</span>
-      </div>
-      <div style="padding:10px 8px;font-family:var(--mo);font-size:12px;display:grid;gap:3px;text-align:center;justify-items:center">
-        <span>${_acFmtLim(it.limite)}</span>${flag}
-      </div>
+      <div class="tuni" style="text-align:center">${_acEsc(it.setor)}</div>
+      <div style="text-align:center"><span class="badge ${prioCls}">${prioTxt}</span></div>
+      <div class="tdat" style="display:grid;gap:4px;justify-items:center"><span>${_acFmtLim(it.limite)}</span>${flag}</div>
       ${stepsHtml}
-      <div style="padding:10px 14px 10px 8px;display:grid;gap:4px">
-        <span style="font-family:var(--mo);font-size:13px;font-weight:500;color:${pct===100?'#14532d':'inherit'}">${pct}%</span>
+      <div style="padding-right:14px;display:grid;gap:4px">
+        <span style="font-family:var(--mo);font-size:12px;font-weight:500;color:${pct===100?'var(--vg)':'var(--tx)'}">${pct}%</span>
         <div style="height:6px;border-radius:3px;background:var(--sf2);overflow:hidden"><div style="height:100%;width:${pct}%;background:${pct===100?'#16a34a':'var(--ac)'};border-radius:3px;transition:width .3s"></div></div>
       </div>
       ${detail}
