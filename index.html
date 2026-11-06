@@ -1207,7 +1207,7 @@ function _acRenderSummary() {
 function _acRenderMatrix() {
   const list=_acFiltered();
   document.getElementById('ac-count').textContent=list.length===PCTIC_ITENS.length?`Exibindo todos os ${PCTIC_ITENS.length} itens`:`${list.length} ite${list.length!==1?'ns':'m'} encontrado${list.length!==1?'s':''}`;
-  const checkSvg='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="display:inline-block;vertical-align:middle"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const checkSvg='<svg width="11" height="11" viewBox="0 0 16 16" fill="none" style="display:block"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   const head=`<div class="ac-grid ac-head">
     <div>Item do PCTIC</div>
@@ -1253,7 +1253,7 @@ function _acRenderMatrix() {
       if(on && !locked){
         // marcada normalmente
         bg='var(--vgbg)'; border='#16a34a'; color='var(--vg)';
-        content=checkSvg+'<span style="font-family:var(--mo);font-size:9px;display:block;text-align:center">'+_acDdmm(date)+'</span>';
+        content=checkSvg+'<span style="font-family:var(--sa);font-size:11.5px;font-weight:700;letter-spacing:-.02em;line-height:1;color:#0f3d22;font-variant-numeric:tabular-nums;display:block;text-align:center">'+_acDdmm(date)+'</span>';
       } else if(lockedX){
         // X automático (trancado)
         bg='#f1f5f9'; border='#94a3b8'; color='#64748b';
@@ -1266,7 +1266,7 @@ function _acRenderMatrix() {
       }
       const title=s.t+(on?' · concluída em '+_acDdmmyy(date):lockedX?' · preenchido automaticamente':' · pendente');
       return `<div style="display:flex;justify-content:center;padding:4px">
-        <div title="${_acEsc(title)}" style="width:42px;height:38px;border:1.5px solid ${border};background:${bg};border-radius:6px;display:grid;place-items:center;align-content:center;gap:1px;color:${color}">
+        <div title="${_acEsc(title)}" style="width:46px;height:40px;border:1.5px solid ${border};background:${bg};border-radius:6px;display:grid;place-items:center;align-content:center;gap:2px;color:${color}">
           ${content}
         </div></div>`;
     }).join('');
