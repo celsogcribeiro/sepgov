@@ -467,7 +467,7 @@ td.wrap{white-space:normal;line-height:1.3}
     </div>
 
     <!-- Andamento por etapa -->
-    <div class="ac-sec" style="margin-bottom:6px">Andamento por etapa <span style="text-transform:none;letter-spacing:0">· clique para ver os itens pendentes na etapa</span></div>
+    <div class="ac-sec" style="margin-bottom:6px">Andamento por etapa <span style="text-transform:none;letter-spacing:0">· clique para ver os itens que já concluíram a etapa</span></div>
     <div id="ac-stages" class="ac-steps"></div>
 
     <!-- Filtros -->
@@ -521,11 +521,6 @@ td.wrap{white-space:normal;line-height:1.3}
     </div>
 
     <div class="legend">
-      <span>Legenda:</span>
-      <span class="li"><span class="ld" style="background:#16a34a"></span>Etapa concluída</span>
-      <span class="li"><span class="ld" style="background:#94a3b8"></span>Não se aplica (preenchida automaticamente)</span>
-      <span class="li"><span class="ld" style="background:#f59e0b"></span>Prazo próximo — data-limite em até 3 meses</span>
-      <span class="li"><span class="ld" style="background:#dc2626"></span>Vencido — mês da data-limite já passou</span>
       <span style="margin-left:auto">Fonte: PCTIC 2027, v2 — 43 itens de nova contratação (prorrogações não entram) &nbsp;|&nbsp; <span id="ac-updated"></span></span>
     </div>
 
@@ -1150,7 +1145,7 @@ function _acFiltered() {
     if(sit==='prog' && (pct===0||pct===100)) return false;
     if(sit==='done' && pct!==100) return false;
     if(sit==='late' && !_acDeadline(it)) return false;
-    if(_AC_STAGE && _AC_DATA[it.num]?.etapas?.[_AC_STAGE]) return false;
+    if(_AC_STAGE && !_AC_DATA[it.num]?.etapas?.[_AC_STAGE]) return false;
     return true;
   });
   const ord=document.getElementById('ac-ord').value;
