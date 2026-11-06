@@ -678,9 +678,18 @@
     "ano": "2026",
     "numero": "037/2026 (id. 0928610)",
     "contratada": "V2TEC SOLUÇÕES LTDA",
-    "objeto": "Serviço de desenvolvimento, manutenção e sustentação de software, mediante alocação de perfis profissionais de TI vinculada ao alcance de resultados",
+    "objeto": "Serviço de desenvolvimento, manutenção e sustentação de software mediante alocação de perfis profissionais de TI vinculada ao alcance de resultados",
     "unidade": "COSOF",
     "orcamento": "CJF",
     "fim": "2027-10-21"
+  },
+  {
+    "ano": "2026",
+    "numero": "038/2026 (id. 0932518)",
+    "contratada": "O3S CONSULTORIA E TECNOLOGIA DA INFORMAÇÃO LTDA",
+    "objeto": "Subscrição da ferramenta de gerenciamento do ciclo de vida de software GitLab",
+    "unidade": "COSOF",
+    "orcamento": "CJF",
+    "fim": null
   }
 ]
