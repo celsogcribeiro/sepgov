@@ -6,7 +6,7 @@
 <title>Monitoramento SEPGOV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5f4f0;--sf:#fff;--sf2:#f0efe9;--bd:#dddbd3;--tx:#1a1917;--mu:#6b6960;--fa:#9e9c95;--ac:#1a3a5c;--acl:#e8edf3;--al:#92400e;--albg:#fef3c7;--vg:#14532d;--vgbg:#dcfce7;--en:#4b4b4b;--enbg:#efefef;--r:6px;--rl:10px;--mo:'IBM Plex Mono',monospace;--sa:'IBM Plex Sans',sans-serif;--hh:56px;--th:40px;}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -101,9 +101,11 @@ td.wrap{white-space:normal;line-height:1.3}
 .ac-grid{display:grid;grid-template-columns:minmax(220px,1fr) 90px 80px 100px 68px repeat(9,52px) 100px;align-items:center;min-width:1096px}
 .ac-grid>:nth-child(5){margin-left:16px}
 .ac-head{position:sticky;top:0;z-index:2;background:var(--sf2);border-bottom:1px solid var(--bd)}
-.ac-head>div{padding:10px 8px;text-align:center;font-size:11px;font-weight:500;color:var(--fa);text-transform:uppercase;letter-spacing:.06em;font-family:var(--mo);line-height:1.2}
+#tab-acomp{--mo:'Source Sans 3',sans-serif;font-variant-numeric:tabular-nums}
+.ac-head>div{padding:10px 8px;text-align:center;font-size:13px;font-weight:600;color:var(--mu);font-family:var(--mo);line-height:1.2}
 .ac-head>div:first-child{text-align:left;padding-left:14px}
-.ac-head .ac-stp{font-size:10px;letter-spacing:.02em;text-transform:none;padding:10px 4px}
+.ac-head .ac-stp{font-size:12px;padding:10px 4px}
+.ac-head .ac-stp b{font-weight:700}
 .ac-row{border-bottom:1px solid var(--bd);transition:background .1s}
 .ac-row:last-child{border-bottom:none}
 .ac-row:hover{background:var(--acl)}
