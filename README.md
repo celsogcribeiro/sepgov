@@ -1,4 +1,4 @@
-# SEPDATA - Monitoramento CEGOVE
+# Monitoramento CEGOVE
 
 Painel web de monitoramento das contratações de soluções de TIC da Secretaria de Tecnologia da Informação do Conselho da Justiça Federal.
 
