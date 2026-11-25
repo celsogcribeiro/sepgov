@@ -1,4 +1,4 @@
-# SEPDATA — Monitoramento SEPGOV
+# SEPDATA - Monitoramento CEGOVE
 
 Painel web de monitoramento das contratações de soluções de TIC da Secretaria de Tecnologia da Informação do Conselho da Justiça Federal.
 
@@ -6,12 +6,12 @@ Acesse em: [sepdata.com.br](https://sepdata.com.br)
 
 ## Seções
 
-- **Contratos** — vigência dos contratos de TIC, com alerta para os que vencem em até 195 dias
-- **ARPs** — vigência das Atas de Registro de Preços, com o mesmo critério de alerta
-- **PDTI 2024–2026** — Plano Diretor de Tecnologia da Informação ([PDF](./pdti_2024-2026.pdf))
-- **PCTIC 2027** — Plano de Contratações de Soluções de TIC ([PDF](./pctic_2027.pdf))
-- **Controle · PCTIC 2027** — andamento, por etapa, dos itens de nova contratação do PCTIC
-- **Manual de Redação e Padronização** — manual prático para padronizar documentos e publicações ([PDF](./manual_redacao.pdf))
+- **Contratos** - vigência dos contratos de TIC, com alerta para os que vencem em até 195 dias
+- **ARPs** - vigência das Atas de Registro de Preços, com o mesmo critério de alerta
+- **PDTI 2024–2026** - Plano Diretor de Tecnologia da Informação ([PDF](./pdti_2024-2026.pdf))
+- **PCTIC 2027** - Plano de Contratações de Soluções de TIC ([PDF](./pctic_2027.pdf))
+- **Controle · PCTIC 2027** - andamento, por etapa, dos itens de nova contratação do PCTIC
+- **Manual de Redação e Padronização** - manual prático para padronizar documentos e publicações ([PDF](./manual_redacao.pdf))
 
 ## Dados
 
